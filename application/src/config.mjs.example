@@ -1,0 +1,17 @@
+const database = "";
+const db_user = "";
+const db_password = "";
+const db_port = "";
+const db_host = "";
+const db_dialect = "mysql";
+const db_logs = false;
+
+export {
+  database,
+  db_user,
+  db_password,
+  db_port,
+  db_host,
+  db_dialect,
+  db_logs,
+};

@@ -132,3 +132,4 @@ dist
 *.key
 */node_modules/
 desktop.ini
+src/config.mjs
