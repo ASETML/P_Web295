@@ -6,6 +6,8 @@ const db_host = "";
 const db_dialect = "mysql";
 const db_logs = false;
 
+const app_port = 3000;
+
 export {
   database,
   db_user,
@@ -14,4 +16,5 @@ export {
   db_host,
   db_dialect,
   db_logs,
+  app_port,
 };
