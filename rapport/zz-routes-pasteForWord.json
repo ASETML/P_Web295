@@ -1,0 +1,13 @@
+{"livre_id", "titre", "nombre_pages", "extrait", "annee_edition", "image", "ecrivain_nom", "ecrivain_prenom", "editeur_nom", "categorie_nom", "moyenne_appreciations", "commentaires":[{"commentaire"}]}
+
+{"livre_id", "titre", "annee_edition", "ecrivain_nom", "ecrivain_prenom", "editeur_nom", "categorie_nom", "moyenne_appreciations"}
+
+{"pseudo", "mot_de_passe"}
+
+{"pseudo", "mot_de_passe", "confirmation_mot_de_passe"}
+
+{"pseudo", "mot_de_passe", "admin"}
+
+{"pseudo", "date_inscription", "admin", "nombre_commentaires", "commentaires":[{"commentaire"}], "nombre_appreciations", "appréciations":[{"appréciation"}], "nombre_livres", "livres":[livre_preview]}
+
+{"id", "nom"}
