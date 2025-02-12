@@ -2,7 +2,7 @@ import { sequelize } from "sequelize";
 
 const categorieModel = (sequelize, DataTypes) => {
   return sequelize.define(
-    "utilisateur",
+    "Categorie",
     {
       categorie_id: {
         type: DataTypes.INTEGER,
