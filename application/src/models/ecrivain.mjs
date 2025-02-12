@@ -1,48 +1,45 @@
 import { sequelize } from "sequelize";
 
-const utilisateurModel = (sequelize, DataTypes) => {
+const ecrivainModel = (sequelize, DataTypes) => {
   return sequelize.define(
-    "utilisateur",
+    "Ecrivain",
     {
-      utilisateur_id: {
+      ecrivain_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      pseudo: {
+      nom: {
         type: DataTypes.STRING,
         allowNul: false,
-        unique: {
-          msg: "ce pseudo est deja pris",
-        },
         validate: {
           is: {
-            args: /^[A-Za-z0-9\s\-\.\,]*$/,
-            msg: "Seules les lettres, les espaces et les - sont autorisés",
+            args: /^[A-Za-z\s\-]*$/,
+            msg: "Seules les lettres et les espaces sont autorisés et les -",
           },
           notEmpty: {
-            msg: "le pseudo ne peut pas etre vide",
+            msg: "le nom ne peut pas etre vide",
           },
           notNull: {
-            msg: "le pseudo est obligatoire",
+            msg: "le nom est obligatoire",
           },
         },
       },
-      mot_de_passe: {
+      prenom: {
         type: DataTypes.STRING,
         allowNul: false,
         validate: {
+          is: {
+            args: /^[A-Za-z\s\-]*$/,
+            msg: "Seules les lettres et les espaces sont autorisés et les -",
+          },
           notEmpty: {
-            msg: "le mdp ne peut pas etre vide",
+            msg: "le prenom ne peut pas etre vide",
           },
           notNull: {
-            msg: "le mdp est obligatoire",
+            msg: "le prenom est obligatoire",
           },
         },
-      },
-      admin: {
-        type: DataTypes.BOOLEAN,
-        allowNul: false,
       },
     },
     {
@@ -52,5 +49,4 @@ const utilisateurModel = (sequelize, DataTypes) => {
     }
   );
 };
-
-export { utilisateurModel };
+export { ecrivainModel };
