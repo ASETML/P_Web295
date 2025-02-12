@@ -11,3 +11,7 @@
 {"pseudo", "date_inscription", "admin", "nombre_commentaires", "commentaires":[{"commentaire"}], "nombre_appreciations", "appréciations":[{"appréciation"}], "nombre_livres", "livres":[livre_preview]}
 
 {"id", "nom"}
+
+{"nom", "prenom"}
+
+{"id", "nom", "prenom"}
