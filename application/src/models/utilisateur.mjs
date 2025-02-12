@@ -28,6 +28,22 @@ const utilisateurModel = (sequelize, DataTypes) => {
           },
         },
       },
+      mot_de_passe: {
+        type: DataTypes.STRING,
+        allowNul: false,
+        validate: {
+          notEmpty: {
+            msg: "le mdp ne peut pas etre vide",
+          },
+          notNull: {
+            msg: "le mdp est obligatoire",
+          },
+        },
+      },
+      admin: {
+        type: DataTypes.BOOLEAN,
+        allowNul: false,
+      },
     },
     {
       timestamps: true,
