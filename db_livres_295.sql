@@ -12,6 +12,8 @@ CREATE TABLE t_utilisateur(
    compte_id INT AUTO_INCREMENT,
    pseudo VARCHAR(50) NOT NULL,
    date_inscription DATE NOT NULL,
+   mot_de_passe VARCHAR(150) NOT NULL,
+   admin BOOLEAN NOT NULL,
    PRIMARY KEY(compte_id),
    UNIQUE(pseudo)
 );
@@ -74,3 +76,4 @@ CREATE TABLE t_commenter(
    FOREIGN KEY(livre_fk) REFERENCES t_livre(livre_id),
    FOREIGN KEY(utilisateur_fk) REFERENCES t_utilisateur(compte_id)
 );
+

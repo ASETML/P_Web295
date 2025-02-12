@@ -8,6 +8,8 @@ const db_logs = false;
 
 const app_port = 3000;
 
+const privateKey = "";
+
 export {
   database,
   db_user,
@@ -17,4 +19,5 @@ export {
   db_dialect,
   db_logs,
   app_port,
+  privateKey,
 };
