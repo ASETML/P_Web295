@@ -27,6 +27,13 @@ const apprecierModel = (sequelize, DataTypes) => {
           },
         },
       },
+      livre_fk: {
+        type: DataTypes.INTEGER,
+        referencies: {
+          model: Livre,
+          key: "livre_id",
+        },
+      },
     },
     {
       timestamps: true,
