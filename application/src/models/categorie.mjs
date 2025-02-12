@@ -25,3 +25,4 @@ const categorieModel = (sequelize, DataTypes) => {
     },
   });
 };
+export { categorieModel };
