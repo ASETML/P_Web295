@@ -1,5 +1,3 @@
-import { sequelize } from "sequelize";
-
 const categorieModel = (sequelize, DataTypes) => {
   return sequelize.define(
     "Categorie",
@@ -11,7 +9,7 @@ const categorieModel = (sequelize, DataTypes) => {
       },
       nom: {
         type: DataTypes.STRING,
-        allowNul: false,
+        allowNull: false,
         validate: {
           is: {
             args: /^[A-Za-z\s]*$/,
