@@ -1,0 +1,2 @@
+Modifier la route get /api/livres pour qu'elle ne retourne que le json preview
+{"livre_id", "titre", "annee_edition", "ecrivain_nom", "ecrivain_prenom", "editeur_nom", "categorie_nom", "moyenne_appreciations"}
