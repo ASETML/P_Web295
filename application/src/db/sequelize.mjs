@@ -47,7 +47,23 @@ const Livre = livreModel(sequelize, DataTypes);
 
 let initDb = () => {
   return sequelize.sync({ force: true }).then((_) => {
+    importUtilisateur();
     console.log("La base de données db_livres_295 a bien été synchronisée");
+  });
+};
+
+//Seed utilisateurs
+import { utilisateurs } from "./mock-utilisateur.mjs";
+const importUtilisateur = () => {
+  utilisateurs.map((utilisateur) => {
+    Utilisateur.create({
+      compte_id: utilisateur.id,
+      pseudo: utilisateur.pseudo,
+      date_inscription: utilisateur.date_inscription,
+      mot_de_passe: utilisateur.mot_de_passe,
+      admin: utilisateur.admin,
+    });
+    console.log(utilisateur);
   });
 };
 
