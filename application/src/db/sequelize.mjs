@@ -50,6 +50,7 @@ let initDb = () => {
     importUtilisateur();
     importCategorie();
     importEcrivain();
+    importEditeur();
     console.log("La base de données db_livres_295 a bien été synchronisée");
   });
 };
@@ -91,6 +92,18 @@ const importEcrivain = () => {
       prenom: ecrivain.prenom,
     });
     console.log(ecrivain);
+  });
+};
+
+//Seed éditeurs
+import { editeurs } from "./mock-editeur.mjs";
+const importEditeur = () => {
+  editeurs.map((editeur) => {
+    Editeur.create({
+      editeur_id: editeur.id,
+      nom: editeur.nom,
+    });
+    console.log(editeur);
   });
 };
 
