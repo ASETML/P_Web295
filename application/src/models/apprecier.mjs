@@ -8,7 +8,7 @@ const apprecierModel = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          isInteger: {
+          isInt: {
             msg: "peut que etre des int",
           },
           notEmpty: {
