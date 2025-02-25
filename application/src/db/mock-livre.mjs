@@ -1,0 +1,26 @@
+export const livres = [
+  {
+    id: 1,
+    titre: "Scrum pour les tous-petits",
+    nombre_pages: 25,
+    extrait: "https://www.scrum.org/scrumGuide",
+    resume: "Le guide Scrum pour enfant",
+    annee_edition: 2024,
+    utilisateur: 1,
+    categorie: 1,
+    editeur: 1,
+    ecrivain: 1,
+  },
+  {
+    id: 2,
+    titre: "The Scrum Guide",
+    nombre_pages: 13,
+    extrait: "https://www.scrum.org/scrumGuideBaby",
+    resume: "Le guide Scrum",
+    annee_edition: 2020,
+    utilisateur: 2,
+    categorie: 2,
+    editeur: 2,
+    ecrivain: 2,
+  },
+];
