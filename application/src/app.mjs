@@ -25,6 +25,9 @@ app.get("/", (req, res) => {
 import { utilisateurRouter } from "./routes/utilisateur.mjs";
 app.use("/api/utilisateur", utilisateurRouter);
 
+import { appreciationRouter } from "./routes/appreciation.mjs";
+app.use("/api/appreciation", appreciationRouter);
+
 import { connexionRouter } from "./routes/connexion.mjs";
 app.use("/api", connexionRouter);
 //Route pour /api/
