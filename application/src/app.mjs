@@ -22,6 +22,11 @@ app.get("/", (req, res) => {
   res.send("API REST de Passion Lecture !");
 });
 
+import { utilisateurRouter } from "./routes/utilisateur.mjs";
+app.use("/api/utilisateur", utilisateurRouter);
+
+import { connexionRouter } from "./routes/connexion.mjs";
+app.use("/api", connexionRouter);
 //Route pour /api/
 app.get("/api/", (req, res) => {
   res.redirect(`http://localhost:${port}/`);
