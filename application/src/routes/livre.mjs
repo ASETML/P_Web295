@@ -1,21 +1,24 @@
 import express from "express";
+import { Livre } from "../db/sequelize.mjs";
+import { Op, where } from "sequelize";
 
 const livreRouter = express();
 
-//Liste des livres
-livreRouter.get("/", (req, res) => {});
+//Listes des livres + recherche
+livreRouter.get("/", (req, res) => {
+  const recherche = req.query.search;
 
-//Détails d'un livre
-livreRouter.get("/:id", (req, res) => {});
+  if (recherche.length > 0) {
+    Livre.findAll({ where: { titre: { [Op.like]: `%${recherche}%` } } }).then(
+      (books) => {
+        res.json({ livres: books });
+      }
+    );
+  }
 
-//Modification d'un livre
-livreRouter.put("/:id", (req, res) => {});
+  Livre.findAll().then((books) => {
+    res.json({ livres: books });
+  });
+});
 
-//Supression d'un livre
-livreRouter.delete("/:id", (req, res) => {});
-
-//Ajout d'un livre
-livreRouter.post("/", (req, res) => {});
-
-//Livres d'un utilisateurs
-livreRouter.get("/", (req, res) => {});
+export { livreRouter };
