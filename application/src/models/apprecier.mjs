@@ -1,12 +1,12 @@
-import { sequelize } from "sequelize";
-
+import { livreModel } from "./livre.mjs";
+import { utilisateurModel } from "./utilisateur.mjs";
 const apprecierModel = (sequelize, DataTypes) => {
   return sequelize.define(
     "Apprecier",
     {
       note: {
         type: DataTypes.INTEGER,
-        allowNul: false,
+        allowNull: false,
         validate: {
           isInteger: {
             msg: "peut que etre des int",
@@ -30,14 +30,14 @@ const apprecierModel = (sequelize, DataTypes) => {
       livre_fk: {
         type: DataTypes.INTEGER,
         referencies: {
-          model: Livre,
+          model: livreModel,
           key: "livre_id",
         },
       },
       utilisateur_fk: {
         type: DataTypes.INTEGER,
         referencies: {
-          model: utilisateur,
+          model: utilisateurModel,
           key: "utilisateur_id",
         },
       },
