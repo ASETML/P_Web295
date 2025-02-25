@@ -120,7 +120,34 @@ const LivreModel = (sequelize, DataTypes) => {
           },
         },
       },
-      //fk peut etre ?
+      utilisateur_fk: {
+        type: DataTypes.INTEGER,
+        referencies: {
+          model: utilisateur,
+          key: "utilisateur_id",
+        },
+      },
+      categorie_fk: {
+        type: DataTypes.INTEGER,
+        referencies: {
+          model: Categorie,
+          key: "categorie_id",
+        },
+      },
+      editeur_fk: {
+        type: DataTypes.INTEGER,
+        referencies: {
+          model: Editeur,
+          key: "editeur_id",
+        },
+      },
+      ecrivain_fk: {
+        type: DataTypes.INTEGER,
+        referencies: {
+          model: ecrivain,
+          key: "ecrivain_id",
+        },
+      },
     },
     {
       timestamps: true,
