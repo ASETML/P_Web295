@@ -48,6 +48,7 @@ const Livre = livreModel(sequelize, DataTypes);
 let initDb = () => {
   return sequelize.sync({ force: true }).then((_) => {
     importUtilisateur();
+    importCategorie();
     console.log("La base de données db_livres_295 a bien été synchronisée");
   });
 };
@@ -64,6 +65,18 @@ const importUtilisateur = () => {
       admin: utilisateur.admin,
     });
     console.log(utilisateur);
+  });
+};
+
+//Seed catégories
+import { categories } from "./mock-categorie.mjs";
+const importCategorie = () => {
+  categories.map((categorie) => {
+    Categorie.create({
+      categorie_id: categorie.id,
+      nom: categorie.nom,
+    });
+    console.log(categorie);
   });
 };
 
