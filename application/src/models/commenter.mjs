@@ -1,12 +1,12 @@
-import { sequelize } from "sequelize";
-
+import { livreModel } from "./livre.mjs";
+import { utilisateurModel } from "./utilisateur.mjs";
 const commenterModel = (sequelize, DataTypes) => {
   return sequelize.define(
     "Commenter",
     {
       commentaire: {
         type: DataTypes.STRING,
-        allowNul: false,
+        allowNull: false,
         validate: {
           is: {
             args: /^[A-Za-z\s\-]*$/,
@@ -23,14 +23,14 @@ const commenterModel = (sequelize, DataTypes) => {
       livre_fk: {
         type: DataTypes.INTEGER,
         referencies: {
-          model: Livre,
+          model: livreModel,
           key: "livre_id",
         },
       },
       utilisateur_fk: {
         type: DataTypes.INTEGER,
         referencies: {
-          model: utilisateur,
+          model: utilisateurModel,
           key: "utilisateur_id",
         },
       },
