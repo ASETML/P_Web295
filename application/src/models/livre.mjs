@@ -32,7 +32,7 @@ const livreModel = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          isInteger: {
+          isInt: {
             msg: "peut que etre des int",
           },
           notEmpty: {
@@ -91,7 +91,7 @@ const livreModel = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          isInteger: {
+          isInt: {
             msg: "l'année doit etre un nombre",
           },
           notEmpty: {
