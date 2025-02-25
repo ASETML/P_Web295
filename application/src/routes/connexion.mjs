@@ -1,5 +1,5 @@
 import express from "express";
-import { utilisateur } from "../db/sequelize.mjs";
+import { Utilisateur } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { ValidationError, Op } from "sequelize";
 import bcrypt from "bcrypt";
@@ -9,8 +9,7 @@ import { privateKey } from "../config.mjs";
 const connexionRouter = express();
 
 connexionRouter.post("/inscription", (req, res) => {
-  utilisateur
-    .create(req.body)
+  Utilisateur.create(req.body)
     .then((createdUtilisateur) => {
       const message = `l'utilisateur ${createdUtilisateur.name} a bien été créé !`;
       res.json(success(message, createdUtilisateur));
@@ -25,8 +24,7 @@ connexionRouter.post("/inscription", (req, res) => {
 });
 
 connexionRouter.post("/connexion", (req, res) => {
-  utilisateur
-    .findOne({ where: { username: req.body.username } })
+  Utilisateur.findOne({ where: { username: req.body.username } })
     .then((utilisateur) => {
       if (!utilisateur) {
         const message = `l'utilisateur demandé n'existe pas`;
