@@ -53,6 +53,7 @@ let initDb = () => {
     importEditeur();
     importLivre();
     importAppreciation();
+    importCommentaire();
     console.log("La base de données db_livres_295 a bien été synchronisée");
   });
 };
@@ -139,6 +140,19 @@ const importAppreciation = () => {
       note: appreciation.note,
     });
     console.log(appreciation);
+  });
+};
+
+//Seed commenter
+import { commenter } from "./mock-commenter.mjs";
+const importCommentaire = () => {
+  commenter.map((commentaire) => {
+    Commenter.create({
+      livre_fk: commentaire.livre,
+      utilisateur_fk: commentaire.utilisateur,
+      commentaire: commentaire.commentaire,
+    });
+    console.log(commentaire);
   });
 };
 
