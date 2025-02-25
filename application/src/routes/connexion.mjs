@@ -23,7 +23,18 @@ connexionRouter.post("/inscription", (req, res) => {
 connexionRouter.post("/connexion", (req, res) => {
   utilisateur
     .findOne({ where: { username: req.body.username } })
-    .then(utilisateur);
+    .then((utilisateur) => {
+      if (!utilisateur) {
+        const message = `l'utilisateur demandé n'existe pas`;
+        return res.status(404).json({ message });
+      }
+      //a faire apres que bcrypt soit configuré
+      //étape de comparaison du mot de passe et de creation du token
+    })
+    .catch((error) => {
+      const message = `l'utilisateur n'a pas pu etre connecté `;
+      return res.json({ message, data: error });
+    });
 });
 
 export { connexionRouter };
