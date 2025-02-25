@@ -49,6 +49,7 @@ let initDb = () => {
   return sequelize.sync({ force: true }).then((_) => {
     importUtilisateur();
     importCategorie();
+    importEcrivain();
     console.log("La base de données db_livres_295 a bien été synchronisée");
   });
 };
@@ -77,6 +78,19 @@ const importCategorie = () => {
       nom: categorie.nom,
     });
     console.log(categorie);
+  });
+};
+
+//Seed écrivains
+import { ecrivains } from "./mock-ecrivain.mjs";
+const importEcrivain = () => {
+  ecrivains.map((ecrivain) => {
+    Ecrivain.create({
+      ecrivain_id: ecrivain.id,
+      nom: ecrivain.nom,
+      prenom: ecrivain.prenom,
+    });
+    console.log(ecrivain);
   });
 };
 
