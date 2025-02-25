@@ -52,6 +52,7 @@ let initDb = () => {
     importEcrivain();
     importEditeur();
     importLivre();
+    importAppreciation();
     console.log("La base de données db_livres_295 a bien été synchronisée");
   });
 };
@@ -125,6 +126,19 @@ const importLivre = () => {
       ecrivain_fk: livre.ecrivain,
     });
     console.log(livre);
+  });
+};
+
+//Seed apprécier
+import { apprecier } from "./mock-apprecier.mjs";
+const importAppreciation = () => {
+  apprecier.map((appreciation) => {
+    Apprecier.create({
+      livre_fk: appreciation.livre,
+      utilisateur_fk: appreciation.utilisateur,
+      note: appreciation.note,
+    });
+    console.log(appreciation);
   });
 };
 
