@@ -1,5 +1,3 @@
-import { sequelize } from "sequelize";
-
 const editeurModel = (sequelize, DataTypes) => {
   return sequelize.define(
     "Editeur",
@@ -11,7 +9,7 @@ const editeurModel = (sequelize, DataTypes) => {
       },
       nom: {
         type: DataTypes.STRING,
-        allowNul: false,
+        allowNull: false,
         validate: {
           is: {
             args: /^[A-Za-z\s\-]*$/,
