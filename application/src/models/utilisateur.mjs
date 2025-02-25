@@ -1,5 +1,3 @@
-import { sequelize } from "sequelize";
-
 const utilisateurModel = (sequelize, DataTypes) => {
   return sequelize.define(
     "utilisateur",
@@ -11,7 +9,7 @@ const utilisateurModel = (sequelize, DataTypes) => {
       },
       pseudo: {
         type: DataTypes.STRING,
-        allowNul: false,
+        allowNull: false,
         unique: {
           msg: "ce pseudo est deja pris",
         },
@@ -30,7 +28,7 @@ const utilisateurModel = (sequelize, DataTypes) => {
       },
       mot_de_passe: {
         type: DataTypes.STRING,
-        allowNul: false,
+        allowNull: false,
         validate: {
           notEmpty: {
             msg: "le mdp ne peut pas etre vide",
@@ -42,7 +40,7 @@ const utilisateurModel = (sequelize, DataTypes) => {
       },
       admin: {
         type: DataTypes.BOOLEAN,
-        allowNul: false,
+        allowNull: false,
       },
     },
     {
