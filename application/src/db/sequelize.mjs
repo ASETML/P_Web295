@@ -51,6 +51,7 @@ let initDb = () => {
     importCategorie();
     importEcrivain();
     importEditeur();
+    importLivre();
     console.log("La base de données db_livres_295 a bien été synchronisée");
   });
 };
@@ -104,6 +105,26 @@ const importEditeur = () => {
       nom: editeur.nom,
     });
     console.log(editeur);
+  });
+};
+
+//Seed livres
+import { livres } from "./mock-livre.mjs";
+const importLivre = () => {
+  livres.map((livre) => {
+    Livre.create({
+      livre_id: livre.id,
+      titre: livre.titre,
+      nombre_pages: livre.nombre_pages,
+      extrait: livre.extrait,
+      resume: livre.resume,
+      annee_edition: livre.annee_edition,
+      utilisateur_fk: livre.utilisateur,
+      categorie_fk: livre.categorie,
+      editeur_fk: livre.editeur,
+      ecrivain_fk: livre.ecrivain,
+    });
+    console.log(livre);
   });
 };
 
