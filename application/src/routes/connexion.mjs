@@ -2,6 +2,10 @@ import express from "express";
 import { utilisateur } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { ValidationError, Op } from "sequelize";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { privateKey } from "../config.mjs";
+
 const connexionRouter = express();
 
 connexionRouter.post("/inscription", (req, res) => {
@@ -28,8 +32,24 @@ connexionRouter.post("/connexion", (req, res) => {
         const message = `l'utilisateur demandé n'existe pas`;
         return res.status(404).json({ message });
       }
-      //a faire apres que bcrypt soit configuré
-      //étape de comparaison du mot de passe et de creation du token
+      bcrypt
+        .compare(req.body.motdepasse, utilisateur.motdepasse)
+        .then((motdepassevalide) => {
+          if (!motdepassevalide) {
+            const message = `le mot de passe est incorrecte`;
+            return res.status(401).json({ message });
+          } else {
+            const token = jwt.sign(
+              { utilisateurId: utilisateur.id },
+              privateKey,
+              {
+                expiresIn: "1y",
+              }
+            );
+            const message = `l'utilisateur a été connecté !`;
+            return res.json({ message, data: utilisateur, token });
+          }
+        });
     })
     .catch((error) => {
       const message = `l'utilisateur n'a pas pu etre connecté `;
