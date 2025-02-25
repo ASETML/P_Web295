@@ -1,8 +1,11 @@
-import { sequelize } from "sequelize";
+import { utilisateurModel } from "./utilisateur.mjs";
+import { categorieModel } from "./categorie.mjs";
+import { editeurModel } from "./editeur.mjs";
+import { ecrivainModel } from "./ecrivain.mjs";
 
-const LivreModel = (sequelize, DataTypes) => {
+const livreModel = (sequelize, DataTypes) => {
   return sequelize.define(
-    "Livre",
+    "livre",
     {
       livre_id: {
         type: DataTypes.INTEGER,
@@ -11,7 +14,7 @@ const LivreModel = (sequelize, DataTypes) => {
       },
       titre: {
         type: DataTypes.STRING,
-        allowNul: false,
+        allowNull: false,
         validate: {
           is: {
             args: /^[A-Za-z0-9\s\-\.\,]*$/,
@@ -27,7 +30,7 @@ const LivreModel = (sequelize, DataTypes) => {
       },
       nombre_pages: {
         type: DataTypes.INTEGER,
-        allowNul: false,
+        allowNull: false,
         validate: {
           isInteger: {
             msg: "peut que etre des int",
@@ -50,7 +53,7 @@ const LivreModel = (sequelize, DataTypes) => {
       },
       extrait: {
         type: DataTypes.STRING,
-        allowNul: false,
+        allowNull: false,
         unique: {
           msg: "cette extrait est deja pris",
         },
@@ -70,7 +73,7 @@ const LivreModel = (sequelize, DataTypes) => {
       },
       resume: {
         type: DataTypes.STRING,
-        allowNul: false,
+        allowNull: false,
         validate: {
           is: {
             args: /^[A-Za-z0-9\s\-\.\,]*$/,
@@ -86,7 +89,7 @@ const LivreModel = (sequelize, DataTypes) => {
       },
       annee_edition: {
         type: DataTypes.INTEGER,
-        allowNul: false,
+        allowNull: false,
         validate: {
           isInteger: {
             msg: "l'année doit etre un nombre",
@@ -123,28 +126,28 @@ const LivreModel = (sequelize, DataTypes) => {
       utilisateur_fk: {
         type: DataTypes.INTEGER,
         referencies: {
-          model: utilisateur,
+          model: utilisateurModel,
           key: "utilisateur_id",
         },
       },
       categorie_fk: {
         type: DataTypes.INTEGER,
         referencies: {
-          model: Categorie,
+          model: categorieModel,
           key: "categorie_id",
         },
       },
       editeur_fk: {
         type: DataTypes.INTEGER,
         referencies: {
-          model: Editeur,
+          model: editeurModel,
           key: "editeur_id",
         },
       },
       ecrivain_fk: {
         type: DataTypes.INTEGER,
         referencies: {
-          model: ecrivain,
+          model: ecrivainModel,
           key: "ecrivain_id",
         },
       },
@@ -157,4 +160,4 @@ const LivreModel = (sequelize, DataTypes) => {
   );
 };
 
-export { LivreModel };
+export { livreModel };
