@@ -12,8 +12,8 @@ const editeurModel = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           is: {
-            args: /^[A-Za-z\s\-]*$/,
-            msg: "Seules les lettres et les espaces sont autorisés et les -",
+            args: /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-]{2,}$/,
+            msg: "Seules les lettres (y compris avec accents), les espaces et le tiret (-) sont autorisés. Minimum 2 caractères.",
           },
           notEmpty: {
             msg: "le nom ne peut pas etre vide",

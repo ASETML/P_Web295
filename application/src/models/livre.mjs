@@ -17,8 +17,8 @@ const livreModel = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           is: {
-            args: /^[A-Za-z0-9\s\-\.\,]*$/,
-            msg: "Seules les lettres, les espaces et les - sont autorisés",
+            args: /^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s\-\.,;:!?\(\)]*$/,
+            msg: "Seules les lettres, nombres, espaces et caractères de ponctuation (. , ; : ! ? - ( )) sont autorisés",
           },
           notEmpty: {
             msg: "ne peut pas etre vide",
