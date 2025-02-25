@@ -20,4 +20,6 @@
 
 {"livre_fk", "utilisateur_fk", "commentaire"}
 
-{"livre_fk", "utilisateur_fk", "commentaire"}
+{"livre_fk", "utilisateur_fk"}
+
+{"livre_fk", "utilisateur_fk", "note"}
