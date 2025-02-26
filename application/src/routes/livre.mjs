@@ -1,21 +1,27 @@
 import express from "express";
-import { auth } from "../auth/auth.mjs";
+import { Livre } from "../db/sequelize.mjs";
+import { Op, where } from "sequelize";
+import { success } from "./helper.mjs";
+
 const livreRouter = express();
 
-//Liste des livres
-livreRouter.get("/", auth, (req, res) => {});
+//Listes des livres + recherche
+livreRouter.get("/", (req, res) => {
+  const recherche = req.query.search;
 
-//Détails d'un livre
-livreRouter.get("/:id", auth, (req, res) => {});
+  if (recherche) {
+    Livre.findAll({ where: { titre: { [Op.like]: `%${recherche}%` } } }).then(
+      (books) => {
+        res.json(success("La liste des livres à bien été récupérée", books));
+      }
+    );
+  } else {
+    Livre.findAll().then((books) => {
+      res.json(success("La liste des livres à bien été récupérée", books));
+    });
+  }
+});
 
-//Modification d'un livre
-livreRouter.put("/:id", auth, (req, res) => {});
+//Détails d'un livres
 
-//Supression d'un livre
-livreRouter.delete("/:id", auth, (req, res) => {});
-
-//Ajout d'un livre
-livreRouter.post("/", auth, (req, res) => {});
-
-//Livres d'un utilisateurs
-livreRouter.get("/", auth, (req, res) => {});
+export { livreRouter };

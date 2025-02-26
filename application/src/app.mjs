@@ -35,6 +35,10 @@ app.get("/api/", (req, res) => {
   res.redirect(`http://localhost:${port}/`);
 });
 
+//Routes des livres
+import { livreRouter } from "./routes/livre.mjs";
+app.use("/api/livres", livreRouter);
+
 //Middleware
 app.use(({ res }) => {
   const message =
