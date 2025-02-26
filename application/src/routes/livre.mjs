@@ -1,21 +1,52 @@
 import express from "express";
-import { auth } from "../auth/auth.mjs";
+import {
+  Livre,
+  Ecrivain,
+  Editeur,
+  Categorie,
+  Apprecier,
+} from "../db/sequelize.mjs";
+import { Op, where } from "sequelize";
+import { success } from "./helper.mjs";
+
 const livreRouter = express();
 
-//Liste des livres
-livreRouter.get("/", auth, (req, res) => {});
+//Listes des livres + recherche
+livreRouter.get("/", (req, res) => {
+  const recherche = req.query.search;
+  let booksPreview = [];
+  if (recherche) {
+    Livre.findAll({ where: { titre: { [Op.like]: `%${recherche}%` } } }).then(
+      (books) => {
+        for (const book of books) {
+          Ecrivain.findByPk(book.ecrivain_fk).then((ecrivain) => {
+            let preview = {
+              livre_id: book.livre_id,
+              titre: book.titre,
+              annee_edition: book.annee_edition,
+              ecrivain_nom: ecrivain.nom,
+              ecrivain_prenom: ecrivain.prenom,
+            };
+            console.log(preview);
+            booksPreview.push(preview);
+            console.log(booksPreview);
+            //Marche pas, mauvais endroit
+            res.json(
+              success("La liste des livres à bien été récupérée", booksPreview)
+            );
+          });
+        }
+      }
+    );
+  } else {
+    Livre.findAll().then((books) => {
+      res.json(
+        success("La liste de tous les livres à bien été récupérée", books)
+      );
+    });
+  }
+});
 
-//Détails d'un livre
-livreRouter.get("/:id", auth, (req, res) => {});
+//Détails d'un livres
 
-//Modification d'un livre
-livreRouter.put("/:id", auth, (req, res) => {});
-
-//Supression d'un livre
-livreRouter.delete("/:id", auth, (req, res) => {});
-
-//Ajout d'un livre
-livreRouter.post("/", auth, (req, res) => {});
-
-//Livres d'un utilisateurs
-livreRouter.get("/", auth, (req, res) => {});
+export { livreRouter };

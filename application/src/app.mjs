@@ -22,6 +22,9 @@ app.get("/", (req, res) => {
   res.send("API REST de Passion Lecture !");
 });
 
+import { livreRouter } from "./routes/livre.mjs";
+app.use("/api/livre", livreRouter);
+
 import { utilisateurRouter } from "./routes/utilisateur.mjs";
 app.use("/api/utilisateur", utilisateurRouter);
 
