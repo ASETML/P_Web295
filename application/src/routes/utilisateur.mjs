@@ -25,9 +25,10 @@ utilisateurRouter.get("/:id", auth, (req, res) => {
 //Modification d'un utilisateur
 utilisateurRouter.put("/:id", auth, (req, res) => {
   const utilisateurId = req.params.id;
+  const admin = req.body.admin;
   Utilisateur.update(req.body, { where: { id: utilisateurId } })
     .then((_) => {
-      utilisateur.findByPk(utilisateurId).then((updatedUtilisateur) => {
+      Utilisateur.findByPk(utilisateurId).then((updatedUtilisateur) => {
         if (updatedUtilisateur === null) {
           const message = "cet utilisateur n'éxiste pas";
           return res.status(404).json({ message });
