@@ -2,6 +2,7 @@ import express from "express";
 import { auth } from "../auth/auth.mjs";
 import { Apprecier } from "../db/sequelize.mjs";
 import { ValidationError } from "sequelize";
+import { success } from "./helper.mjs";
 const appreciationRouter = express();
 
 appreciationRouter.get("/", auth, (req, res) => {
@@ -12,6 +13,7 @@ appreciationRouter.get("/", auth, (req, res) => {
     })
     .catch((error) => {
       const message = "la liste de produits pas bien récup, réessayer!";
+
       res.status(500).json({ message, data: error });
     });
 });
@@ -20,6 +22,7 @@ appreciationRouter.post("/", auth, (req, res) => {
   Apprecier.create(req.body)
     .then((createdAppreciation) => {
       const message = `l'appreciation a bien été créée`;
+
       res.json(success(message, createdAppreciation));
     })
     .catch((error) => {
