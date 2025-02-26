@@ -8,6 +8,7 @@ import {
   db_port,
   db_user,
 } from "../config.mjs";
+import bcrypt from "bcrypt";
 
 //Info de connection à la DB
 const sequelize = new Sequelize(database, db_user, db_password, {
@@ -62,13 +63,18 @@ let initDb = () => {
 import { utilisateurs } from "./mock-utilisateur.mjs";
 const importUtilisateur = () => {
   utilisateurs.map((utilisateur) => {
-    Utilisateur.create({
-      compte_id: utilisateur.id,
-      pseudo: utilisateur.pseudo,
-      date_inscription: utilisateur.date_inscription,
-      mot_de_passe: utilisateur.mot_de_passe,
-      admin: utilisateur.admin,
-    });
+    bcrypt
+      .hash(utilisateur.mot_de_passe, 10) //temps pour hasher = du sel
+      .then((hash) =>
+        Utilisateur.create({
+          compte_id: utilisateur.id,
+          pseudo: utilisateur.pseudo,
+          date_inscription: utilisateur.date_inscription,
+          mot_de_passe: hash,
+          admin: utilisateur.admin,
+        })
+      );
+
     console.log(utilisateur);
   });
 };
