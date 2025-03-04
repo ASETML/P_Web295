@@ -5,6 +5,7 @@ import {
   Editeur,
   Categorie,
   Apprecier,
+  Commenter,
 } from "../db/sequelize.mjs";
 import { ValidationError, Op, where } from "sequelize";
 import { success } from "./helper.mjs";
@@ -74,16 +75,34 @@ livreRouter.get("/", (req, res) => {
 
 //Ajout d'un livre
 livreRouter.post("/", (req, res) => {
-  Livre.create(req.body)
-    .then((book) => {
-      res.json(success(`Le livre '${req.body.titre}' a bien été créé`, book));
+  Livre.create(req.body);
+  then((book) => {
+    res.json(success(`Le livre '${req.body.titre}' a bien été créé`, book));
+  }).catch((error) => {
+    if (error instanceof ValidationError) {
+      return res.status(400).json({ message: error.message, data: error });
+    }
+    const message =
+      "Le livre n'a pas pu être créé. Merci de réessayer dans quelques instants.";
+    res.status(500).json({ message, data: error });
+  });
+});
+
+livreRouter.post("/:id/commentaire", (req, res) => {
+  const livre_fk = req.params.id;
+  const commentaire = req.body.commentaire;
+  const utilisateur_fk = req.body.utilisateur_fk;
+  Commenter.create({ commentaire: commentaire, livre_fk, utilisateur_fk })
+    .then((commentaire) => {
+      res.json(success(`Votre commentaire a été posté`, commentaire));
     })
     .catch((error) => {
+      console.log(error);
       if (error instanceof ValidationError) {
         return res.status(400).json({ message: error.message, data: error });
       }
       const message =
-        "Le livre n'a pas pu être créé. Merci de réessayer dans quelques instants.";
+        "Le commentaire n'a pas pu être posté. Merci de réessayer dans quelques instants.";
       res.status(500).json({ message, data: error });
     });
 });
