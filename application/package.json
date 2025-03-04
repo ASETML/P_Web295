@@ -5,6 +5,7 @@
   "main": "app.mjs",
   "scripts": {
     "antoine": "nodemon src/app.mjs",
+    "start": "nodemon src/app.mjs",
     "test": "vitest"
   },
   "repository": {
