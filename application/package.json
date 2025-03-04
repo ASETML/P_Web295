@@ -6,6 +6,7 @@
   "scripts": {
     "antoine": "nodemon src/app.mjs",
     "start": "nodemon src/app.mjs",
+    "alban": "vitest",
     "test": "vitest"
   },
   "repository": {
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/ASETML/P_Web295#readme",
   "devDependencies": {
     "nodemon": "^3.1.9",
+    "supertest": "^7.0.0",
     "vitest": "^3.0.5"
   },
   "dependencies": {
