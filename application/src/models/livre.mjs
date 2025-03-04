@@ -54,9 +54,6 @@ const livreModel = (sequelize, DataTypes) => {
       extrait: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: {
-          msg: "cette extrait est deja pris",
-        },
         validate: {
           is: {
             //faut que ca ressemble a une url grace a ce regex
