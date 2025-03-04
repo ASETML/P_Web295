@@ -9,4 +9,9 @@ export const ecrivains = [
     nom: "Foundation",
     prenom: "The Scrum",
   },
+  {
+    id: 3,
+    nom: "Moser",
+    prenom: "Charles-Henri",
+  },
 ];
