@@ -4,7 +4,7 @@ export const livres = [
     titre: "Scrum pour les tous-petits",
     nombre_pages: 25,
     extrait: "https://www.scrum.org/scrumGuide",
-    resume: "Le guide Scrum pour enfant",
+    resume: "Le guide Scrum pour enfant dès six ans",
     annee_edition: 2024,
     utilisateur: 1,
     categorie: 1,
