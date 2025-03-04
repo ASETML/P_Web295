@@ -40,6 +40,9 @@ app.use("/api", connexionRouter);
 import { ecrivainRouter } from "./routes/ecrivain.mjs";
 app.use("/api/ecrivain", ecrivainRouter);
 
+import { editeurRouter } from "./routes/editeur.mjs";
+app.use("/api/editeur", editeurRouter);
+
 //Route pour /api/
 app.get("/api/", (req, res) => {
   res.redirect(`http://localhost:${port}/`);
