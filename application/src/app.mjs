@@ -30,6 +30,9 @@ app.use("/api/appreciation", appreciationRouter);
 
 import { connexionRouter } from "./routes/connexion.mjs";
 app.use("/api", connexionRouter);
+import { categorieRouter } from "./routes/categorie.mjs";
+app.use("/api/categorie", categorieRouter);
+
 //Route pour /api/
 app.get("/api/", (req, res) => {
   res.redirect(`http://localhost:${port}/`);
