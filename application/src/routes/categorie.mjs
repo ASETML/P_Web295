@@ -5,7 +5,7 @@ import { Categorie } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { auth } from "../auth/auth.mjs";
 import { Livre } from "../db/sequelize.mjs";
-import { livres } from "../db/mock-livre.mjs";
+//import { livres } from "../db/mock-livre.mjs";
 
 const categorieRouter = express();
 
@@ -79,21 +79,25 @@ categorieRouter.post("/", auth, (req, res) => {
 });
 categorieRouter.get("/:id/livres", auth, (req, res) => {
   const id = req.params.id;
-  Categorie.findByPk(id).then((categorie) => {
-    if (categorie) {
-      Livre.findAll({
-        where: {
-          categorie_fk: id,
-        },
-      }).then((livres) => {
-        const message = `voici tous les livres dont la categories est égal a ${id}`;
-        res.json(success(message, livres));
-      });
-    } else {
-      const message = "cette categorie n'éxiste pas";
-      return res.status(404).json({ message });
-    }
-  });
+  Categorie.findByPk(id)
+    .then((categorie) => {
+      if (categorie) {
+        Livre.findAll({
+          where: {
+            categorie_fk: id,
+          },
+        }).then((livres) => {
+          const message = `voici tous les livres dont la categories est égal a ${id}`;
+          return res.json(success(message, livres));
+        });
+      } else {
+        const message = "cette categorie n'éxiste pas";
+        return res.status(404).json({ message });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ data: error });
+    });
 });
 
 export { categorieRouter };
