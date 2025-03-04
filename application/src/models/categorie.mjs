@@ -12,7 +12,7 @@ const categorieModel = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           is: {
-            args: /^[A-Za-z\s]*$/,
+            args: /^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s\-\.,;:!?\(\)/]*$/,
             msg: "Seules les lettres et les espaces sont autorisés",
           },
           notEmpty: {

@@ -1,4 +1,5 @@
 import express from "express";
+import { auth } from "../auth/auth.mjs";
 import {
   Livre,
   Ecrivain,
@@ -13,7 +14,63 @@ import { success } from "./helper.mjs";
 const livreRouter = express();
 
 //Listes des livres + recherche - marche pas
-livreRouter.get("/", (req, res) => {
+livreRouter.get("/", auth, (req, res) => {
+  let recherche = req.query.search;
+  let categorie = req.query.cat;
+  let booksPreview = [];
+  let preview = {
+    livre_id: null,
+    titre: null,
+    annee_edition: null,
+    ecrivain_nom: null,
+    ecrivain_prenom: null,
+    categorie_nom: null,
+  };
+  if (!categorie) {
+    categorie = "%";
+  }
+  if (!recherche) {
+    recherche = "%";
+  }
+
+  Livre.findAll({
+    where: {
+      titre: { [Op.like]: `%${recherche}%` },
+      categorie_fk: { [Op.like]: categorie },
+    },
+  }).then((books) => {
+    for (const book of books) {
+      preview.livre_id = book.livre_id;
+      preview.titre = book.titre;
+      preview.annee_edition = book.annee_edition;
+
+      Ecrivain.findByPk(book.ecrivain_fk).then((ecrivain) => {
+        preview.ecrivain_nom = ecrivain.nom;
+        preview.ecrivain_prenom = ecrivain.prenom;
+      });
+
+      Categorie.findByPk(book.categorie_fk).then((categorie) => {
+        preview.categorie_nom = categorie.nom;
+      });
+      console.log(preview);
+
+      booksPreview.push(preview);
+      preview = {
+        livre_id: null,
+        titre: null,
+        annee_edition: null,
+        ecrivain_nom: null,
+        ecrivain_prenom: null,
+        categorie_nom: null,
+      };
+    }
+    res.json(success("La liste des livres à bien été récupérée", booksPreview));
+  });
+});
+// ============================================================================
+// ========================== > Détails d'un livres < =========================
+// ============================================================================
+livreRouter.get("/:id", (req, res) => {
   const recherche = req.query.search;
   let booksPreview = [];
   let preview = {
@@ -26,52 +83,19 @@ livreRouter.get("/", (req, res) => {
     categorie_nom: null,
     moyenne_appreciations: null,
   };
-  if (recherche) {
-    Livre.findAll({
-      where: { titre: { [Op.like]: `%${recherche}%` } },
-    }).then((books) => {
-      for (const book of books) {
-        preview.livre_id = book.livre_id;
-        preview.titre = book.titre;
-        preview.annee_edition = book.annee_edition;
-
-        Ecrivain.findByPk(book.ecrivain_fk).then((ecrivain) => {
-          preview.ecrivain_nom = ecrivain.nom;
-          preview.ecrivain_prenom = ecrivain.prenom;
-        });
-        Editeur.findByPk(book.editeur_fk).then((editeur) => {
-          preview.editeur_nom = editeur.nom;
-        });
-        Categorie.findByPk(book.categorie_fk).then((categorie) => {
-          preview.categorie_nom = categorie.nom;
-        });
-        console.log(preview);
-        Apprecier.findAndCountAll({
-          where: { livre_fk: { [Op.eq]: book.livre_id } },
-        }).then((count, rows) => {
-          let temp;
-          console.log(count + " " + rows);
-          for (const appreciation of rows) {
-            temp += appreciation.note;
-          }
-          preview.moyenne_appreciations = temp / count;
-        });
-        booksPreview.push(preview);
-      }
-      res.json(
-        success("La liste des livres à bien été récupérée", booksPreview)
-      );
-    });
-  } else {
-    Livre.findAll().then((books) => {
-      res.json(
-        success("La liste de tous les livres à bien été récupérée", books)
-      );
-    });
-  }
+  Livre.findAll().then((books) => {
+    res.json(
+      success(
+        "La liste de tous les livres à bien été récupérée (il n'y a pas de recherche)",
+        books
+      )
+    );
+  });
 });
 
-//Détails d'un livres
+// ============================================================================
+// ============================================================================
+// ============================================================================
 
 //Ajout d'un livre
 livreRouter.post("/", (req, res) => {

@@ -1,4 +1,4 @@
-/*import express from "express";
+import express from "express";
 import { Utilisateur } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { auth } from "../auth/auth.mjs";
@@ -106,4 +106,4 @@ utilisateurRouter.delete("/:id", auth, (req, res) => {
     });
 });
 
-export { utilisateurRouter };*/
+export { utilisateurRouter };
