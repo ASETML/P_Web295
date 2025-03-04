@@ -34,6 +34,9 @@ app.use("/api/appreciation", appreciationRouter);
 import { connexionRouter } from "./routes/connexion.mjs";
 app.use("/api", connexionRouter);
 
+import { ecrivainRouter } from "./routes/ecrivain.mjs";
+app.use("/api/ecrivain", ecrivainRouter);
+
 //Route pour /api/
 app.get("/api/", (req, res) => {
   res.redirect(`http://localhost:${port}/`);
