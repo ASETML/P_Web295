@@ -1,7 +1,9 @@
-import express from "express";
+/*import express from "express";
 import { Utilisateur } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { auth } from "../auth/auth.mjs";
+import jwt from "jsonwebtoken";
+import { privateKey } from "../config.mjs";
 
 const utilisateurRouter = express();
 
@@ -25,9 +27,49 @@ utilisateurRouter.get("/:id", auth, (req, res) => {
 //Modification d'un utilisateur
 utilisateurRouter.put("/:id", auth, (req, res) => {
   const utilisateurId = req.params.id;
+  const admin = req.body.admin;
+  //
+  if (admin) {
+    const authorizationHeader = req.headers.authorization;
+    if (!authorizationHeader) {
+      const message = `vous n'avez pas fourni de jetonssss d'authentification`;
+      return res.status(401).json({ message });
+    } else {
+      const token = authorizationHeader.split(" ")[1];
+      const decodedToken = jwt.verify(
+        token,
+        privateKey,
+        (error, decodedToken) => {
+          Utilisateur.findByPk(decodedToken.id).then((adminutilisateur) => {
+            if (
+              decodedToken.admin == adminutilisateur.admin &&
+              adminutilisateur.admin === true
+            ) {
+              return Utilisateur.update(req.body, {
+                where: { id: utilisateurId },
+              }).then((updatedUtilisateur) => {
+                const message = "l'utilisateur a été mis a jour";
+                res.json(success(message, updatedUtilisateur));
+              });
+            } else {
+              const message = "vous ne pouvez pas devenir admin !";
+              return res.status(401).json(message);
+            }
+          });
+        }
+      );
+    }
+  }
+
+  //
+
+  if (req.body.admin === true && decodedToken.admin === false) {
+    const message = `vous n'etes pas admin !`;
+    return res.status(401).json(message);
+  }
   Utilisateur.update(req.body, { where: { id: utilisateurId } })
     .then((_) => {
-      utilisateur.findByPk(utilisateurId).then((updatedUtilisateur) => {
+      Utilisateur.findByPk(utilisateurId).then((updatedUtilisateur) => {
         if (updatedUtilisateur === null) {
           const message = "cet utilisateur n'éxiste pas";
           return res.status(404).json({ message });
@@ -64,4 +106,4 @@ utilisateurRouter.delete("/:id", auth, (req, res) => {
     });
 });
 
-export { utilisateurRouter };
+export { utilisateurRouter };*/

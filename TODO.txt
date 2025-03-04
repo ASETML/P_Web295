@@ -1,7 +1,0 @@
-
-TODO :
-
-    Signer le droit admin dans le token JWT
-    Vérifier la modification du droit admin dans la modification d'un utilisateur
-    Vérifier si l'utilisateur est admin
-

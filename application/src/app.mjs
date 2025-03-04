@@ -28,11 +28,15 @@ app.use("/api/livre", livreRouter);
 import { utilisateurRouter } from "./routes/utilisateur.mjs";
 app.use("/api/utilisateur", utilisateurRouter);
 
+import { categorieRouter } from "./routes/categorie.mjs";
+app.use("/api/categorie", categorieRouter);
+
 import { appreciationRouter } from "./routes/appreciation.mjs";
 app.use("/api/appreciation", appreciationRouter);
 
 import { connexionRouter } from "./routes/connexion.mjs";
 app.use("/api", connexionRouter);
+
 //Route pour /api/
 app.get("/api/", (req, res) => {
   res.redirect(`http://localhost:${port}/`);
