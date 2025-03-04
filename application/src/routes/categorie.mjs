@@ -4,11 +4,13 @@ import express from "express";
 import { Categorie } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { auth } from "../auth/auth.mjs";
+import { Livre } from "../db/sequelize.mjs";
+import { livres } from "../db/mock-livre.mjs";
 
 const categorieRouter = express();
 
 // Liste des catégories
-categorieRouter.get("/", (req, res) => {
+categorieRouter.get("/", auth, (req, res) => {
   Categorie.findAll()
     .then((categories) => {
       const message = "La liste des catégories a bien été récupérée.";
@@ -26,7 +28,7 @@ categorieRouter.put("/:id", auth, (req, res) => {
   const categorieId = req.params.id;
   Categorie.update(req.body, { where: { categorie_id: categorieId } })
     .then((_) => {
-      categorie.findByPk(categorieId).then((updatedCategorie) => {
+      Categorie.findByPk(categorieId).then((updatedCategorie) => {
         if (updatedCategorie === null) {
           const message = "Cette catégorie n'existe pas.";
           return res.status(404).json({ message });
@@ -51,7 +53,11 @@ categorieRouter.delete("/:id", auth, (req, res) => {
       }
       return Categorie.destroy({
         where: { categorie_id: categorieToDelete.categorie_id },
+<<<<<<< HEAD
       }).then(() => {
+=======
+      }).then((_) => {
+>>>>>>> 69cd6a1c34f08ace35c396d617e71403ae7d4cab
         const message = `La catégorie dont l'id vaut ${categorieToDelete.categorie_id} a bien été supprimée.`;
         res.json(success(message, {}));
       });
@@ -74,6 +80,24 @@ categorieRouter.post("/", auth, (req, res) => {
       const message = "La catégorie n'a pas pu être ajoutée.";
       res.status(500).json({ message, data: error });
     });
+});
+categorieRouter.get("/:id/livres", auth, (req, res) => {
+  const id = req.params.id;
+  Categorie.findByPk(id).then((categorie) => {
+    if (categorie) {
+      Livre.findAll({
+        where: {
+          categorie_fk: id,
+        },
+      }).then((livres) => {
+        const message = `voici tous les livres dont la categories est égal a ${id}`;
+        res.json(success(message, livres));
+      });
+    } else {
+      const message = "cette categorie n'éxiste pas";
+      return res.status(404).json({ message });
+    }
+  });
 });
 
 export { categorieRouter };
