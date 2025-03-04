@@ -48,6 +48,7 @@ appreciationRouter.delete("/:id", auth, (req, res) => {
     });
   });
 });
+
 appreciationRouter.put("/:id", auth, (req, res) => {
   const appreciationId = req.params.id;
   Apprecier.update(req.body, { where: { id: appreciationId } })
