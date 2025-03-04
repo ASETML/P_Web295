@@ -2,6 +2,8 @@ import express from "express";
 import { Ecrivain } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { auth } from "../auth/auth.mjs";
+import { Livre } from "../db/sequelize.mjs";
+import { where } from "sequelize";
 
 const ecrivainRouter = express();
 
@@ -61,6 +63,23 @@ ecrivainRouter.put("/:id", auth, (req, res) => {
       const message = "L'écrivain n'a pas pu être mise à jour.";
       res.status(500).json({ message, data: error });
     });
+});
+
+ecrivainRouter.get("/:id/livres", auth, (req, res) => {
+  Ecrivain.findByPk(req.params.id).then((ecrivain) => {
+    if (!ecrivain) {
+      const message = "cet écrivain n'existe pas";
+      return res.status(404).json({ message });
+    }
+  });
+  Livre.findAll({
+    where: {
+      ecrivain_fk: req.params.id,
+    },
+  }).then((livres) => {
+    const message = "voici les livres d'un ecrivain";
+    res.json(success(message, livres));
+  });
 });
 
 export { ecrivainRouter };
