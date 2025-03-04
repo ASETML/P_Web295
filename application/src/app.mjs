@@ -25,8 +25,8 @@ app.get("/", (req, res) => {
 import { livreRouter } from "./routes/livre.mjs";
 app.use("/api/livre", livreRouter);
 
-import { utilisateurRouter } from "./routes/utilisateur.mjs";
-app.use("/api/utilisateur", utilisateurRouter);
+/*import { utilisateurRouter } from "./routes/utilisateur.mjs";
+app.use("/api/utilisateur", utilisateurRouter);*/
 
 import { categorieRouter } from "./routes/categorie.mjs";
 app.use("/api/categorie", categorieRouter);
@@ -36,6 +36,12 @@ app.use("/api/appreciation", appreciationRouter);
 
 import { connexionRouter } from "./routes/connexion.mjs";
 app.use("/api", connexionRouter);
+
+import { ecrivainRouter } from "./routes/ecrivain.mjs";
+app.use("/api/ecrivain", ecrivainRouter);
+
+import { editeurRouter } from "./routes/editeur.mjs";
+app.use("/api/editeur", editeurRouter);
 
 //Route pour /api/
 app.get("/api/", (req, res) => {
