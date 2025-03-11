@@ -93,6 +93,7 @@ livreRouter.post("/", (req, res) => {
   });
 });
 
+//Poste un commentaire
 livreRouter.post("/:id/commentaire", (req, res) => {
   const livre_fk = req.params.id;
   const commentaire = req.body.commentaire;
@@ -112,7 +113,7 @@ livreRouter.post("/:id/commentaire", (req, res) => {
     });
 });
 
-//Suprimme un livre¨
+//Suprimme un livre
 livreRouter.delete("/:id", auth, (req, res) => {
   Livre.findByPk(req.params.id)
     .then((livre) => {
@@ -132,6 +133,29 @@ livreRouter.delete("/:id", auth, (req, res) => {
     .catch((error) => {
       const message =
         "Le livre n'a pas pu être supprimé. Merci de réessayer dans quelques instants.";
+      res.status(500).json({ message, data: error });
+    });
+});
+
+//Modifie un livre
+livreRouter.put("/:id", auth, (req, res) => {
+  Livre.update(req.body, { where: { id: req.params.id } })
+    .then((_) => {
+      return Livre.findByPk(req.params.id).then((livre) => {
+        //Livre existe pas
+        if (livre === null) {
+          const message =
+            "Le livre demandé n'existe pas. Merci de réessayer avec un autre identifiant.";
+          return res.status(404).json({ message });
+        }
+        //Livre existe
+        const message = `Le livre ${livre.name} dont l'id vaut ${livre.id} a été mis à jour avec succès`;
+        res.json(success(message, livre));
+      });
+    })
+    .catch((error) => {
+      const message =
+        "Le livre n'a pas pu être mis à jour. Merci de réessayer dans quelques instants.";
       res.status(500).json({ message, data: error });
     });
 });
