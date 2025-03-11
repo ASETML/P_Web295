@@ -10,6 +10,7 @@ import {
 } from "../db/sequelize.mjs";
 import { ValidationError, Op, where } from "sequelize";
 import { success } from "./helper.mjs";
+import Sequelize from "sequelize";
 
 const livreRouter = express();
 
@@ -28,13 +29,18 @@ livreRouter.get("/", auth, async (req, res) => {
     });
 
     for (const book of books) {
-      // Récupérer l'écrivain et la catégorie pour chaque livre
       const ecrivain = await Ecrivain.findByPk(book.ecrivain_fk);
       const categorieRecup = await Categorie.findByPk(book.categorie_fk);
       const editeur = await Editeur.findByPk(book.editeur_fk);
-      // =============================================================================================== MOYENNE DES APPRECIATIONS
 
-      // Construire l'objet preview pour chaque livre
+      //  moyenne appréciations du livre
+      const moyenneAppreciation = await Apprecier.findOne({
+        where: { livre_fk: book.livre_id },
+        attributes: [[Sequelize.fn("AVG", Sequelize.col("note")), "moyenne"]],
+        raw: true,
+      });
+
+      // objet preview pour chaque livre (correspondant à la recherche)
       booksPreview.push({
         livre_id: book.livre_id,
         titre: book.titre,
@@ -43,6 +49,9 @@ livreRouter.get("/", auth, async (req, res) => {
         ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
         categorie_nom: categorieRecup ? categorieRecup.nom : null,
         editeur_nom: editeur ? editeur.nom : null,
+        moyenne_appreciation: moyenneAppreciation
+          ? parseFloat(moyenneAppreciation.moyenne).toFixed(2)
+          : null,
       });
     }
     res.json(success("La liste des livres à bien été récupérée", booksPreview));
