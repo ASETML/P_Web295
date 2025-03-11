@@ -111,4 +111,29 @@ livreRouter.post("/:id/commentaire", (req, res) => {
       res.status(500).json({ message, data: error });
     });
 });
+
+//Suprimme un livre¨
+livreRouter.delete("/:id", auth, (req, res) => {
+  Livre.findByPk(req.params.id)
+    .then((livre) => {
+      if (livre === null) {
+        const message =
+          "Le livre demandé n'existe pas. Merci de réessayer avec un autre identifiant.";
+        return res.status(404).json({ message });
+      }
+      //Suppression du produit
+      return Livre.destroy({
+        where: { id: livre.id },
+      }).then((_) => {
+        const message = `Le livre ${livre.name} a bien été supprimé !`;
+        res.json(success(message, livre));
+      });
+    })
+    .catch((error) => {
+      const message =
+        "Le livre n'a pas pu être supprimé. Merci de réessayer dans quelques instants.";
+      res.status(500).json({ message, data: error });
+    });
+});
+
 export { livreRouter };
