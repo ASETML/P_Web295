@@ -1,11 +1,30 @@
 import express from "express";
 import { app_port } from "./config.mjs";
 import swaggerUi from "swagger-ui-express";
+import multer from "multer";
 
+/*const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage });*/
+const upload = multer({ dest: "uploads/" });
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+app.post("/upload", upload.single("file"), (req, res) => {
+  console.log(req.body);
+  console.log(req.file);
+  res.json({ message: "Youpi" });
+  // Access the uploaded file using req.file
+  // Process the file and send a response
+});
 const port = app_port;
 
 //Connection à la DB
