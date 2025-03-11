@@ -1,5 +1,3 @@
-// Travail de Mateo le 2025.02.25 - A VERIFIER !
-
 import express from "express";
 import { Categorie } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
@@ -24,7 +22,6 @@ categorieRouter.get("/", auth, (req, res) => {
 
 // Modification d'une catégorie
 categorieRouter.put("/:id", auth, (req, res) => {
-  // On attend en entrée un objet { nom }
   const categorieId = req.params.id;
   Categorie.update(req.body, { where: { categorie_id: categorieId } })
     .then((_) => {
@@ -66,7 +63,6 @@ categorieRouter.delete("/:id", auth, (req, res) => {
 
 // Ajout d'une catégorie
 categorieRouter.post("/", auth, (req, res) => {
-  // On attend en entrée un objet { nom }
   Categorie.create(req.body)
     .then((newCategorie) => {
       const message = `La catégorie ${newCategorie.nom} a bien été ajoutée.`;

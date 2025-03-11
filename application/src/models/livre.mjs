@@ -17,7 +17,7 @@ const livreModel = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           is: {
-            args: /^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s\-\.,;:!?\(\)]*$/,
+            args: /^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s\-\.,;:!?\(\)'/]*$/,
             msg: "Seules les lettres, nombres, espaces et caractères de ponctuation (. , ; : ! ? - ( )) sont autorisés",
           },
           notEmpty: {
@@ -73,7 +73,7 @@ const livreModel = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           is: {
-            args: /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-]{2,}$/,
+            args: /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-']{2,}$/,
             msg: "Seules les lettres (y compris avec accents), les espaces et le tiret (-) sont autorisés. Minimum 2 caractères.",
           },
           notEmpty: {
