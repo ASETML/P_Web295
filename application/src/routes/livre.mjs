@@ -66,14 +66,13 @@ livreRouter.get("/:id", auth, async (req, res) => {
     const commentaires = await Commenter.findAll({
       where: { livre_fk: { [Op.eq]: req.params.id } },
     });
-    // =============================================================================================== COMMENTAIRES
-    // =============================================================================================== EXTRAIT
 
     // Construire l'objet preview pour chaque livre
     const preview = {
       livre_id: book.livre_id,
       titre: book.titre,
       annee_edition: book.annee_edition,
+      extrait: book.extrait,
       ecrivain_nom: ecrivain ? ecrivain.nom : null,
       ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
       categorie_nom: categorieRecup ? categorieRecup.nom : null,
