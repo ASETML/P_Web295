@@ -31,6 +31,8 @@ livreRouter.get("/", auth, async (req, res) => {
       // Récupérer l'écrivain et la catégorie pour chaque livre
       const ecrivain = await Ecrivain.findByPk(book.ecrivain_fk);
       const categorieRecup = await Categorie.findByPk(book.categorie_fk);
+      const editeur = await Editeur.findByPk(book.editeur_fk);
+      // =============================================================================================== MOYENNE DES APPRECIATIONS
 
       // Construire l'objet preview pour chaque livre
       booksPreview.push({
@@ -40,6 +42,7 @@ livreRouter.get("/", auth, async (req, res) => {
         ecrivain_nom: ecrivain ? ecrivain.nom : null,
         ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
         categorie_nom: categorieRecup ? categorieRecup.nom : null,
+        editeur_nom: editeur ? editeur.nom : null,
       });
     }
     res.json(success("La liste des livres à bien été récupérée", booksPreview));
@@ -58,6 +61,10 @@ livreRouter.get("/:id", auth, async (req, res) => {
     // Récupérer l'écrivain et la catégorie pour chaque livre
     const ecrivain = await Ecrivain.findByPk(book.ecrivain_fk);
     const categorieRecup = await Categorie.findByPk(book.categorie_fk);
+    const editeur = await Editeur.findByPk(book.editeur_fk);
+    // =============================================================================================== MOYENNE DES APPRECIATIONS
+    // =============================================================================================== COMMENTAIRES
+    // =============================================================================================== EXTRAIT
 
     // Construire l'objet preview pour chaque livre
     preview = {
@@ -67,6 +74,7 @@ livreRouter.get("/:id", auth, async (req, res) => {
       ecrivain_nom: ecrivain ? ecrivain.nom : null,
       ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
       categorie_nom: categorieRecup ? categorieRecup.nom : null,
+      editeur_nom: editeur ? editeur.nom : null,
     };
 
     res.json(success("La liste des livres à bien été récupérée", preview));
