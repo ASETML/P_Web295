@@ -93,17 +93,18 @@ livreRouter.get("/:id", auth, async (req, res) => {
 
 //Ajout d'un livre
 livreRouter.post("/", (req, res) => {
-  Livre.create(req.body);
-  then((book) => {
-    res.json(success(`Le livre '${req.body.titre}' a bien été créé`, book));
-  }).catch((error) => {
-    if (error instanceof ValidationError) {
-      return res.status(400).json({ message: error.message, data: error });
-    }
-    const message =
-      "Le livre n'a pas pu être créé. Merci de réessayer dans quelques instants.";
-    res.status(500).json({ message, data: error });
-  });
+  Livre.create(req.body)
+    .then((book) => {
+      res.json(success(`Le livre '${req.body.titre}' a bien été créé`, book));
+    })
+    .catch((error) => {
+      if (error instanceof ValidationError) {
+        return res.status(400).json({ message: error.message, data: error });
+      }
+      const message =
+        "Le livre n'a pas pu être créé. Merci de réessayer dans quelques instants.";
+      res.status(500).json({ message, data: error });
+    });
 });
 
 //Poste un commentaire
@@ -137,9 +138,9 @@ livreRouter.delete("/:id", auth, (req, res) => {
       }
       //Suppression du produit
       return Livre.destroy({
-        where: { id: livre.id },
+        where: { livre_id: livre.livre_id },
       }).then((_) => {
-        const message = `Le livre ${livre.name} a bien été supprimé !`;
+        const message = `Le livre ${livre.titre} a bien été supprimé !`;
         res.json(success(message, livre));
       });
     })
@@ -152,7 +153,7 @@ livreRouter.delete("/:id", auth, (req, res) => {
 
 //Modifie un livre
 livreRouter.put("/:id", auth, (req, res) => {
-  Livre.update(req.body, { where: { id: req.params.id } })
+  Livre.update(req.body, { where: { livre_id: req.params.id } })
     .then((_) => {
       return Livre.findByPk(req.params.id).then((livre) => {
         //Livre existe pas
@@ -162,7 +163,7 @@ livreRouter.put("/:id", auth, (req, res) => {
           return res.status(404).json({ message });
         }
         //Livre existe
-        const message = `Le livre ${livre.name} dont l'id vaut ${livre.id} a été mis à jour avec succès`;
+        const message = `Le livre ${livre.titre} dont l'id vaut ${livre.livre_id} a été mis à jour avec succès`;
         res.json(success(message, livre));
       });
     })
