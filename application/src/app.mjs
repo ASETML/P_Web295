@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 });
 
 import { livreRouter } from "./routes/livre.mjs";
-app.use("/api/livre", livreRouter);
+app.use("/api/livres", livreRouter);
 
 /*import { utilisateurRouter } from "./routes/utilisateur.mjs";
 app.use("/api/utilisateur", utilisateurRouter);*/

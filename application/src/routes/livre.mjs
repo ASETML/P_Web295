@@ -13,8 +13,98 @@ import { success } from "./helper.mjs";
 import Sequelize from "sequelize";
 
 const livreRouter = express();
-
-//Listes des livres + recherche - marche pas
+/**
+ * @swagger
+ * /api/livres/:
+ *   get:
+ *     tags: [Livres]
+ *     security:
+ *       - bearerAuth: []
+ *     summary: Récupérer la liste des livres par catégorie.
+ *     description: Retourne une liste des livres appartenant à une catégorie spécifique et correspondant à une recherche donnée.
+ *     parameters:
+ *       - in: query
+ *         name: cat
+ *         schema:
+ *           type: integer
+ *         description: Identifiant de la catégorie.
+ *         example: 3
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: Mot-clé pour la recherche de titres de livres.
+ *         example: Harry Potter
+ *     responses:
+ *       200:
+ *         description: La liste des livres a été récupérée avec succès.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: La liste des livres a bien été récupérée
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       livre_id:
+ *                         type: integer
+ *                         description: L'identifiant du livre.
+ *                         example: 1
+ *                       titre:
+ *                         type: string
+ *                         description: Le titre du livre.
+ *                         example: Harry Potter et la pierre philosophale
+ *                       annee_edition:
+ *                         type: integer
+ *                         description: Année d'édition du livre.
+ *                         example: 1997
+ *                       ecrivain_nom:
+ *                         type: string
+ *                         description: Nom de l'écrivain.
+ *                         example: Rowling
+ *                       ecrivain_prenom:
+ *                         type: string
+ *                         description: Prénom de l'écrivain.
+ *                         example: J.K.
+ *                       categorie_nom:
+ *                         type: string
+ *                         description: Nom de la catégorie du livre.
+ *                         example: Fantasy
+ *                       editeur_nom:
+ *                         type: string
+ *                         description: Nom de l'éditeur.
+ *                         example: Gallimard
+ *                       moyenne_appreciation:
+ *                         type: number
+ *                         format: float
+ *                         description: Moyenne des appréciations du livre.
+ *                         example: 4.5
+ *       401:
+ *         description: Non autorisé, jeton JWT invalide ou manquant.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Accès refusé. Token manquant ou invalide.
+ *       500:
+ *         description: Erreur serveur.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Une erreur est survenue sur le serveur.
+ */
 livreRouter.get("/", auth, async (req, res) => {
   let recherche = req.query.search || "%"; // Si vide, ça prend la valeur "%"
   let categorie = req.query.cat || "%"; // Si vide, ça prend la valeur "%"
@@ -60,7 +150,7 @@ livreRouter.get("/", auth, async (req, res) => {
     res.status(500).json(error);
   }
 });
-// GET Détails d'un livres
+
 livreRouter.get("/:id", auth, async (req, res) => {
   try {
     const book = await Livre.findByPk(req.params.id);
