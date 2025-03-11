@@ -1,5 +1,6 @@
 import express from "express";
 import { app_port } from "./config.mjs";
+import swaggerUi from "swagger-ui-express";
 
 const app = express();
 
@@ -47,6 +48,14 @@ app.use("/api/editeur", editeurRouter);
 app.get("/api/", (req, res) => {
   res.redirect(`http://localhost:${port}/`);
 });
+
+import { swaggerSpec } from "./swagger.mjs";
+// Route pour accéder à la documentation Swagger
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, { explorer: true })
+);
 
 //Middleware
 app.use(({ res }) => {

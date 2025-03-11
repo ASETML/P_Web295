@@ -37,22 +37,46 @@ const options = {
             "editeur_fk",
             "ecrivain_fk",
           ],
-        },
-        Teacher: {
-          type: "object",
-          required: ["name", "price", "created"],
           properties: {
-            id: {
+            livre_id: {
               type: "integer",
-              description: "l'identifiant unique du produit",
+              description: "L'identifiant unique du livre",
             },
-            name: {
+            titre: {
               type: "string",
-              description: "le nom du produit",
+              description: "Le titre du livre",
             },
-            price: {
-              type: "float",
-              description: " le prix du produit",
+            nombre_pages: {
+              type: "integer",
+              description: "Le nombre de pages du livre",
+            },
+            extrait: {
+              type: "string",
+              description: "Le lien de l'extrait du livre",
+            },
+            resume: {
+              type: "string",
+              description: "Un cours résumé du livre",
+            },
+            annee_edition: {
+              type: "string",
+              description: "L'année d'édition du livre",
+            },
+            utilisateur_fk: {
+              type: "integer",
+              description: "L'utilisateur qui a proposé le livre",
+            },
+            categorie_fk: {
+              type: "integer",
+              description: "La catégorie du livre",
+            },
+            editeur_fk: {
+              type: "integer",
+              description: "L'éditeur du livre",
+            },
+            ecrivain_fk: {
+              type: "integer",
+              description: "L'auteur du livre",
             },
 
             created: {
