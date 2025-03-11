@@ -93,17 +93,18 @@ livreRouter.get("/:id", auth, async (req, res) => {
 
 //Ajout d'un livre
 livreRouter.post("/", (req, res) => {
-  Livre.create(req.body);
-  then((book) => {
-    res.json(success(`Le livre '${req.body.titre}' a bien été créé`, book));
-  }).catch((error) => {
-    if (error instanceof ValidationError) {
-      return res.status(400).json({ message: error.message, data: error });
-    }
-    const message =
-      "Le livre n'a pas pu être créé. Merci de réessayer dans quelques instants.";
-    res.status(500).json({ message, data: error });
-  });
+  Livre.create(req.body)
+    .then((book) => {
+      res.json(success(`Le livre '${req.body.titre}' a bien été créé`, book));
+    })
+    .catch((error) => {
+      if (error instanceof ValidationError) {
+        return res.status(400).json({ message: error.message, data: error });
+      }
+      const message =
+        "Le livre n'a pas pu être créé. Merci de réessayer dans quelques instants.";
+      res.status(500).json({ message, data: error });
+    });
 });
 
 //Poste un commentaire
