@@ -51,27 +51,29 @@ livreRouter.get("/", auth, async (req, res) => {
 // ============================================================================
 // ========================== > Détails d'un livres < =========================
 // ============================================================================
-livreRouter.get("/:id", (req, res) => {
-  const recherche = req.query.search;
-  let booksPreview = [];
-  let preview = {
-    livre_id: null,
-    titre: null,
-    annee_edition: null,
-    ecrivain_nom: null,
-    ecrivain_prenom: null,
-    editeur_nom: null,
-    categorie_nom: null,
-    moyenne_appreciations: null,
-  };
-  Livre.findAll().then((books) => {
-    res.json(
-      success(
-        "La liste de tous les livres à bien été récupérée (il n'y a pas de recherche)",
-        books
-      )
-    );
-  });
+livreRouter.get("/:id", auth, async (req, res) => {
+  try {
+    const books = await Livre.findByPk(req.params.id);
+
+    // Récupérer l'écrivain et la catégorie pour chaque livre
+    const ecrivain = await Ecrivain.findByPk(book.ecrivain_fk);
+    const categorieRecup = await Categorie.findByPk(book.categorie_fk);
+
+    // Construire l'objet preview pour chaque livre
+    preview = {
+      livre_id: book.livre_id,
+      titre: book.titre,
+      annee_edition: book.annee_edition,
+      ecrivain_nom: ecrivain ? ecrivain.nom : null,
+      ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
+      categorie_nom: categorieRecup ? categorieRecup.nom : null,
+    };
+
+    res.json(success("La liste des livres à bien été récupérée", preview));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
 });
 
 // ============================================================================
