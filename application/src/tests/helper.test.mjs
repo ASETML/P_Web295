@@ -2,49 +2,49 @@
 import { success } from "../routes/helper.mjs";
 import { expect, test } from "vitest";
 
-test("sucess", () => {
+test("sucess simple", () => {
   expect(success("Test", { testData: "Data" })).toMatchObject({
     message: "Test",
     data: { testData: "Data" },
   });
 });
 
-test("sucess", () => {
+test("sucess accolade", () => {
   expect(success("}", { data: "Data" })).toMatchObject({
     message: "}",
     data: { data: "Data" },
   });
 });
 
-test("sucess", () => {
+test("sucess accent", () => {
   expect(success("Test", { àéà: "Data" })).toMatchObject({
     message: "Test",
     data: { àéà: "Data" },
   });
 });
 
-test("sucess", () => {
+test("sucess guillemet", () => {
   expect(success("'", { data: "Data" })).toMatchObject({
     message: "'",
     data: { data: "Data" },
   });
 });
 
-test("sucess", () => {
+test("sucess §", () => {
   expect(success("Test", { data: "§" })).toMatchObject({
     message: "Test",
     data: { data: "§" },
   });
 });
 
-test("sucess", () => {
+test("sucess -", () => {
   expect(success("-", { data: "Data" })).toMatchObject({
     message: "-",
     data: { data: "Data" },
   });
 });
 
-test("sucess", () => {
+test("sucess émoji", () => {
   expect(success("Emoji", { testData: "👨‍💻" })).toMatchObject({
     message: "Emoji",
     data: { testData: "👨‍💻" },
