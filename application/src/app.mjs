@@ -4,10 +4,10 @@ import swaggerUi from "swagger-ui-express";
 import multer from "multer";
 
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: function (req, file, cb) {
     cb(null, "uploads/");
   },
-  filename: (req, file, cb) => {
+  filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
@@ -90,3 +90,5 @@ app.use(({ res }) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+export { upload };

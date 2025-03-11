@@ -12,6 +12,30 @@ import { ValidationError, Op, where } from "sequelize";
 import { success } from "./helper.mjs";
 import Sequelize from "sequelize";
 
+//
+//
+//
+//
+//
+//
+import multer from "multer";
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage });
+
+//
+//
+//
+//
+//
+//
+
 const livreRouter = express();
 
 //Listes des livres + recherche - marche pas
@@ -118,7 +142,8 @@ livreRouter.get("/:id", auth, async (req, res) => {
 });
 
 //Ajout d'un livre
-livreRouter.post("/", (req, res) => {
+livreRouter.post("/", auth, upload.single("file"), (req, res) => {
+  console.log(req.file.filename);
   Livre.create(req.body)
     .then((book) => {
       res.json(success(`Le livre '${req.body.titre}' a bien été créé`, book));
@@ -134,7 +159,7 @@ livreRouter.post("/", (req, res) => {
 });
 
 //Poste un commentaire
-livreRouter.post("/:id/commentaire", (req, res) => {
+livreRouter.post("/:id/commentaire", auth, (req, res) => {
   const livre_fk = req.params.id;
   const commentaire = req.body.commentaire;
   const utilisateur_fk = req.body.utilisateur_fk;
