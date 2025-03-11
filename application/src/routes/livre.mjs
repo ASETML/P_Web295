@@ -34,7 +34,7 @@ livreRouter.get("/", auth, async (req, res) => {
       const editeur = await Editeur.findByPk(book.editeur_fk);
 
       //  moyenne appréciations du livre
-      const moyenneAppreciation = await Apprecier.findOne({
+      const moyenneAppreciations = await Apprecier.findOne({
         where: { livre_fk: book.livre_id },
         attributes: [[Sequelize.fn("AVG", Sequelize.col("note")), "moyenne"]],
         raw: true,
@@ -49,8 +49,8 @@ livreRouter.get("/", auth, async (req, res) => {
         ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
         categorie_nom: categorieRecup ? categorieRecup.nom : null,
         editeur_nom: editeur ? editeur.nom : null,
-        moyenne_appreciation: moyenneAppreciation
-          ? parseFloat(moyenneAppreciation.moyenne).toFixed(2)
+        moyenne_appreciation: moyenneAppreciations
+          ? parseFloat(moyenneAppreciations.moyenne).toFixed(2)
           : null,
       });
     }
@@ -60,18 +60,30 @@ livreRouter.get("/", auth, async (req, res) => {
     res.status(500).json(error);
   }
 });
-// ============================================================================
-// ========================== > Détails d'un livres < =========================
-// ============================================================================
+// GET Détails d'un livres
 livreRouter.get("/:id", auth, async (req, res) => {
   try {
     const book = await Livre.findByPk(req.params.id);
+
+    if (!book) {
+      return res.status(404).json({
+        success: false,
+        message: `Aucun livre trouvé avec l'ID ${req.params.id}.`,
+      });
+    }
 
     // Récupérer l'écrivain et la catégorie pour chaque livre
     const ecrivain = await Ecrivain.findByPk(book.ecrivain_fk);
     const categorieRecup = await Categorie.findByPk(book.categorie_fk);
     const editeur = await Editeur.findByPk(book.editeur_fk);
-    // =============================================================================================== MOYENNE DES APPRECIATIONS
+
+    //  moyenne appréciations du livre
+    const moyenneAppreciations = await Apprecier.findOne({
+      where: { livre_fk: book.livre_id },
+      attributes: [[Sequelize.fn("AVG", Sequelize.col("note")), "moyenne"]],
+      raw: true,
+    });
+
     const commentaires = await Commenter.findAll({
       where: { livre_fk: { [Op.eq]: req.params.id } },
     });
@@ -87,18 +99,23 @@ livreRouter.get("/:id", auth, async (req, res) => {
       categorie_nom: categorieRecup ? categorieRecup.nom : null,
       editeur_nom: editeur ? editeur.nom : null,
       commentaires: commentaires ? commentaires : null,
+      //Moyenne appréciations
+      moyenne_appreciations: moyenneAppreciations
+        ? parseFloat(moyenneAppreciations.moyenne).toFixed(2)
+        : null,
     };
 
-    res.json(success("La liste des livres à bien été récupérée", preview));
+    res.json(
+      success(
+        `Le livre qui a l'id ${req.params.id} a bien été récupéré : `,
+        preview
+      )
+    );
   } catch (error) {
     console.error(error);
     res.status(500).json(error);
   }
 });
-
-// ============================================================================
-// ============================================================================
-// ============================================================================
 
 //Ajout d'un livre
 livreRouter.post("/", (req, res) => {
