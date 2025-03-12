@@ -10,7 +10,7 @@ const ecrivainRouter = express();
 ecrivainRouter.get("/", auth, (req, res) => {
   Ecrivain.findAll()
     .then((ecrivains) => {
-      const message = " voici tous les écrivains";
+      const message = " Voici tous les écrivains";
       res.json(success(message, ecrivains));
     })
     .catch((error) => {

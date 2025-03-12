@@ -8,11 +8,12 @@ const appreciationRouter = express();
 appreciationRouter.get("/", auth, (req, res) => {
   Apprecier.findAll()
     .then((appreciations) => {
-      const message = "La liste des produits a bien été récupérée !";
+      const message = "La liste des appréciations a bien été récupérée !";
       res.json(success(message, appreciations));
     })
     .catch((error) => {
-      const message = "la liste de produits pas bien récup, réessayer!";
+      const message =
+        "la liste des appréciations pas bien récuperée, réessayer!";
 
       res.status(500).json({ message, data: error });
     });

@@ -3,7 +3,6 @@ import { Categorie } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { auth } from "../auth/auth.mjs";
 import { Livre } from "../db/sequelize.mjs";
-//import { livres } from "../db/mock-livre.mjs";
 
 const categorieRouter = express();
 
