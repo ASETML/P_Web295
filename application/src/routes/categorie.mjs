@@ -51,7 +51,7 @@ categorieRouter.delete("/:id", auth, (req, res) => {
         where: { categorie_id: categorieToDelete.categorie_id },
       }).then((_) => {
         const message = `La catégorie dont l'id vaut ${categorieToDelete.categorie_id} a bien été supprimée.`;
-        res.json(success(message, {}));
+        res.json(success(message, categorieToDelete));
       });
     })
     .catch((error) => {

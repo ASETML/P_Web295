@@ -120,6 +120,7 @@ const livreRouter = express();
 livreRouter.get("/", auth, async (req, res) => {
   let recherche = req.query.search || "%"; // Si vide, ça prend la valeur "%"
   let categorie = req.query.cat || "%"; // Si vide, ça prend la valeur "%"
+  let limit = parseInt(req.query.limit) || 5; //La limite spécifiée par l'utilisateur ou 5
   let booksPreview = [];
 
   try {
@@ -128,6 +129,7 @@ livreRouter.get("/", auth, async (req, res) => {
         titre: { [Op.like]: `%${recherche}%` },
         categorie_fk: { [Op.like]: categorie },
       },
+      limit: limit,
     });
 
     for (const book of books) {
