@@ -207,7 +207,11 @@ livreRouter.delete("/:id", auth, (req, res) => {
 
 //Modifie un livre
 livreRouter.put("/:id", auth, (req, res) => {
-  Livre.update(req.body, { where: { livre_id: req.params.id } })
+  //Récupération du json de la requête
+  const object = JSON.parse(req.body.data);
+  //Création de l'objet livre avec l'image
+  const livreObj = { ...object, image: req.file.filename };
+  Livre.update(livreObj, { where: { livre_id: req.params.id } })
     .then((_) => {
       return Livre.findByPk(req.params.id).then((livre) => {
         //Livre existe pas
