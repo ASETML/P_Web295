@@ -5,6 +5,10 @@ import swaggerUi from "swagger-ui-express";
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//Pour récupérer les images
+app.use("/uploads", express.static("uploads"));
 
 const port = app_port;
 

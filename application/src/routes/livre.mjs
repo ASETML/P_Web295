@@ -12,6 +12,30 @@ import { ValidationError, Op, where } from "sequelize";
 import { success } from "./helper.mjs";
 import Sequelize from "sequelize";
 
+//
+//
+//
+//
+//
+//
+import multer from "multer";
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage });
+
+//
+//
+//
+//
+//
+//
+
 const livreRouter = express();
 /**
  * @swagger
@@ -135,6 +159,7 @@ livreRouter.get("/", auth, async (req, res) => {
         livre_id: book.livre_id,
         titre: book.titre,
         annee_edition: book.annee_edition,
+        image: book.image,
         ecrivain_nom: ecrivain ? ecrivain.nom : null,
         ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
         categorie_nom: categorieRecup ? categorieRecup.nom : null,
@@ -184,6 +209,7 @@ livreRouter.get("/:id", auth, async (req, res) => {
       titre: book.titre,
       annee_edition: book.annee_edition,
       extrait: book.extrait,
+      image: book.image,
       ecrivain_nom: ecrivain ? ecrivain.nom : null,
       ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
       categorie_nom: categorieRecup ? categorieRecup.nom : null,
@@ -208,10 +234,14 @@ livreRouter.get("/:id", auth, async (req, res) => {
 });
 
 //Ajout d'un livre
-livreRouter.post("/", (req, res) => {
-  Livre.create(req.body)
+livreRouter.post("/", auth, upload.single("file"), (req, res) => {
+  //Récupération du json de la requête
+  const object = JSON.parse(req.body.data);
+  //Création de l'objet livre avec l'image
+  const livre = { ...object, image: req.file.filename };
+  Livre.create(livre)
     .then((book) => {
-      res.json(success(`Le livre '${req.body.titre}' a bien été créé`, book));
+      res.json(success(`Le livre '${livre.titre}' a bien été créé`, book));
     })
     .catch((error) => {
       if (error instanceof ValidationError) {
@@ -224,7 +254,7 @@ livreRouter.post("/", (req, res) => {
 });
 
 //Poste un commentaire
-livreRouter.post("/:id/commentaire", (req, res) => {
+livreRouter.post("/:id/commentaire", auth, (req, res) => {
   const livre_fk = req.params.id;
   const commentaire = req.body.commentaire;
   const utilisateur_fk = req.body.utilisateur_fk;
@@ -269,7 +299,11 @@ livreRouter.delete("/:id", auth, (req, res) => {
 
 //Modifie un livre
 livreRouter.put("/:id", auth, (req, res) => {
-  Livre.update(req.body, { where: { livre_id: req.params.id } })
+  //Récupération du json de la requête
+  const object = JSON.parse(req.body.data);
+  //Création de l'objet livre avec l'image
+  const livreObj = { ...object, image: req.file.filename };
+  Livre.update(livreObj, { where: { livre_id: req.params.id } })
     .then((_) => {
       return Livre.findByPk(req.params.id).then((livre) => {
         //Livre existe pas
