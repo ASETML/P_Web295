@@ -143,10 +143,13 @@ livreRouter.get("/:id", auth, async (req, res) => {
 
 //Ajout d'un livre
 livreRouter.post("/", auth, upload.single("file"), (req, res) => {
-  console.log(req.file.filename);
-  Livre.create(req.body)
+  //Récupération du json de la requête
+  const object = JSON.parse(req.body.data);
+  //Création de l'objet livre avec l'image
+  const livre = { ...object, image: req.file.filename };
+  Livre.create(livre)
     .then((book) => {
-      res.json(success(`Le livre '${req.body.titre}' a bien été créé`, book));
+      res.json(success(`Le livre '${livre.titre}' a bien été créé`, book));
     })
     .catch((error) => {
       if (error instanceof ValidationError) {
