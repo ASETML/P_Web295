@@ -19,19 +19,21 @@ ecrivainRouter.get("/", auth, (req, res) => {
     });
 });
 
-ecrivainRouter.delete("/:id", auth, (req, res) => {
-  Ecrivain.findByPk(req.params.id).then((ecrivainSupp) => {
-    if (ecrivainSupp === null) {
-      const message = "Cet écrivains n'existe pas.";
-      return res.status(404).json({ message });
+ecrivainRouter.delete("/:id", auth, async (req, res) => {
+  try {
+    const ecrivainSupp = await Ecrivain.findByPk(req.params.id);
+    if (!ecrivainSupp) {
+      return res.status(404).json({ message: "Cet écrivain n'existe pas." });
     }
-    return Ecrivain.destroy({
+    await Ecrivain.destroy({
       where: { ecrivain_id: ecrivainSupp.ecrivain_id },
-    }).then((_) => {
-      const message = `La catégorie dont l'id vaut ${ecrivainSupp.ecrivain_id} a bien été supprimée.`;
-      res.json(success(message, {}));
     });
-  });
+    res.json(success(`L'écrivain ${ecrivainSupp.nom} a été supprimé.`, {}));
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la suppression.", data: error });
+  }
 });
 
 ecrivainRouter.post("/", auth, (req, res) => {
@@ -65,21 +67,22 @@ ecrivainRouter.put("/:id", auth, (req, res) => {
     });
 });
 
-ecrivainRouter.get("/:id/livres", auth, (req, res) => {
-  Ecrivain.findByPk(req.params.id).then((ecrivain) => {
+ecrivainRouter.get("/:id/livres", auth, async (req, res) => {
+  try {
+    const ecrivain = await Ecrivain.findByPk(req.params.id);
     if (!ecrivain) {
-      const message = "cet écrivain n'existe pas";
-      return res.status(404).json({ message });
+      return res.status(404).json({ message: "Cet écrivain n'existe pas." });
     }
-  });
-  Livre.findAll({
-    where: {
-      ecrivain_fk: req.params.id,
-    },
-  }).then((livres) => {
-    const message = "voici les livres d'un ecrivain";
-    res.json(success(message, livres));
-  });
+    const livres = await Livre.findAll({
+      where: { ecrivain_fk: req.params.id },
+    });
+    res.json(success("Voici les livres de cet écrivain", livres));
+  } catch (error) {
+    res.status(500).json({
+      message: "Erreur lors de la récupération des livres.",
+      data: error,
+    });
+  }
 });
 
 export { ecrivainRouter };

@@ -34,19 +34,21 @@ appreciationRouter.post("/", auth, (req, res) => {
     });
 });
 
-appreciationRouter.delete("/:id", auth, (req, res) => {
-  Apprecier.findByPk(req.params.id).then((deletedAppreciation) => {
-    if (deletedAppreciation === null) {
-      const message = " cette appreciation n'existe pas !";
-      return res.status(404).json({ message });
+appreciationRouter.delete("/:id", auth, async (req, res) => {
+  try {
+    const deletedAppreciation = await Apprecier.findByPk(req.params.id);
+    if (!deletedAppreciation) {
+      return res
+        .status(404)
+        .json({ message: "Cette appréciation n'existe pas." });
     }
-    return Apprecier.destroy({
-      where: { id: deletedAppreciation.id },
-    }).then((_) => {
-      const message = `l'appreciation a été supprimé !`;
-      res.json(success(message, deletedAppreciation));
-    });
-  });
+    await Apprecier.destroy({ where: { id: deletedAppreciation.id } });
+    res.json(success("L'appréciation a été supprimée.", {}));
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la suppression.", data: error });
+  }
 });
 
 appreciationRouter.put("/:id", auth, (req, res) => {

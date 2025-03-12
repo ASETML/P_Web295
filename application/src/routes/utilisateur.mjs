@@ -25,85 +25,60 @@ utilisateurRouter.get("/:id", auth, (req, res) => {
 });
 
 //Modification d'un utilisateur
-utilisateurRouter.put("/:id", auth, (req, res) => {
-  const utilisateurId = req.params.id;
-  const admin = req.body.admin;
-  //
-  if (admin) {
-    const authorizationHeader = req.headers.authorization;
-    if (!authorizationHeader) {
-      const message = `vous n'avez pas fourni de jetonssss d'authentification`;
-      return res.status(401).json({ message });
-    } else {
-      const token = authorizationHeader.split(" ")[1];
-      const decodedToken = jwt.verify(
-        token,
-        privateKey,
-        (error, decodedToken) => {
-          Utilisateur.findByPk(decodedToken.id).then((adminutilisateur) => {
-            if (
-              decodedToken.admin == adminutilisateur.admin &&
-              adminutilisateur.admin === true
-            ) {
-              return Utilisateur.update(req.body, {
-                where: { id: utilisateurId },
-              }).then((updatedUtilisateur) => {
-                const message = "l'utilisateur a été mis a jour";
-                res.json(success(message, updatedUtilisateur));
-              });
-            } else {
-              const message = "vous ne pouvez pas devenir admin !";
-              return res.status(401).json(message);
-            }
-          });
-        }
-      );
+utilisateurRouter.put("/:id", auth, async (req, res) => {
+  try {
+    const utilisateurId = req.params.id;
+    const { admin } = req.body;
+
+    const utilisateur = await Utilisateur.findByPk(utilisateurId);
+    if (!utilisateur) {
+      return res.status(404).json({ message: "Cet utilisateur n'existe pas." });
     }
-  }
 
-  //
+    if (admin) {
+      const authorizationHeader = req.headers.authorization;
+      if (!authorizationHeader) {
+        return res.status(401).json({ message: "Token manquant." });
+      }
 
-  if (req.body.admin === true && decodedToken.admin === false) {
-    const message = `vous n'etes pas admin !`;
-    return res.status(401).json(message);
-  }
-  Utilisateur.update(req.body, { where: { id: utilisateurId } })
-    .then((_) => {
-      Utilisateur.findByPk(utilisateurId).then((updatedUtilisateur) => {
-        if (updatedUtilisateur === null) {
-          const message = "cet utilisateur n'éxiste pas";
-          return res.status(404).json({ message });
+      try {
+        const token = authorizationHeader.split(" ")[1];
+        const decodedToken = jwt.verify(token, privateKey);
+        const adminUtilisateur = await Utilisateur.findByPk(decodedToken.id);
+
+        if (!adminUtilisateur?.admin) {
+          return res.status(403).json({ message: "Action non autorisée." });
         }
+      } catch (error) {
+        return res.status(401).json({ message: "Token invalide." });
+      }
+    }
 
-        const message = `l'utilisateur ${updatedUtilisateur.name} dont l'id vaut ${updatedUtilisateur.id} a bien été mis a jour !`;
-        res.json(success(message, updatedUtilisateur));
-      });
-    })
-    .catch((error) => {
-      const message = "l'utilisateur n'a pas pu etre mis a jour";
-      res.status(500).json({ message, data: error });
-    });
+    await Utilisateur.update(req.body, { where: { id: utilisateurId } });
+
+    const updatedUtilisateur = await Utilisateur.findByPk(utilisateurId);
+    res.json(success("Utilisateur mis à jour.", updatedUtilisateur));
+  } catch (error) {
+    res.status(500).json({ message: "Erreur serveur.", data: error.message });
+  }
 });
 
 //Supression d'un utilisateur
-utilisateurRouter.delete("/:id", auth, (req, res) => {
-  Utilisateur.findByPk(req.params.id)
-    .then((deletedUtilisateur) => {
-      if (deletedUtilisateur === null) {
-        const message = `cet utilisateur n'existe pas`;
-        return res.status(404).json({ message });
-      }
-      return Utilisateur.destroy({
-        where: { id: deletedUtilisateur.id },
-      }).then((_) => {
-        const message = `l'utilisateur dont l'id vaut ${deletedUtilisateur.id} a bien été supprimé`;
-        res.json(success(message, utilisateur));
-      });
-    })
-    .catch((error) => {
-      const message = "il y a eu un problème du côté serveur désolé";
-      res.status(500).json({ message, data: error });
-    });
+utilisateurRouter.delete("/:id", auth, async (req, res) => {
+  try {
+    const utilisateur = await Utilisateur.findByPk(req.params.id);
+    if (!utilisateur) {
+      return res.status(404).json({ message: "Cet utilisateur n'existe pas." });
+    }
+    await Utilisateur.destroy({ where: { id: req.params.id } });
+    res.json(
+      success(`L'utilisateur ${utilisateur.pseudo} a été supprimé.`, {})
+    );
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la suppression.", data: error });
+  }
 });
 
 export { utilisateurRouter };

@@ -37,34 +37,42 @@ editeurRouter.delete("/:id", auth, (req, res) => {
     });
 });
 
-editeurRouter.post("/", auth, (req, res) => {
-  Editeur.create(req.body)
-    .then((newEditeur) => {
-      const message = `L'editeur ${newEditeur.nom} a bien été ajoutée.`;
-      res.json(success(message, newEditeur));
-    })
-    .catch((error) => {
-      const message = "L'editeur n'a pas pu être ajoutée.";
-      res.status(500).json({ message, data: error });
-    });
+editeurRouter.post("/", auth, async (req, res) => {
+  try {
+    const newEditeur = await Editeur.create(req.body);
+    res.json(
+      success(`L'éditeur ${newEditeur.nom} a bien été ajouté.`, newEditeur)
+    );
+  } catch (error) {
+    const message =
+      error instanceof UniqueConstraintError
+        ? "Cet éditeur existe déjà."
+        : error instanceof ValidationError
+        ? error.message
+        : "Erreur lors de l'ajout.";
+    res.status(500).json({ message, data: error });
+  }
 });
-editeurRouter.put("/:id", auth, (req, res) => {
-  const editeurId = req.params.id;
-  Editeur.update(req.body, { where: { editeur_id: editeurId } })
-    .then((_) => {
-      Editeur.findByPk(editeurId).then((updatedEditeur) => {
-        if (updatedEditeur === null) {
-          const message = "Cet editeur n'existe pas.";
-          return res.status(404).json({ message });
-        }
-        const message = `L'editeur ${updatedEditeur.nom} dont l'id vaut ${updatedEditeur.editeur_id} a bien été mise à jour.`;
-        res.json(success(message, updatedEditeur));
-      });
-    })
-    .catch((error) => {
-      const message = "L'editeur n'a pas pu être mise à jour.";
-      res.status(500).json({ message, data: error });
-    });
+editeurRouter.put("/:id", auth, async (req, res) => {
+  try {
+    const editeur = await Editeur.findByPk(req.params.id);
+    if (!editeur) {
+      return res.status(404).json({ message: "Cet éditeur n'existe pas." });
+    }
+    await Editeur.update(req.body, { where: { editeur_id: req.params.id } });
+    const updatedEditeur = await Editeur.findByPk(req.params.id);
+    res.json(
+      success(
+        `L'éditeur ${updatedEditeur.nom} a bien été mis à jour.`,
+        updatedEditeur
+      )
+    );
+  } catch (error) {
+    const message =
+      error instanceof ValidationError
+        ? error.message
+        : "Erreur lors de la mise à jour.";
+    res.status(500).json({ message, data: error });
+  }
 });
-
 export { editeurRouter };

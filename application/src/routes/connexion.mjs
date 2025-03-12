@@ -28,36 +28,34 @@ connexionRouter.post("/inscription", (req, res) => {
   });
 });
 
-connexionRouter.post("/connexion", (req, res) => {
-  Utilisateur.findOne({ where: { pseudo: req.body.pseudo } })
-    .then((utilisateur) => {
-      if (!utilisateur) {
-        const message = `l'utilisateur demandé n'existe pas`;
-        return res.status(404).json({ message });
-      }
-      bcrypt
-        .compare(req.body.mot_de_passe, utilisateur.mot_de_passe)
-        .then((motdepassevalide) => {
-          if (!motdepassevalide) {
-            const message = `le mot de passe est incorrecte`;
-            return res.status(401).json({ message });
-          } else {
-            const token = jwt.sign(
-              { utilisateurId: utilisateur.id, admin: utilisateur.admin },
-              privateKey,
-              {
-                expiresIn: "1y",
-              }
-            );
-            const message = `l'utilisateur a été connecté !`;
-            return res.json({ message, token });
-          }
-        });
-    })
-    .catch((error) => {
-      const message = `l'utilisateur n'a pas pu etre connecté `;
-      return res.json({ message, data: error });
+connexionRouter.post("/connexion", async (req, res) => {
+  try {
+    const utilisateur = await Utilisateur.findOne({
+      where: { pseudo: req.body.pseudo },
     });
+
+    if (!utilisateur) {
+      return res.status(404).json({ message: "Utilisateur inexistant." });
+    }
+
+    const motDePasseValide = await bcrypt.compare(
+      req.body.mot_de_passe,
+      utilisateur.mot_de_passe
+    );
+    if (!motDePasseValide) {
+      return res.status(401).json({ message: "Mot de passe incorrect." });
+    }
+
+    const token = jwt.sign(
+      { utilisateurId: utilisateur.id, admin: utilisateur.admin },
+      privateKey,
+      { expiresIn: "1y" }
+    );
+
+    res.json({ message: "Connexion réussie.", token });
+  } catch (error) {
+    res.status(500).json({ message: "Erreur serveur.", data: error.message });
+  }
 });
 
 export { connexionRouter };
