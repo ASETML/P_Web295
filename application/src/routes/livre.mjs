@@ -12,12 +12,7 @@ import { ValidationError, Op, where } from "sequelize";
 import { success } from "./helper.mjs";
 import Sequelize from "sequelize";
 
-//
-//
-//
-//
-//
-//
+//Stockage des images
 import multer from "multer";
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -28,13 +23,6 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
-
-//
-//
-//
-//
-//
-//
 
 const livreRouter = express();
 /**
