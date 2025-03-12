@@ -5,7 +5,7 @@ import { ecrivainModel } from "./ecrivain.mjs";
 
 const livreModel = (sequelize, DataTypes) => {
   return sequelize.define(
-    "livre",
+    "Livre",
     {
       livre_id: {
         type: DataTypes.INTEGER,

@@ -5,6 +5,10 @@ import swaggerUi from "swagger-ui-express";
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//Pour récupérer les images
+app.use("/uploads", express.static("uploads"));
 
 const port = app_port;
 
@@ -30,19 +34,19 @@ app.use("/api/livres", livreRouter);
 app.use("/api/utilisateur", utilisateurRouter);*/
 
 import { categorieRouter } from "./routes/categorie.mjs";
-app.use("/api/categorie", categorieRouter);
+app.use("/api/categories", categorieRouter);
 
 import { appreciationRouter } from "./routes/appreciation.mjs";
-app.use("/api/appreciation", appreciationRouter);
+app.use("/api/appreciations", appreciationRouter);
 
 import { connexionRouter } from "./routes/connexion.mjs";
 app.use("/api", connexionRouter);
 
 import { ecrivainRouter } from "./routes/ecrivain.mjs";
-app.use("/api/ecrivain", ecrivainRouter);
+app.use("/api/ecrivains", ecrivainRouter);
 
 import { editeurRouter } from "./routes/editeur.mjs";
-app.use("/api/editeur", editeurRouter);
+app.use("/api/editeurs", editeurRouter);
 
 //Route pour /api/
 app.get("/api/", (req, res) => {
