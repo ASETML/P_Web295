@@ -6,6 +6,7 @@
     <p>{{ livre.editeur }} - {{ livre.annee }}</p>
   </div>
 </template>
+
 <script setup>
 defineProps({
   livre: {
@@ -14,3 +15,18 @@ defineProps({
   },
 })
 </script>
+
+<style scoped>
+.livre {
+  background-color: #dbdbdb;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.livre:hover {
+  translate: 0px -5px;
+}
+</style>
