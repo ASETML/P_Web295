@@ -1,11 +1,11 @@
 <template>
   <div class="recherche">
     <h1>coucou</h1>
-    <Livre v-for="livre in livres" :key="livre.id" :livre="livre" />
+    <LivreComponent v-for="livre in livres" :key="livre.id" :livre="livre" />
   </div>
 </template>
 <script setup>
-import Livre from '@/components/Livre.vue'
+import LivreComponent from '@/components/LivreComponent.vue'
 
 const livres = [
   {
