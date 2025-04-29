@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import LivreComponent from '@/components/LivreComponent.vue'
+
+import RechercheView from '@/views/RechercheView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,12 +15,12 @@ const router = createRouter({
     {
       path: '/search',
       name: 'search',
-      component: HomeView,
+      component: RechercheView,
     },
     {
       path: '/account',
       name: 'account',
-      component: HomeView,
+      component: RechercheView,
     },
   ],
 })
