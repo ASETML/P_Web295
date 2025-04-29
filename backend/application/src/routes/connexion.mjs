@@ -10,9 +10,14 @@ const connexionRouter = express();
 
 connexionRouter.post("/inscription", (req, res) => {
   const mdp = req.body.mot_de_passe;
+  const pseudo = req.body.pseudo;
 
+  if (!mdp || !pseudo) {
+    return res.status(400).json({
+      message: "Il faut fournir un nom d'utilisateur et un mot de passe",
+    });
+  }
   bcrypt.hash(mdp, 10).then((hash) => {
-    const pseudo = req.body.pseudo;
     Utilisateur.create({ mot_de_passe: hash, pseudo: pseudo, admin: false })
       .then((createdUtilisateur) => {
         const message = `l'utilisateur ${createdUtilisateur.pseudo} a bien été créé !`;
@@ -29,9 +34,17 @@ connexionRouter.post("/inscription", (req, res) => {
 });
 
 connexionRouter.post("/connexion", async (req, res) => {
+  const mdp = req.body.mot_de_passe;
+  const pseudo = req.body.pseudo;
+
+  if (!mdp || !pseudo) {
+    return res.status(400).json({
+      message: "Il faut fournir un nom d'utilisateur et un mot de passe",
+    });
+  }
   try {
     const utilisateur = await Utilisateur.findOne({
-      where: { pseudo: req.body.pseudo },
+      where: { pseudo: pseudo },
     });
 
     if (!utilisateur) {
@@ -39,7 +52,7 @@ connexionRouter.post("/connexion", async (req, res) => {
     }
 
     const motDePasseValide = await bcrypt.compare(
-      req.body.mot_de_passe,
+      mdp,
       utilisateur.mot_de_passe
     );
     if (!motDePasseValide) {

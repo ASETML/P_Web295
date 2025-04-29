@@ -72,6 +72,8 @@ categorieRouter.post("/", auth, (req, res) => {
       res.status(500).json({ message, data: error });
     });
 });
+
+//Livres d'une catégorie
 categorieRouter.get("/:id/livres", auth, (req, res) => {
   const id = req.params.id;
   Categorie.findByPk(id)
@@ -82,11 +84,11 @@ categorieRouter.get("/:id/livres", auth, (req, res) => {
             categorie_fk: id,
           },
         }).then((livres) => {
-          const message = `voici tous les livres dont la categories est égal a ${id}`;
+          const message = `voici tous les livres de la catégories ${id}`;
           return res.json(success(message, livres));
         });
       } else {
-        const message = "cette categorie n'éxiste pas";
+        const message = "cette catégorie n'existe pas";
         return res.status(404).json({ message });
       }
     })
