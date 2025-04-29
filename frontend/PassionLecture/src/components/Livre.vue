@@ -18,12 +18,13 @@ defineProps({
 
 <style scoped>
 .livre {
-  background-color: #dbdbdb;
+  background-color: #d9d9d9;
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
   cursor: pointer;
   transition: all 0.3s;
+  overflow: hidden;
 }
 
 .livre:hover {

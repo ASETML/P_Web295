@@ -16,7 +16,8 @@ const livres = ref([
     annee: 3456,
   },
   {
-    titre: 'dfgdfe555',
+    titre:
+      'dfgdfegjkfnbfkgnbfkjnbfknbgsdfughdiodfjgoisfdjgoisdjgsiodjgosdjgosidjgoièfsfpiudghpsdiufghpsdiughsdiughsiudghsuidghsuidghiudshgiusdhg555',
     description: 'sdg684sdfgxvb  gth rr',
     editeur: 'asdfgsdr',
     annee: 3564,
@@ -62,12 +63,14 @@ const livres = ref([
 .book {
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 
 .book article {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 33%;
 }
 
 .welcome {
@@ -75,5 +78,9 @@ const livres = ref([
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.home {
+  background-color: #f8fff4;
 }
 </style>
