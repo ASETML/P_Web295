@@ -1,11 +1,35 @@
 <template>
   <div class="recherche">
-    <h1>coucou</h1>
+    <select name="Category" v-model="selection" @change="Chercher">
+      <option value="">Category</option>
+      <option v-for="category in categories" :key="category.id" :value="category.nom">
+        {{ category.nom }}
+      </option>
+    </select>
     <LivreComponent v-for="livre in livres" :key="livre.id" :livre="livre" />
   </div>
 </template>
 <script setup>
 import LivreComponent from '@/components/LivreComponent.vue'
+import { ref } from 'vue'
+const selection = ref('')
+function Chercher() {
+  alert(selection.value)
+}
+const categories = [
+  { id: 1, nom: 'Science-fiction' },
+  { id: 2, nom: 'Fantasy' },
+  { id: 3, nom: 'Roman historique' },
+  { id: 4, nom: 'Policier / Thriller' },
+  { id: 5, nom: 'Romance' },
+  { id: 6, nom: 'Développement personnel' },
+  { id: 7, nom: 'Biographie / Autobiographie' },
+  { id: 8, nom: 'Philosophie' },
+  { id: 9, nom: 'Essais / Société' },
+  { id: 10, nom: 'Jeunesse / Enfants' },
+  { id: 11, nom: 'Horreur' },
+  { id: 12, nom: 'Bandes dessinées / Manga' },
+]
 
 const livres = [
   {
