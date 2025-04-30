@@ -2,6 +2,8 @@ import express from "express";
 import { app_port } from "./config.mjs";
 import swaggerUi from "swagger-ui-express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+
 const app = express();
 
 /*app.use((req, res, next) => {
@@ -19,7 +21,7 @@ app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 //Pour récupérer les images
 app.use("/uploads", express.static("uploads"));
 

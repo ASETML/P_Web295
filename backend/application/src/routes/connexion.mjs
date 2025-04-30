@@ -5,6 +5,7 @@ import { ValidationError, Op } from "sequelize";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { privateKey } from "../config.mjs";
+import cookieParser from "cookie-parser";
 
 const connexionRouter = express();
 
@@ -64,7 +65,10 @@ connexionRouter.post("/connexion", async (req, res) => {
       privateKey,
       { expiresIn: "1y" }
     );
-
+    res.cookie("jwtCookie", token, {
+      maxAge: 86400000, //24h en milisecondes
+      httpOnly: true,
+    });
     res.json({ message: "Connexion réussie.", token });
   } catch (error) {
     res.status(500).json({ message: "Erreur serveur.", data: error.message });
