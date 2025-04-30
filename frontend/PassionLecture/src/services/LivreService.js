@@ -13,10 +13,10 @@ export default {
   getLivreFromCategorie(id) {
     return apiClient.get('/categories/' + id + '/livres')
   },
-  getCategories() {
-    return apiClient.get('/categories')
-  },
   getLastLivres(limit) {
     return apiClient.get('/livres/' + '?limit=' + limit)
+  },
+  getLivre(id) {
+    return apiClient.get('/livres/' + id)
   },
 }
