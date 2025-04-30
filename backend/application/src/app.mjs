@@ -2,10 +2,21 @@ import express from "express";
 import { app_port } from "./config.mjs";
 import swaggerUi from "swagger-ui-express";
 import cors from "cors";
-
 const app = express();
 
-app.use(cors());
+/*app.use((req, res, next) => {
+  res.append("Access-Control-Allow-Origin", ["*"]);
+  res.append("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.append("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});*/
+const corsOptions = {
+  origin: "http://localhost:5173", // Autorise ton frontend
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"], // Autorise le header Authorization
+};
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
