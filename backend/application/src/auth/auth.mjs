@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken";
 import { privateKey } from "../config.mjs";
 
 const auth = (req, res, next) => {
-  const authorizationHeader = req.headers.authorization;
+  const authorizationHeader = req.cookie["jwtCookie"];
+  //const authorizationHeader = req.headers.authorization;
   console.log(req.headers.authorization);
   if (!authorizationHeader) {
     const message = `vous n'avez pas fourni de jeton d'authentification`;

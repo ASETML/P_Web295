@@ -11,25 +11,22 @@
 </template>
 <script setup>
 import LivreComponent from '@/components/LivreComponent.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import CategoryService from '@/services/CategoryService.js'
 const selection = ref('')
+const categories = ref(null)
 function Chercher() {
   alert(selection.value)
 }
-const categories = [
-  { id: 1, nom: 'Science-fiction' },
-  { id: 2, nom: 'Fantasy' },
-  { id: 3, nom: 'Roman historique' },
-  { id: 4, nom: 'Policier / Thriller' },
-  { id: 5, nom: 'Romance' },
-  { id: 6, nom: 'Développement personnel' },
-  { id: 7, nom: 'Biographie / Autobiographie' },
-  { id: 8, nom: 'Philosophie' },
-  { id: 9, nom: 'Essais / Société' },
-  { id: 10, nom: 'Jeunesse / Enfants' },
-  { id: 11, nom: 'Horreur' },
-  { id: 12, nom: 'Bandes dessinées / Manga' },
-]
+const getcategoryy = () => {
+  CategoryService.getCategory()
+    .then((res) => {
+      categories.value = res.data
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
 
 const livres = [
   {
@@ -74,4 +71,7 @@ const livres = [
     image: 'https://m.media-amazon.com/images/I/41y6z3+1+6L.jpg',
   },
 ]
+onMounted(() => {
+  getcategoryy()
+})
 </script>
