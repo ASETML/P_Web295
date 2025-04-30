@@ -65,9 +65,12 @@ connexionRouter.post("/connexion", async (req, res) => {
       privateKey,
       { expiresIn: "1y" }
     );
-    res.cookie("jwtCookie", token, {
+
+    res.cookie("authcookie", token, {
       maxAge: 86400000, //24h en milisecondes
       httpOnly: true,
+      sameSite: "Lax",
+      secure: false,
     });
     res.json({ message: "Connexion réussie.", token });
   } catch (error) {

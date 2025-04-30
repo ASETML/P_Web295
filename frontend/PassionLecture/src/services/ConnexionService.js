@@ -4,9 +4,11 @@ const apiClient = axios.create({
   baseURL: 'http://localhost:3000/api',
   withCredentials: true,
 })
-
 export default {
-  getLivreFromCategorie(id) {
-    return apiClient.get('/categories/' + id + '/livres')
+  PostConnexion(pseudo, mdp) {
+    return apiClient.post('/connexion', {
+      mot_de_passe: mdp,
+      pseudo: pseudo,
+    })
   },
 }
