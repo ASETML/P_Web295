@@ -1,0 +1,371 @@
+* 	 (HEAD -> main) ✨ Ajout des commentaires à la page de détails d'un livre
+* 	 (origin/main, origin/HEAD) ✨ Ajout de la catégorie à la page de détail d'un livre
+* 	 💄💫 Animation au survol de l'image sur la page de détails d'un livre
+*   	 🔀 Page de détail d'un livre
+|\  
+| *   	 (origin/75-page-de-détail-dun-livre, 75-page-de-détail-dun-livre) Merge branch 'main' into 75-page-de-détail-dun-livre
+| |\  
+| |/  
+|/|   
+* |   	 🔀Merge pull request #87 from ASETML/Page-de-Connexion
+|\ \  
+| * | 	 Ajout du css de la page de connexion
+* | | 	 config et gitignore
+|/ /  
+* | 	 (tag: v2.3.0) 📝 JDT S2 Alban
+* | 	 :memo: update journal de travail du 29 et du 30 avril
+* |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\ \  
+* | | 	 👷 ajout d'une page de connexion et stockage des jetons jwt dans les cookies
+| | * 	 ✨💄 Page de détails d'un livre
+| | * 	 ✨ La route de récupération des détails d'un livres retourne le nb de page et le résumé
+| | * 	 🌱 Ajout de l'image au seeder des livres
+| | * 	 💄 Centrer l'élément central de la page d'accueil
+| | * 	 🚧 Page de détails d'un livre, le composant livre ne marche pas
+| |/  
+| * 	 ✨ Récupération des derniers livres sur la page d'accueil
+|/  
+* 	 👷 utilisation de la route pour avoir toutes les categories
+* 	 👷 ajout de la gestion de cookies pour les jetons JWT
+* 	 ➕ ajout d'une dépendances pour les cookies
+* 	 👷 ajout d'un middleWare pour Cors policy
+* 	 (tag: v2.2.0) 🚧 Services pour interroger le backend
+* 	 👷 Ajout d'un champ select pour la recherche en fonction des catégories
+*   	 🔀  Page d'accueil
+|\  
+| *   	 (origin/72-page-daccueil, 72-page-daccueil) Merge branch 'main' into 72-page-daccueil
+| |\  
+| |/  
+|/|   
+* | 	 🚚rename le composant livre en LivreComponent
+* | 	 (tag: v2.1.0) 👷  ajout de la vue RechercheView
+| * 	 💄🔥 Améliorer la mise en page de la page d'accueil
+| * 	 ✨ Page d'accueil avec les livres en dur
+| *   	 🔀  Récupération du Header
+| |\  
+| |/  
+|/|   
+* | 	 💄 Ajout du header
+* | 	 👷 ajout du component Livre
+|/  
+*   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\  
+| * 	 ➕ Ajout de Axios au dépendances
+| * 	 🤡 Ajout des views de l'application
+| * 	 📝 Compléter le README
+* | 	 💄ajout des maquettes du site
+|/  
+*   	 (tag: v2.0.0) Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\  
+| * 	 📝 JDT S1 Alban
+* | 	 ajout du journal de travail
+* | 	 ajout de la palette de couleur
+|/  
+* 	 :tada: Création de projet en VueJs
+* 	 🎉🚚 Réorganiser le repo pour le projet frontend
+* 	 (tag: v1.6.0) Rapport : Semble OK - relecture finale à faire
+*   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\  
+| * 	 ✅ Ajout des exports Insomnia
+| * 	 ✨  Ajout de la limite à la liste des livres
+| * 	 🥅 Catch pour les routes avec des images, si le corps de la requête n'a pas la bonne structure
+* | 	 🖼 ✂Minor change : image cropped
+|/  
+*   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\  
+| *   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+| |\  
+| | * 	 🗃️ Mettre une majuscule aux noms de tables
+| | * 	 🚚 Mettre les routes au pluriel
+| * | 	 :memo: :wrench: changement du .gitignore et ajout du point "Architecture du repertoire"
+* | | 	 Erreurs gérées dans les routes - relu par IA
+| |/  
+|/|   
+* |   	 🔀  Ajout des images
+|\ \  
+| |/  
+|/|   
+| *   	 (img) Merge branch 'main' into img
+| |\  
+| |/  
+|/|   
+* | 	 :egg: pour lancer le serveur
+* |   	 (tag: v1.5.0) 🔀 Merge pull request #67 from ASETML/swagger
+|\ \  
+| * | 	 😎 📝  SWAGGER : OK - route GET /livre
+* | |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\ \ \  
+* | | | 	 :memo: update routes
+| | | * 	 ✨ Récupération des images dans les routes livres
+| | | * 	 ✨ Récupération des images en statique
+| | | * 	 ✨  Ajout de l'image à la modification du livre
+| | | * 	 ✨  Ajout de l'image à la création du livre
+| | | * 	 ✨ 👷 POST livre avec une image [WIP]
+| | | * 	 Route /upload : on peut envoyer une image et la stocker dans le *serveur*
+| | | * 	 Folder /uploads ignoré
+| | | * 	 🎉 Début de la gestion des images avec Multer
+| | |/  
+| | * 	 (swagger) 📝 Config de swagger
+| | *   	 🔀  Merge pull request #66 from ASETML/main
+| | |\  
+| | |/  
+| |/|   
+| * | 	 Merge branch 'swagger' into main
+| |\| 
+| | * 	 :construction: swagger
+| * | 	 🔀 Crud livres
+|/| | 
+| * | 	 (crud-livres-v3) GET détails d'un livre ET gestion des erreurs : OK
+| * | 	 ✨ moyenne des appréciations dans GET livre : OK
+| * |   	 Merge branch 'crud-livres-v3' of https://github.com/ASETML/P_Web295 into crud-livres-v3
+| |\ \  
+| | * | 	 🐛 suppression du ; en trop
+| | * | 	 ♻️  Remplacer id par livre_id dans les routes de supression et modification
+| * | | 	 🌱🤡 Mock DB : data ajouté - pour tester la moyenne des apprécations
+| |/ /  
+| * | 	 ✨ Ajout de l'extrait à la récupération du livre par id
+| * | 	 ✨ Ajout des commentaires à la récupération du livre par id
+| * | 	 ✨ Ajout de l'éditeur aux routes de récupération des livres
+| * | 	 ✨ Mise à jour de la route pour les détails d'un livres
+| * | 	 ✨ Ajout de la route pour mettre à jour un livre
+| * | 	 📸 Backup d'Insomia
+| * | 	 ✨ Ajout de la route pour suprimmer un livre
+* | | 	 ⚡ minor changes
+* | |   	 🔀 Merge pull request #64 from ASETML/test
+|\ \ \  
+| * | | 	 (test) Renommer les tests de helper.mjs
+| * | | 	 🚧  Test de sucess
+* | | |   	 Merge pull request #63 from ASETML/crud-livres-v3
+|\ \ \ \  
+| | |/ /  
+| |/| |   
+| * | |   	 Merge branch 'crud-livres-v3' of https://github.com/ASETML/P_Web295 into crud-livres-v3
+| |\ \ \  
+| * | | | 	 🔍 👷 Recherche livre : OK 🎊
+* | | | |   	 (tag: v1.4.0) Merge pull request #62 from ASETML/crud-livres-v3
+|\ \ \ \ \  
+| | |/ / /  
+| |/| | /   
+| |_|_|/    
+|/| | |     
+| * | |   	 Merge branch 'main' into crud-livres-v3
+| |\ \ \  
+| |/ / /  
+|/| / /   
+| |/ /    
+* | | 	 ajouter la route editeur dans app.mjs
+* | |   	 :twisted_rightwards_arrows: Merge pull request #61 from ASETML/CRUD-editeur
+|\ \ \  
+| * | | 	 👷 ajout des CRUD-editeur
+* | | |   	 :twisted_rightwards_arrows: Merge pull request #60 from ASETML/CRUD-écrivain
+|\ \ \ \  
+| |/ / /  
+|/| | |   
+| * | | 	 👷 ajout d'une route imbriquée
+| * | | 	 👷 CRUD-écrivain
+* | | |   	 🔀  ✨ Route pour commenter un livre
+|\ \ \ \  
+| |_|_|/  
+|/| | |   
+| * | | 	 (commenter-un-livre) ✨ Route pour commenter un livre
+|/ / /  
+| | * 	 📁  🎊  Data ajoutées ET RegEx OK
+| | * 	 👷  🚧  Route recherche livre par texte et catégorie : WIP 🚧
+| | *   	 🔀  Récupération des changements du main
+| | |\  
+| |_|/  
+|/| |   
+* | |   	 🔀🚧  Route d'ajout d'un livre + route de preview WIP
+|\ \ \  
+| | |/  
+| |/|   
+| * |   	 Merge branch 'main' into crud-livres-v3
+| |\ \  
+| |/ /  
+|/| |   
+* | |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\ \ \  
+| | |/  
+| |/|   
+| * | 	 :bug: fix un bug de github
+* | | 	 ⚠️ 😠 conflit : OK 👌
+|/ /  
+* |   	 ⚠️ 😠 conflit
+|\ \  
+| * \   	 Merge pull request #54 from ASETML/route-imbriquée--categories/-id/books
+| |\ \  
+| | * | 	 create route imbriquée
+| |/ /  
+* / / 	 👌🚗 routes categorie fonctionnent
+|/ /  
+* | 	 ✒rapport modifié - tableau des routes
+* |   	 (tag: v1.3.0) Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\ \  
+| * \   	 👷Merge pull request #53 from ASETML/CRUD-appréciation
+| |\ \  
+| | * | 	 👷 crud appreciation OK
+| | * |   	 Merge pull request #52 from ASETML/main
+| | |\ \  
+| | |/ /  
+| |/| |   
+| * | |   	 Merge pull request #51 from ASETML/5-crud-utilisateurs
+| |\ \ \  
+| | * | | 	 👷 plus besoin de la route utilisateur 😥
+| | * | | 	 👷 ajout d'une verification si l'utilisateur est bien admin
+* | | | | 	 🆕 Export dossier Insomnia
+* | | | | 	 ✏️ Rapport MAJ
+|/ / / /  
+| | | * 	 :construction: :card_file_box: Supression du script SQL + gestion des erreurs de l'ajout
+| | | * 	 :construction: Début de la route d'ajout et début de la route de preview
+| | | * 	 🚧  Get /api/livres retourne un json preview
+| |_|/  
+|/| |   
+| | | *   	 (Crud-livres) 🔀  Merge pull request #49 from ASETML/Crud-Livres
+| | | |\  
+| | | | * 	 Merge branch 'Crud-livres' into Crud-Livres
+| |_|_|/| 
+|/| | |/  
+| | | * 	 🚧  Route pour récupérer la liste des livres
+| | | * 	 ✨  Route de récupération des livres / recherche
+| | | * 	 🚧  Récupération de tous les livres
+* | | | 	 🏭 🔗 dev : liens dans les scripts de lancement
+* | | | 	 🔗 repo : liens ajoutés
+|/ / /  
+* | | 	 🔒️🩹✏️ Réparer l'inscription, hachage du mdp + TODO Antoine
+* | | 	 (tag: v1.2.0) 📝  comment : minor change
+* | |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\ \ \  
+| * | | 	 :construction_worker: Merge pull request #47 from ASETML/CRUD-appréciation
+| |\| | 
+| | * | 	 :construction_worker: ajout de la route appreciation !
+| | * | 	 🔀 Merge pull request #46 from ASETML/main
+| | |\| 
+* | | | 	 👨‍💻 dev : CRUD categorie - à tester
+|/ / /  
+* | | 	 🖼 Rapport : page de garde
+* | |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\ \ \  
+| | |/  
+| |/|   
+| * |   	 🔀 Merge pull request #45 from ASETML/Seeder
+| |\ \  
+| | |/  
+| |/|   
+| | * 	 ✏️  Remplacer isInteger par isInt
+| | * 	 🌱  Seeder commentaire
+| | * 	 🌱  Seeder appréciation
+| | * 	 🌱  Seeder livre
+| | * 	 🌱  Seeder éditeur
+| | * 	 🌱  Seeder écrivain
+| | * 	 🌱  Seeder catégorie
+| | * 	 🌱  Seeder utilisateur
+| |/  
+* / 	 🔒  dev : auth ajouté dans les routes livre
+|/  
+*   	 Merge pull request #44 from ASETML/CRUD-User
+|\  
+| * 	 :construction_worker: ajout de la partie verification de token dans la route utilisateur
+| * 	 :construction_worker: ajout de la partie verification de mot de passe et création de token jwt
+| * 	 :construction: ajout connexion utilisateur ()
+| * 	 :construction_worker: modification de app.mjs pour les routes utilisateur et connexion
+| * 	 :construction_worker: ajout d'une route connexion (avec aussi inscription)!
+| * 	 :construction_worker: ajout d'une route utilisateur !
+| * 	 :construction_worker: ajout d'un helper pour faciliter les messages !
+* | 	 📝 ⛲  rapport : sources
+* |   	 Merge pull request #43 from ASETML/authentification
+|\ \  
+| * | 	 :construction_worker: ajout d'un systeme de token jwt
+* | | 	 dev : regEx updated for french accents ✏️ 🔏
+* | | 	 dev : regEx updated for french accents ✏️ 🔏
+* | | 	 dev : regEx updated for french accents ✏️ 🔏
+|/ /  
+* | 	 Rapport : points 4.1, 4.2, 4.2.1, 7.1, 7.2 et 8 sont OK ✨ 📝
+* | 	 🧑‍💻 Instanciation des modèles dans sequelize.mjs
+* | 	 ✏️ Remplacer allowNul par AllowNull dans le modèle utilisateur
+* | 	 ✏️  Correction des fks du modèle livre
+* | 	 ✏️ Remplacer allowNul par AllowNull dans le modèle éditeur
+* | 	 ✏️  Remplacer allowNul par AllowNull dans le modèle écrivain
+* | 	 ✏️  Corriger la fk du modèle commenter
+* | 	 ✏️  Remplacer allowNul par allowNull dans le modèle catégorie
+* | 	 ✏️ Corriger la fk du modèle apprécier
+* | 	 Rapport : point 4.1 OK ✨ - 4.2 WIP 👷
+* | 	 Rapport Tableau des routes terminé ✨ 🎊
+* | 	 Tableau des routes dans le rapport : WIP 🚧
+|/  
+* 	 Tableau des routes dans le rapport : WIP 🚧
+*   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\  
+| *   	 Merge pull request #42 from ASETML/2-modèles-db
+| |\  
+| | * 	 :construction_worker: models OK
+| | * 	 🦺 ajout de la premiere fk dans le model apprecier.mjs
+* | | 	 Looping et script SQL dans le dossier DB 📂 👌
+|/ /  
+* | 	 script de setup de l'environnement - Mateo 👷
+* | 	 (tag: v1.1.0) 🚧 avancement dans les routes : WIP
+|/  
+*   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\  
+| *   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+| |\  
+| * | 	 🦺 ajout du model commenter
+* | | 	 ℹ json pour copier/coller ajouté
+* | | 	 📁dossier rapport créé
+| |/  
+|/|   
+* | 	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\| 
+| * 	 🦺 ajout du model apprecier
+* | 	 🚧 Routes dans le rapport : WIP
+* | 	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\| 
+| * 	 🐛 fix du nom de la table
+| * 	 🦺 ajout du model editeur.mjs
+| * 	 🦺 ajout du model écrivain
+| * 	 🐛 fix catégorie.mjs (ajout du point mjs)
+| * 	 🦺 ajout du model de la table catégorie
+| * 	 amelioration du model utilisateur
+| * 	 model utilisateur ✔🎂
+| * 	 Ajout du mot de passe et du droit admin à l'utilisateur dans le mcd, déplacer la clé privée dans config.js 🛡
+* | 	 👻 fichiers .tmp ajoutés au .gitignore
+* | 	 Page de garde du rapport 🎨
+|/  
+*   	 (tag: v1.0.0) Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\  
+| * 	 Page de garde du rapport (il manque l'image 🖼)
+| * 	 fichier temp de Word ajt au gitignore 👻
+| *   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+| |\  
+| | * 	 Listes des routes de livre + app.mjs 🚗
+| * | 	 Début du rapport ✒
+| |/  
+* / 	 ajout du model livre.mjs ✔✨
+|/  
+*   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\  
+| * 	 Explications du fichier de config dans le README 📖
+| *   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+| |\  
+| | * 	 images de la maquette importées
+| * | 	 Connexion à la base de données et ajout d'un fichier de configuration 🛢
+* | | 	 model livre✔✨
+| |/  
+|/|   
+* | 	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\| 
+| *   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+| |\  
+| | * 	 .gitignore updated for repo ico 🦧
+| * | 	 Ajouter le docker 🐳
+| |/  
+* / 	 Préparation code ✔✔✨✨💋🌹
+|/  
+* 	 package.json OK✔🎂👀😃✨
+* 	 Création de l'aborescence 🌳
+* 	 Ajouter le script de création de la base de données 📜
+*   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\  
+| * 	 documents livrés ajoutés ✔
+* | 	 Ajouter mcd
+|/  
+* 	 Initial commit
