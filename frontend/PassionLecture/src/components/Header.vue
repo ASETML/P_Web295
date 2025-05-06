@@ -4,7 +4,7 @@
       <RouterLink :to="{ name: 'home' }"><h2>Passion Lecture</h2></RouterLink>
       <div>
         <RouterLink :to="{ name: 'search' }"><p class="link">Recherche</p></RouterLink>
-        <RouterLink :to="{ name: 'account' }"><p class="link">Icon</p></RouterLink>
+        <RouterLink :to="{ name: 'connexion' }"><p class="link">Icon</p></RouterLink>
       </div>
     </nav>
   </header>
