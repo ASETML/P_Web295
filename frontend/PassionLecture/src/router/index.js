@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LivreComponent from '@/components/LivreComponent.vue'
+import LivreView from '@/views/LivreView.vue'
 
 import RechercheView from '@/views/RechercheView.vue'
 import HomeView from '@/views/HomeView.vue'
@@ -22,6 +22,12 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: RechercheView,
+    },
+    {
+      path: '/book/:id',
+      name: 'book',
+      props: true,
+      component: LivreView,
     },
     {
       path: '/connexion',
