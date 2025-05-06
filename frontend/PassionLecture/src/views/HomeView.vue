@@ -35,7 +35,7 @@ watch(() => {
     </section>
     <section class="lastBooks">
       <div class="book">
-        <Livre v-for="livre in livres" :key="livre" :livre="livre"></Livre>
+        <Livre v-for="livre in livres" :key="livre" :livre="livre" class="livre"></Livre>
         <p class="filler"></p>
         <!-- <article>
         <Livre :livre="livres.values[0]"></Livre>
@@ -95,5 +95,9 @@ watch(() => {
 
 .home {
   background-color: #f8fff4;
+}
+
+.livre:nth-child(2) {
+  transform: translateY(50%);
 }
 </style>
