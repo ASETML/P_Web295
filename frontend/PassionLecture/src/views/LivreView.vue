@@ -89,9 +89,16 @@ watch(() => {
 
 img {
   width: 15%;
+  border-radius: 5%;
+  transition: all 1s;
 }
 
 .details {
   margin-left: 10%;
+}
+
+img:hover {
+  rotate: 360deg;
+  width: 25%;
 }
 </style>
