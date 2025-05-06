@@ -197,8 +197,10 @@ livreRouter.get("/:id", auth, async (req, res) => {
     const preview = {
       livre_id: book.livre_id,
       titre: book.titre,
+      nb_pages: book.nombre_pages,
       annee_edition: book.annee_edition,
       extrait: book.extrait,
+      resume: book.resume,
       image: book.image,
       ecrivain_nom: ecrivain ? ecrivain.nom : null,
       ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
