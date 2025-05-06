@@ -42,6 +42,13 @@ watch(() => {
       <!-- TODO: Quand on arrive sur la page de recherche, la catégorie du livre est déjà selectionnée -->
       <h3>Résumé</h3>
       <p class="resume">{{ livre.resume }}</p>
+
+      <section v-if="livre.commentaires.length > 0">
+        <h3>Commentaires</h3>
+        <article v-for="commentaire in livre.commentaires" :key="commentaire.id">
+          <p>{{ commentaire.commentaire }}</p>
+        </article>
+      </section>
     </div>
   </div>
 </template>
