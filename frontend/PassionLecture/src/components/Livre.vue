@@ -12,7 +12,7 @@
 
 <script setup>
 const props = defineProps(['livre'])
-console.log(JSON.stringify('A' + livre))
+console.log('A')
 </script>
 
 <style scoped>
