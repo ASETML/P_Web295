@@ -131,6 +131,7 @@ const importLivre = () => {
       categorie_fk: livre.categorie,
       editeur_fk: livre.editeur,
       ecrivain_fk: livre.ecrivain,
+      image: livre.image,
     });
     console.log(livre);
   });

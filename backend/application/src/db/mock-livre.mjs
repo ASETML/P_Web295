@@ -10,6 +10,7 @@ export const livres = [
     categorie: 1,
     editeur: 1,
     ecrivain: 1,
+    image: "1.png",
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const livres = [
     categorie: 1,
     editeur: 2,
     ecrivain: 2,
+    image: "1.png",
   },
   {
     id: 3,
@@ -34,6 +36,7 @@ export const livres = [
     categorie: 1,
     editeur: 3,
     ecrivain: 3,
+    image: "1.png",
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ export const livres = [
     categorie: 3,
     editeur: 4,
     ecrivain: 4,
+    image: "1.png",
   },
   {
     id: 5,
@@ -58,6 +62,7 @@ export const livres = [
     categorie: 4,
     editeur: 5,
     ecrivain: 5,
+    image: "1.png",
   },
   {
     id: 6,
@@ -70,6 +75,7 @@ export const livres = [
     categorie: 5,
     editeur: 6,
     ecrivain: 6,
+    image: "1.png",
   },
   {
     id: 7,
@@ -82,6 +88,7 @@ export const livres = [
     categorie: 6,
     editeur: 7,
     ecrivain: 7,
+    image: "1.png",
   },
   {
     id: 8,
@@ -94,6 +101,7 @@ export const livres = [
     categorie: 7,
     editeur: 8,
     ecrivain: 8,
+    image: "1.png",
   },
   {
     id: 9,
@@ -106,6 +114,7 @@ export const livres = [
     categorie: 8,
     editeur: 9,
     ecrivain: 9,
+    image: "1.png",
   },
   {
     id: 10,
@@ -118,6 +127,7 @@ export const livres = [
     categorie: 9,
     editeur: 10,
     ecrivain: 10,
+    image: "1.png",
   },
   {
     id: 11,
@@ -130,6 +140,7 @@ export const livres = [
     categorie: 10,
     editeur: 11,
     ecrivain: 11,
+    image: "1.png",
   },
   {
     id: 12,
@@ -142,5 +153,6 @@ export const livres = [
     categorie: 11,
     editeur: 12,
     ecrivain: 12,
+    image: "1.png",
   },
 ];
