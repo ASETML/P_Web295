@@ -65,12 +65,17 @@ body {
 
 /* Conteneur centré */
 .login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 10vh; /* Assure la hauteur totale de l'écran */
   background-color: var(--bg);
   padding: 3rem;
   border-radius: 16px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 420px;
+  margin: auto; /* Centrage horizontal au cas où */
 }
 
 /* Titre */
