@@ -1,5 +1,29 @@
-* 	 (HEAD -> main) ✨ Ajout des commentaires à la page de détails d'un livre
-* 	 (origin/main, origin/HEAD) ✨ Ajout de la catégorie à la page de détail d'un livre
+*   	 (HEAD -> main, origin/main, origin/HEAD) 🔀Merge pull request #91 from ASETML/Page-de-creation-de-compte
+|\  
+| * 	 Update JDT
+| * 	 changement css register et header
+* | 	 📝 JDT S3 Alban
+* | 	 💄 Afficher le nombre de livres d'une catégorie
+* |   	 🔀 Page de recherche
+|\ \  
+| * | 	 (recherhce) 💄 Style du composant Livre
+| * | 	 ✨♻️ La recherche par catégorie fonctionne
+* | |   	 🔀Merge pull request #89 from ASETML/Page-de-creation-de-compte
+|\ \ \  
+| |/ /  
+|/| /   
+| |/    
+| * 	 modification du CSS du header
+| * 	 Ajout des services d'inscription
+| * 	 Create page d'inscription
+* | 	 🔨 Ouverture de VSCode dans le script de démarrage
+* | 	 🔨 Script pour démarrer le projet
+|/  
+* 	 (tag: v2.4.0) 📝 JDT S3 Alban
+* 	 ✨ Les livres de la page d'accueil sont des liens vers leur page de détails
+* 	 📝 Export GitTree
+* 	 ✨ Ajout des commentaires à la page de détails d'un livre
+* 	 ✨ Ajout de la catégorie à la page de détail d'un livre
 * 	 💄💫 Animation au survol de l'image sur la page de détails d'un livre
 *   	 🔀 Page de détail d'un livre
 |\  
