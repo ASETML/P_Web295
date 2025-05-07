@@ -37,7 +37,8 @@ const getcategory = async () => {
 }
 
 const fetchLivres = async () => {
-  LivreService.getAllLivres()
+  //LivreService.getAllLivres() //Limite de 5 dans le backend
+  LivreService.getLastLivres(99)
     .then((res) => {
       livres.value = res.data.data
     })
@@ -59,8 +60,8 @@ onMounted(async () => {
 
 <template>
   <div class="recherche">
-    <h1 v-if="selection === ''">Tous les livres</h1>
-    <h1 v-else>Livres de la catégorie {{ cat_nom[0].nom }}</h1>
+    <h1 v-if="selection === ''">Il y a {{ livresFiltered.length }} livres au total</h1>
+    <h1 v-else>Il y a {{ livresFiltered.length }} livres dans la catégorie {{ cat_nom[0].nom }}</h1>
 
     <select name="Category" v-model="selection" @change="fetchLivres">
       <option value="">Toute catégorie</option>
@@ -73,7 +74,7 @@ onMounted(async () => {
       </option>
     </select>
     <Livre v-for="livre in livresFiltered" :key="livre.id" :livre="livre" class="livre" />
-    <p v-if="livresFiltered.length <= 0">Il n'y a pas de livres qui ont cette catégories</p>
+    <p v-if="livresFiltered.length <= 0">Il n'y a pas de livres qui ont cette catégorie</p>
   </div>
 </template>
 
