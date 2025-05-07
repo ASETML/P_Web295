@@ -4,6 +4,7 @@ import LivreView from '@/views/LivreView.vue'
 import RechercheView from '@/views/RechercheView.vue'
 import HomeView from '@/views/HomeView.vue'
 import ConnexionView from '@/views/ConnexionView.vue'
+import RegisterView from '@/views/RegisterView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/connexion',
       name: 'connexion',
       component: ConnexionView,
+    },
+    {
+      path: '/inscription',
+      name: 'inscription',
+      component: RegisterView,
     },
   ],
 })
