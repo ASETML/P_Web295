@@ -37,36 +37,12 @@ watch(() => {
       <div class="book">
         <Livre v-for="livre in livres" :key="livre" :livre="livre" class="livre"></Livre>
         <p class="filler"></p>
-        <!-- <article>
-        <Livre :livre="livres.values[0]"></Livre>
-        <Livre :livre="livres.values[1]"></Livre>
-      </article>
-      <article>
-        <Livre :livre="livres.values[2]"></Livre>
-      </article>
-      <article>
-        <Livre :livre="livres.values[3]"></Livre>
-        <Livre :livre="livres.values[4]"></Livre>
-      </article> -->
       </div>
     </section>
   </div>
 </template>
 
 <style scoped>
-/* .book {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
-.book article {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 33%;
-} */
-
 .lastBooks {
   display: flex;
   justify-content: center;
@@ -99,5 +75,8 @@ watch(() => {
 
 .livre:nth-child(2) {
   transform: translateY(50%);
+}
+.livre:nth-child(2):hover {
+  transform: translateY(50%) scale(1.05, 1.05);
 }
 </style>

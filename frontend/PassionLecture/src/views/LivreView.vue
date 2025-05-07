@@ -101,7 +101,7 @@ watch(() => {
 img {
   width: 15%;
   border-radius: 5%;
-  transition: all 1s;
+  transition: all 0.5s;
 }
 
 .details {
