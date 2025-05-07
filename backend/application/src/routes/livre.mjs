@@ -157,6 +157,7 @@ livreRouter.get("/", auth, async (req, res) => {
         moyenne_appreciation: moyenneAppreciations
           ? parseFloat(moyenneAppreciations.moyenne).toFixed(2)
           : null,
+        categorie_fk: book.categorie_fk,
       });
     }
     res.json(success("La liste des livres à bien été récupérée", booksPreview));
