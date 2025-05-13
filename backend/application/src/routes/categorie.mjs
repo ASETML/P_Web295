@@ -73,28 +73,4 @@ categorieRouter.post("/", auth, (req, res) => {
     });
 });
 
-//Livres d'une catégorie
-categorieRouter.get("/:id/livres", auth, (req, res) => {
-  const id = req.params.id;
-  Categorie.findByPk(id)
-    .then((categorie) => {
-      if (categorie) {
-        Livre.findAll({
-          where: {
-            categorie_fk: id,
-          },
-        }).then((livres) => {
-          const message = `voici tous les livres de la catégories ${id}`;
-          return res.json(success(message, livres));
-        });
-      } else {
-        const message = "cette catégorie n'existe pas";
-        return res.status(404).json({ message });
-      }
-    })
-    .catch((error) => {
-      res.status(500).json({ data: error });
-    });
-});
-
 export { categorieRouter };
