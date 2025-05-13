@@ -1,7 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/Header.vue'
-import Livre from './components/Livre.vue'
 </script>
 
 <template>
