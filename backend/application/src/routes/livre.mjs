@@ -124,13 +124,24 @@ livreRouter.get("/", auth, async (req, res) => {
   let booksPreview = [];
 
   try {
-    const books = await Livre.findAll({
-      where: {
-        titre: { [Op.like]: `%${recherche}%` },
-        categorie_fk: { [Op.like]: categorie },
-      },
-      limit: limit,
-    });
+    let books;
+    //Tous les livres
+    if (limit == -1) {
+      books = await Livre.findAll({
+        where: {
+          titre: { [Op.like]: `%${recherche}%` },
+          categorie_fk: { [Op.like]: categorie },
+        },
+      });
+    } else {
+      books = await Livre.findAll({
+        where: {
+          titre: { [Op.like]: `%${recherche}%` },
+          categorie_fk: { [Op.like]: categorie },
+        },
+        limit: limit,
+      });
+    }
 
     for (const book of books) {
       const ecrivain = await Ecrivain.findByPk(book.ecrivain_fk);

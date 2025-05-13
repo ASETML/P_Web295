@@ -38,7 +38,7 @@ const getcategory = async () => {
 
 const fetchLivres = async () => {
   //LivreService.getAllLivres() //Limite de 5 dans le backend
-  LivreService.getLastLivres(99)
+  LivreService.getLastLivres(-1)
     .then((res) => {
       livres.value = res.data.data
     })

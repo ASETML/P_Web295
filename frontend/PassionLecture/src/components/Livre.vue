@@ -27,7 +27,8 @@ img {
 }
 
 .livre:hover img {
-  rotate: 360deg;
+  /*rotate: 360deg;*/
+  transform: rotate3d(1, 0, 1, 360deg);
   width: 50%;
 }
 
