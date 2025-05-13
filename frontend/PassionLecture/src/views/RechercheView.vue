@@ -60,7 +60,14 @@ onMounted(async () => {
 
 <template>
   <div class="recherche">
+    <!-- Ortographe du pluriel, condition avec le nb de livres trouvés -->
     <h1 v-if="selection === ''">Il y a {{ livresFiltered.length }} livres au total</h1>
+    <h1 v-else-if="livresFiltered.length === 0">
+      Il n'y a pas de livre dans la catégorie {{ cat_nom[0].nom }}
+    </h1>
+    <h1 v-else-if="livresFiltered.length === 1">
+      Il y a 1 livre dans la catégorie {{ cat_nom[0].nom }}
+    </h1>
     <h1 v-else>Il y a {{ livresFiltered.length }} livres dans la catégorie {{ cat_nom[0].nom }}</h1>
 
     <select name="Category" v-model="selection" @change="fetchLivres">
