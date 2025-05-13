@@ -229,18 +229,22 @@ livreRouter.get("/:id", auth, async (req, res) => {
 //Ajout d'un livre
 livreRouter.post("/", auth, upload.single("file"), (req, res) => {
   let object;
+
   try {
     //Récupération du json de la requête
     object = JSON.parse(req.body.data);
-  } catch {
+  } catch (error) {
     const message =
       "Le livre n'a pas pu être créé. Merci de réessayer dans quelques instants. Il faut envoyer les données dans un formulaire multipart, et le json dans un champ data";
+    console.log(error);
     return res.status(400).json({ message, data: error });
   }
   //Création de l'objet livre avec l'image
   const livre = { ...object, image: req.file.filename };
+  console.log(req.file.filename);
   Livre.create(livre)
     .then((book) => {
+      console.log(book);
       res.json(success(`Le livre '${livre.titre}' a bien été créé`, book));
     })
     .catch((error) => {

@@ -41,6 +41,7 @@ const fetchLivres = async () => {
   LivreService.getLastLivres(99)
     .then((res) => {
       livres.value = res.data.data
+      console.log(livres.value)
     })
     .catch((err) => {
       console.log(err)
