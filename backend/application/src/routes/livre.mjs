@@ -11,6 +11,8 @@ import {
 import { ValidationError, Op, where } from "sequelize";
 import { success } from "./helper.mjs";
 import Sequelize from "sequelize";
+import { privateKey } from "../config.mjs";
+import jwt from "jsonwebtoken";
 
 //Stockage des images
 import multer from "multer";
@@ -178,6 +180,7 @@ livreRouter.get("/", async (req, res) => {
   }
 });
 
+//Détails d'un livre
 livreRouter.get("/:id", async (req, res) => {
   try {
     const book = await Livre.findByPk(req.params.id);
@@ -268,7 +271,13 @@ livreRouter.post("/", auth, upload.single("file"), (req, res) => {
 livreRouter.post("/:id/commentaire", auth, (req, res) => {
   const livre_fk = req.params.id;
   const commentaire = req.body.commentaire;
-  const utilisateur_fk = req.body.utilisateur_fk;
+
+  //Decoder le token pour récupérer l'id de l'utilisateur
+  const token = req.cookies["authcookie"];
+  const decodedToken = jwt.verify(token, privateKey);
+  const utilisateur_fk = decodedToken.utilisateurId;
+
+  console.log(livre_fk, commentaire, utilisateur_fk, decodedToken);
   Commenter.create({ commentaire: commentaire, livre_fk, utilisateur_fk })
     .then((commentaire) => {
       res.json(success(`Votre commentaire a été posté`, commentaire));

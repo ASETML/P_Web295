@@ -61,7 +61,7 @@ connexionRouter.post("/connexion", async (req, res) => {
     }
 
     const token = jwt.sign(
-      { utilisateurId: utilisateur.id, admin: utilisateur.admin },
+      { utilisateurId: utilisateur.utilisateur_id, admin: utilisateur.admin },
       privateKey,
       { expiresIn: "1y" }
     );
