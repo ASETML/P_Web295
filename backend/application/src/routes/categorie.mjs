@@ -7,7 +7,7 @@ import { Livre } from "../db/sequelize.mjs";
 const categorieRouter = express();
 
 // Liste des catégories
-categorieRouter.get("/", auth, (req, res) => {
+categorieRouter.get("/", (req, res) => {
   Categorie.findAll()
     .then((categories) => {
       const message = "La liste des catégories a bien été récupérée.";

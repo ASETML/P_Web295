@@ -117,7 +117,7 @@ const livreRouter = express();
  *                   type: string
  *                   example: Une erreur est survenue sur le serveur.
  */
-livreRouter.get("/", auth, async (req, res) => {
+livreRouter.get("/", async (req, res) => {
   let recherche = req.query.search || "%"; // Si vide, ça prend la valeur "%"
   let categorie = req.query.cat || "%"; // Si vide, ça prend la valeur "%"
   let limit = parseInt(req.query.limit) || 5; //La limite spécifiée par l'utilisateur ou 5
@@ -178,7 +178,7 @@ livreRouter.get("/", auth, async (req, res) => {
   }
 });
 
-livreRouter.get("/:id", auth, async (req, res) => {
+livreRouter.get("/:id", async (req, res) => {
   try {
     const book = await Livre.findByPk(req.params.id);
 
