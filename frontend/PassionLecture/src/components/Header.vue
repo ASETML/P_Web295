@@ -5,11 +5,20 @@
       <div>
         <RouterLink :to="{ name: 'search' }"><p class="link">Recherche</p></RouterLink>
         <RouterLink :to="{ name: 'inscription' }"><p class="link">Inscription</p></RouterLink>
-        <RouterLink :to="{ name: 'connexion' }"><p class="link">Icon</p></RouterLink>
+        <RouterLink :to="{ name: 'connexion' }"
+          ><p class="link"><img v-bind:src="iconeProfile" /></p
+        ></RouterLink>
       </div>
     </nav>
   </header>
 </template>
+
+<script setup lang="js">
+import { ref } from 'vue'
+import iconeProfile from '../assets/iconeProfile.png'
+
+const iconeProfileImage = iconeProfile
+</script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
@@ -38,5 +47,11 @@ h2 {
   font-family: 'Major Mono Display', monospace;
   color: #ffffff;
   margin: 0;
+}
+
+img {
+  height: 20%;
+  width: 15%;
+  align-content: right;
 }
 </style>
