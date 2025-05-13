@@ -1,5 +1,5 @@
 <script setup>
-import Livre from '@/components/Livre.vue'
+import CommentaireForm from '@/components/CommentaireForm.vue'
 import LivreService from '@/services/LivreService'
 import { onMounted, ref, computed, watch } from 'vue'
 
@@ -49,6 +49,7 @@ watch(() => {
           <p>{{ commentaire.commentaire }}</p>
         </article>
       </section>
+      <commentaire-form :id="id" @commenter="fetchLivre()" />
     </div>
   </div>
 </template>

@@ -1,9 +1,5 @@
-import axios from 'axios'
+import apiClient from './ApiClient'
 
-const apiClient = axios.create({
-  baseURL: 'http://localhost:3000/api',
-  withCredentials: true,
-})
 export default {
   PostInscription(pseudo, mdp) {
     return apiClient.post('/inscription', {
