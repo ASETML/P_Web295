@@ -1,3 +1,14 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Nécessaire pour utiliser __dirname avec ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Lecture du fichier EPUB en tant que buffer
+const epubBuffer = fs.readFileSync(path.join(__dirname, "./Epub/pg76104.epub"));
+
 export const livres = [
   {
     id: 1,
@@ -11,7 +22,9 @@ export const livres = [
     editeur: 1,
     ecrivain: 1,
     image: "1.png",
+    epub: epubBuffer,
   },
+
   {
     id: 2,
     titre: "The Scrum Guide",
@@ -24,6 +37,7 @@ export const livres = [
     editeur: 2,
     ecrivain: 2,
     image: "1.png",
+    epub: epubBuffer,
   },
   {
     id: 3,
@@ -37,6 +51,7 @@ export const livres = [
     editeur: 3,
     ecrivain: 3,
     image: "1.png",
+    epub: epubBuffer,
   },
   {
     id: 4,
@@ -50,6 +65,7 @@ export const livres = [
     editeur: 4,
     ecrivain: 4,
     image: "1.png",
+    epub: epubBuffer,
   },
   {
     id: 5,
@@ -63,6 +79,7 @@ export const livres = [
     editeur: 5,
     ecrivain: 5,
     image: "1.png",
+    epub: epubBuffer,
   },
   {
     id: 6,
@@ -76,6 +93,7 @@ export const livres = [
     editeur: 6,
     ecrivain: 6,
     image: "1.png",
+    epub: epubBuffer,
   },
   {
     id: 7,
@@ -89,6 +107,7 @@ export const livres = [
     editeur: 7,
     ecrivain: 7,
     image: "1.png",
+    epub: epubBuffer,
   },
   {
     id: 8,
@@ -102,6 +121,7 @@ export const livres = [
     editeur: 8,
     ecrivain: 8,
     image: "1.png",
+    epub: epubBuffer,
   },
   {
     id: 9,
@@ -115,6 +135,7 @@ export const livres = [
     editeur: 9,
     ecrivain: 9,
     image: "1.png",
+    epub: epubBuffer,
   },
   {
     id: 10,
@@ -128,6 +149,7 @@ export const livres = [
     editeur: 10,
     ecrivain: 10,
     image: "1.png",
+    epub: epubBuffer,
   },
   {
     id: 11,
@@ -141,6 +163,7 @@ export const livres = [
     editeur: 11,
     ecrivain: 11,
     image: "1.png",
+    epub: epubBuffer,
   },
   {
     id: 12,
@@ -154,5 +177,6 @@ export const livres = [
     editeur: 12,
     ecrivain: 12,
     image: "1.png",
+    epub: epubBuffer,
   },
 ];

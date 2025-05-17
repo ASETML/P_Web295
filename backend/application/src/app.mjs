@@ -13,7 +13,7 @@ const app = express();
   next();
 });*/
 const corsOptions = {
-  origin: "http://localhost:5173", // Autorise ton frontend
+  origin: true, // Autorise ton frontend
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"], // Autorise le header Authorization
   credentials: true,

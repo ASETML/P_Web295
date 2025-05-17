@@ -120,6 +120,10 @@ const livreModel = (sequelize, DataTypes) => {
           },
         },
       },
+      epub: {
+        type: DataTypes.BLOB,
+        allowNull: true,
+      },
       utilisateur_fk: {
         type: DataTypes.INTEGER,
         referencies: {
