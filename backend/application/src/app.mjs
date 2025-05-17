@@ -3,7 +3,7 @@ import { app_port } from "./config.mjs";
 import swaggerUi from "swagger-ui-express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
+import path from "path";
 const app = express();
 
 /*app.use((req, res, next) => {
@@ -18,6 +18,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"], // Autorise le header Authorization
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
 app.use(express.json());

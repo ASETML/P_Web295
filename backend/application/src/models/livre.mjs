@@ -121,7 +121,7 @@ const livreModel = (sequelize, DataTypes) => {
         },
       },
       epub: {
-        type: DataTypes.BLOB,
+        type: DataTypes.BLOB("long"), // pour les gros fichiers
         allowNull: true,
       },
       utilisateur_fk: {

@@ -132,6 +132,7 @@ const importLivre = () => {
       editeur_fk: livre.editeur,
       ecrivain_fk: livre.ecrivain,
       image: livre.image,
+      epub: livre.epub,
     });
     console.log(livre);
   });
