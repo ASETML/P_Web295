@@ -9,10 +9,10 @@ const id = computed(() => props.id)
 
 const commentaire = ref(null)
 const comment = async () => {
-  await CommentaireService.postCommentaires(id.value, commentaire.value, 1)
-  commentaire.value = null
-  sleep(10)
-  emit('commenter')
+  await CommentaireService.postCommentaires(id.value, commentaire.value, 1).then((res) => {
+    commentaire.value = null
+    emit('commenter')
+  })
 }
 </script>
 

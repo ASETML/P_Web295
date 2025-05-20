@@ -49,7 +49,7 @@ watch(() => {
           <p>{{ commentaire.commentaire }}</p>
         </article>
       </section>
-      <commentaire-form :id="id" @commenter="fetchLivre()" />
+      <commentaire-form :id="id" @commenter="fetchLivre" />
     </div>
   </div>
 </template>
