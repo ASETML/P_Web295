@@ -31,6 +31,41 @@
         />
       </div>
       <div class="input-group">
+        <label for="Categorie">Categorie</label>
+        <select name="Category" v-model="selectionCat" required>
+          <option value="">Selectionner une Categorie</option>
+          <option
+            v-for="category in categories"
+            :key="category.categorie_id"
+            :value="category.categorie_id"
+          >
+            {{ category.nom }}
+          </option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="Editeur">Editeur</label>
+        <select name="Editeur" v-model="selectionEdi" required>
+          <option value="">Selectionner un Editeur</option>
+          <option v-for="editeur in editeurs" :key="editeur.editeur_id" :value="editeur.editeur_id">
+            {{ editeur.nom }}
+          </option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="Ecrivain">Ecrivain</label>
+        <select name="Ecrivain" v-model="selectionEcr" required>
+          <option value="">Selectionner un Ecrivain</option>
+          <option
+            v-for="ecrivain in ecrivains"
+            :key="ecrivain.ecrivain_id"
+            :value="ecrivain.ecrivain_id"
+          >
+            {{ ecrivain.prenom }} {{ ecrivain.nom }}
+          </option>
+        </select>
+      </div>
+      <div class="input-group">
         <label for="Résumé">Résumé</label>
         <textarea id="Résumé" v-model="resume" placeholder="Résumé" required></textarea>
       </div>
@@ -42,21 +77,29 @@
         </div>
       </div>
     </div>
-    <input type="submit" class="login-btn" value="Créer le compte" />
+    <input type="submit" class="login-btn" value="Créer le Livre" />
   </form>
 </template>
 <script setup>
 import router from '@/router'
 import PostLivreService from '@/services/PostLivreService'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import CategoryService from '@/services/CategoryService'
+import EditeurService from '@/services/EditeurService'
+import EcrivainService from '@/services/EcrivainService'
+const selectionCat = ref('')
+const selectionEdi = ref('')
+const selectionEcr = ref('')
 const titre = ref('')
 const extrait = ref('')
 const nombrePage = ref('')
-
+const categories = ref(null)
 const anneeEdition = ref('')
 const resume = ref('')
 const imageFile = ref(null)
 const imagePreview = ref(null)
+const editeurs = ref(null)
+const ecrivains = ref(null)
 const handleImage = (event) => {
   const file = event.target.files[0]
   if (file) {
@@ -64,6 +107,7 @@ const handleImage = (event) => {
     imagePreview.value = URL.createObjectURL(file)
   }
 }
+
 const creationLivre = () => {
   if (imageFile.value) {
     PostLivreService.postLivre(
@@ -73,6 +117,10 @@ const creationLivre = () => {
       resume.value,
       parseInt(anneeEdition.value),
       imageFile.value,
+      parseInt(selectionCat.value),
+      parseInt(selectionEdi.value),
+      parseInt(selectionEcr.value),
+      console.log(selectionCat),
     )
       .then((response) => {
         console.log('Livre créé avec succès', response.data)
@@ -85,6 +133,38 @@ const creationLivre = () => {
     console.error('Aucune image sélectionnée')
   }
 }
+const getcategory = async () => {
+  CategoryService.getCategory()
+    .then((res) => {
+      categories.value = res.data.data
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+const getEditeur = async () => {
+  EditeurService.getEditeur()
+    .then((res) => {
+      editeurs.value = res.data.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+const getEcrivain = async () => {
+  EcrivainService.getEcrivain()
+    .then((res) => {
+      ecrivains.value = res.data.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+onMounted(async () => {
+  await getcategory()
+  await getEditeur()
+  await getEcrivain()
+})
 </script>
 <style>
 .image-upload input[type='file'] {
