@@ -3,10 +3,21 @@ import { Utilisateur } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { auth } from "../auth/auth.mjs";
 import jwt from "jsonwebtoken";
-import { privateKey } from "../config.mjs";
 
+import { privateKey } from "../config.mjs";
 const utilisateurRouter = express();
 
+utilisateurRouter.get("/", auth, (req, res) => {
+  const authorizationHeader = req.cookies["authcookie"];
+  //const authorizationHeader = req.headers.authorization;
+  //console.log(req.headers.authorization);
+  console.log(req.cookies["authcookie"]);
+
+  const token = authorizationHeader;
+  const decodedToken = jwt.verify(token, privateKey);
+  console.log(decodedToken);
+  res.json(decodedToken.utilisateurId);
+});
 //Détails d'un utilisateur
 utilisateurRouter.get("/:id", auth, (req, res) => {
   Utilisateur.findByPk(req.params.id)

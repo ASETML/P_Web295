@@ -10,6 +10,9 @@
         <RouterLink :to="{ name: 'connexion' }" v-if="!isIdentified"
           ><p class="link"><img v-bind:src="iconeProfile" /></p
         ></RouterLink>
+        <RouterLink :to="{ name: 'compte' }" v-if="isIdentified"
+          ><p class="link"><img v-bind:src="iconeProfile" /></p
+        ></RouterLink>
       </div>
     </nav>
   </header>
