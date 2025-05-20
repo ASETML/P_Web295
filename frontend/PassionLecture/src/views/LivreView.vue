@@ -1,6 +1,7 @@
 <script setup>
 import CommentaireForm from '@/components/CommentaireForm.vue'
 import LivreService from '@/services/LivreService'
+import AppreciationService from '@/services/AppreciationService'
 import { onMounted, ref, computed, watch } from 'vue'
 
 const props = defineProps(['id'])
@@ -22,14 +23,19 @@ const fetchLivre = async () => {
 
 const like = async () => {
   if (selection.value != '') {
-    LivreService.postAppreciation(id.value, selection.value).then((res) => {
-      console.log('################################# ' + res)
+    AppreciationService.postAppreciation(id.value, selection.value).then((res) => {
+      console.log('################################# ' + res.data)
     })
   }
 }
 
 onMounted(() => {
   fetchLivre()
+
+  //Récupérer l'appréciation
+  AppreciationService.getAppreciation(id.value).then((res) => {
+    selection.value = res.data.data.note
+  })
 })
 
 watch(() => {
