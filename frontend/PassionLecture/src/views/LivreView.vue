@@ -1,11 +1,14 @@
 <script setup>
 import CommentaireForm from '@/components/CommentaireForm.vue'
 import LivreService from '@/services/LivreService'
+import AppreciationService from '@/services/AppreciationService'
 import { onMounted, ref, computed, watch } from 'vue'
 
 const props = defineProps(['id'])
 
 const id = computed(() => props.id)
+
+const selection = ref('')
 
 const livre = ref(null)
 const fetchLivre = async () => {
@@ -18,8 +21,21 @@ const fetchLivre = async () => {
     })
 }
 
+const like = async () => {
+  if (selection.value != '') {
+    AppreciationService.postAppreciation(id.value, selection.value).then((res) => {
+      console.log('################################# ' + res.data)
+    })
+  }
+}
+
 onMounted(() => {
   fetchLivre()
+
+  //Récupérer l'appréciation
+  AppreciationService.getAppreciation(id.value).then((res) => {
+    selection.value = res.data.data.note
+  })
 })
 
 watch(() => {
@@ -31,6 +47,16 @@ watch(() => {
 <template>
   <div id="container">
     <img :src="'http://localhost:3000/uploads/' + livre.image" />
+
+    <select name="note" v-model="selection">
+      <option value="">Choisissez une note</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+    <button @click="like">❤</button>
     <div class="details">
       <h2>{{ livre.titre }} - {{ livre.ecrivain_prenom }} {{ livre.ecrivain_nom }}</h2>
       <p>{{ livre.editeur_nom }} {{ livre.annee_edition }}</p>
