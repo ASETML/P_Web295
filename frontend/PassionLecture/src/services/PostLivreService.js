@@ -5,18 +5,27 @@ const apiClient = axios.create({
   withCredentials: true,
 })
 export default {
-  postLivre(titre, nombre_pages, extrait, resume, annee_edition, imageFile) {
+  postLivre(
+    titre,
+    nombre_pages,
+    extrait,
+    resume,
+    annee_edition,
+    imageFile,
+    categorie,
+    editeur,
+    ecrivain,
+  ) {
     const dataObject = {
-      titre,
-
-      nombre_pages,
-      extrait,
-      resume,
-      annee_edition,
-      utilisateur: 11,
-      categorie: 10,
-      editeur: 11,
-      ecrivain: 11,
+      titre: titre,
+      nombre_pages: nombre_pages,
+      extrait: extrait,
+      resume: resume,
+      annee_edition: annee_edition,
+      utilisateur_fk: 11,
+      categorie_fk: categorie,
+      editeur_fk: editeur,
+      ecrivain_fk: ecrivain,
     }
 
     const formData = new FormData()
