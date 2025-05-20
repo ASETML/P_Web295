@@ -1,20 +1,30 @@
 <script setup>
+import { useRouter, useRoute } from 'vue-router'
 import Livre from '@/components/Livre.vue'
 import { computed, onMounted, ref, watch } from 'vue'
 import CategoryService from '@/services/CategoryService.js'
 import LivreService from '@/services/LivreService'
 
+const router = useRouter()
+const route = useRoute()
+
+const currentCategory = computed(() => route.params.cat || 'toutes')
+
+console.log(currentCategory)
 const selection = ref('')
 const categories = ref(null)
 const livres = ref([null])
 
+const selectedCategory = computed({
+  get: () => route.params.cat || 'toutes',
+  set: (val) => {
+    const params = val === 'toutes' ? {} : { cat: val }
+    router.push({ name: 'search', params })
+  },
+})
 const livresFiltered = computed(() => {
-  if (livres.value && selection.value != '') {
-    return livres.value.filter((livre) => {
-      return livre.categorie_fk == selection.value
-    })
-  }
-  return livres.value
+  if (currentCategory.value === 'toutes') return livres.value
+  return livres.value.filter((livre) => livre.cat === currentCategory.value)
 })
 
 const cat_nom = computed(() => {
