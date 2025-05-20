@@ -6,6 +6,7 @@ import HomeView from '@/views/HomeView.vue'
 import ConnexionView from '@/views/ConnexionView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import CreateLivreView from '@/views/CreateLivreView.vue'
+import CompteView from '@/views/CompteView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
       path: '/creationLivre',
       name: 'creationLivre',
       component: CreateLivreView,
+    },
+    {
+      path: '/compte',
+      name: 'compte',
+      component: CompteView,
     },
   ],
 })

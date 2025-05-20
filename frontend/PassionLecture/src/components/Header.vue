@@ -4,8 +4,13 @@
       <RouterLink :to="{ name: 'home' }"><h2>Passion Lecture</h2></RouterLink>
       <div>
         <RouterLink :to="{ name: 'search' }"><p class="link">Recherche</p></RouterLink>
-        <RouterLink :to="{ name: 'inscription' }"><p class="link">Inscription</p></RouterLink>
-        <RouterLink :to="{ name: 'connexion' }"
+        <RouterLink :to="{ name: 'inscription' }" v-if="!isIdentified"
+          ><p class="link">Inscription</p></RouterLink
+        >
+        <RouterLink :to="{ name: 'connexion' }" v-if="!isIdentified"
+          ><p class="link"><img v-bind:src="iconeProfile" /></p
+        ></RouterLink>
+        <RouterLink :to="{ name: 'compte' }" v-if="isIdentified"
           ><p class="link"><img v-bind:src="iconeProfile" /></p
         ></RouterLink>
       </div>
@@ -14,8 +19,13 @@
 </template>
 
 <script setup lang="js">
-import { ref } from 'vue'
+import Cookies from 'js-cookie'
+import { onMounted, ref } from 'vue'
 import iconeProfile from '../assets/iconeProfile.png'
+var isIdentified = ref(null)
+onMounted(() => {
+  isIdentified.value = Cookies.get('authcookie')
+})
 
 const iconeProfileImage = iconeProfile
 </script>

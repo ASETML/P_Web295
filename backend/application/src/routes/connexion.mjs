@@ -68,7 +68,7 @@ connexionRouter.post("/connexion", async (req, res) => {
 
     res.cookie("authcookie", token, {
       maxAge: 86400000, //24h en milisecondes
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "Lax",
       secure: false,
     });
