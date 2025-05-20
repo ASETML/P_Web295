@@ -3,6 +3,8 @@ import { auth } from "../auth/auth.mjs";
 import { Apprecier } from "../db/sequelize.mjs";
 import { ValidationError } from "sequelize";
 import { success } from "./helper.mjs";
+import { privateKey } from "../config.mjs";
+import jwt from "jsonwebtoken";
 const appreciationRouter = express();
 
 appreciationRouter.get("/", auth, (req, res) => {
@@ -19,8 +21,16 @@ appreciationRouter.get("/", auth, (req, res) => {
     });
 });
 
-appreciationRouter.post("/", auth, (req, res) => {
-  Apprecier.create(req.body)
+appreciationRouter.post("/:id", auth, (req, res) => {
+  const livre_fk = req.params.id;
+  const note = req.body.note;
+
+  //Decoder le token pour récupérer l'id de l'utilisateur
+  const token = req.cookies["authcookie"];
+  const decodedToken = jwt.verify(token, privateKey);
+  const utilisateur_fk = decodedToken.utilisateurId;
+
+  Apprecier.create({ livre_fk, utilisateur_fk, note })
     .then((createdAppreciation) => {
       const message = `l'appreciation a bien été créée`;
 

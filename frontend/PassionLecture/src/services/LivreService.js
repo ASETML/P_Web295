@@ -14,4 +14,9 @@ export default {
   getAllLivres() {
     return apiClient.get('/livres/')
   },
+  postAppreciation(livre_id, note) {
+    return apiClient.post('/appreciations/' + livre_id, {
+      note: note,
+    })
+  },
 }
