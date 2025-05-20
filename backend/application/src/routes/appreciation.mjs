@@ -3,6 +3,8 @@ import { auth } from "../auth/auth.mjs";
 import { Apprecier } from "../db/sequelize.mjs";
 import { ValidationError } from "sequelize";
 import { success } from "./helper.mjs";
+import { privateKey } from "../config.mjs";
+import jwt from "jsonwebtoken";
 const appreciationRouter = express();
 
 appreciationRouter.get("/", auth, (req, res) => {
@@ -19,8 +21,42 @@ appreciationRouter.get("/", auth, (req, res) => {
     });
 });
 
-appreciationRouter.post("/", auth, (req, res) => {
-  Apprecier.create(req.body)
+appreciationRouter.get("/:id", auth, (req, res) => {
+  const livre_fk = req.params.id;
+
+  //Decoder le token pour récupérer l'id de l'utilisateur
+  const token = req.cookies["authcookie"];
+  const decodedToken = jwt.verify(token, privateKey);
+  const utilisateur_fk = decodedToken.utilisateurId;
+
+  Apprecier.findOne({
+    where: { livre_fk: livre_fk, utilisateur_fk: utilisateur_fk },
+  })
+    .then((appreciation) => {
+      if (appreciation) {
+        const message = `L'appréciation de l'utilisateur ${utilisateur_fk} pour le livre ${livre_fk} a bien été récupérée`;
+        return res.json(success(message, appreciation));
+      }
+      const message = `Il n'y a pas d'appréciation de l'utilisateur ${utilisateur_fk} pour le livre ${livre_fk}`;
+      return res.status(404).json({ message });
+    })
+    .catch((error) => {
+      const message = "L'appréciation n'a pas pu être récupérée, réessayer";
+      console.log(error);
+      return res.status(500).json({ message, data: error });
+    });
+});
+
+appreciationRouter.post("/:id", auth, (req, res) => {
+  const livre_fk = req.params.id;
+  const note = req.body.note;
+
+  //Decoder le token pour récupérer l'id de l'utilisateur
+  const token = req.cookies["authcookie"];
+  const decodedToken = jwt.verify(token, privateKey);
+  const utilisateur_fk = decodedToken.utilisateurId;
+
+  Apprecier.create({ livre_fk, utilisateur_fk, note })
     .then((createdAppreciation) => {
       const message = `l'appreciation a bien été créée`;
 
