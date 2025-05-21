@@ -1,30 +1,65 @@
-* 	 (HEAD -> main, origin/main, origin/HEAD) Update Journal-de-Travail_FabreAntoine.xlsx
+* 	 (HEAD -> main, origin/main, origin/HEAD) 📝 MAJ du JDT
+* 	 Update Journal-de-Travail_FabreAntoine.xlsx
+* 	 👷 Ajout de la page de compte
 *   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
 |\  
-| *   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+* | 	 👷 Création et modification de route dans le backend
+* | 	 👷 Création d'un service pour récupérer les commentaires d'un user
+* | 	 👷 Création d'un service pour récupérer toutes les infos d'un user
+* | 	 👷 Création d'un service qui va récupérer l'id de l'utilisateur connecté
+* | 	 👷 Création d'un service pour fetch les livres que l'utilisateur a créé
+* | 	 👷 Ajout sur la route get livres d'une query id
+| | * 	 (origin/petites-etoiles-pour-la-note-du-livre, petites-etoiles-pour-la-note-du-livre) 🚧 Affichage de la note
+| |/  
+| * 	 📝 Réparation du JDT Alban 😡
+| * 	 🔀 Merge pull request #98 from ASETML/79-apprécier-un-livre
+|/| 
+| *   	 (79-apprécier-un-livre) Merge branch 'main' of https://github.com/ASETML/P_Web295 into 79-apprécier-un-livre
 | |\  
-| | *   	 🔀 Merge pull request #96 from ASETML/79-apprécier-un-livre
-| | |\  
-| | | * 	 (origin/79-apprécier-un-livre, 79-apprécier-un-livre) 🔥♻️ Supprimmer le paramètre user_id lors de l'ajout d'un commentaire
-| | | * 	 ✨ Si on a déjà apprécié un livre, l'appréciation est récupérée et affichée
-| | | * 	 ✨ L'ajout d'une appréciation fonctionne
-| | | * 	 ✨ On peut apprécier un livre
-| * | | 	 ✏️ Rapport : points 1.0 à 4.2.1 : OK
-* | | | 	 👷 Création de la page de compte + modification du backend route utilisateur
+| |/  
+|/|   
+| * 	 ✨ On peut ajouter, modifier et supprimer une appréciation
+| | * 	 (origin/404-page) 👷 Gestion erreur 500 : WIP
+| | * 	 👷 Page 404 : OK
+| |/  
+|/|   
+* | 	 🔨 Le script de démarrage ouvre: le repo, le projets, gitmoji et l'application
+* |   	 (tag: v2.7.0) Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\ \  
+| * | 	 📝 JDT Alban 20.05.25
+| * | 	 Update Journal-de-Travail_FabreAntoine.xlsx
+| * |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+| |\ \  
+| * | | 	 👷 Création de la page de compte + modification du backend route utilisateur
+| * | |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+| |\ \ \  
+| * | | | 	 👷 Cookie de type httpOnly false pour y avoir accès depuis le frontend
+| * | | | 	 👷 retirer les boutons de connexion et d'inscription si déjà connecté
+| * | | | 	 :heavy_plus_sign: ajout d'une dépendance pour lire les cookies
+| * | | | 	 👷 ajout de champs select pour ajouter des livres
+| * | | | 	 👷 Ajout de paramètre a ajouter pour créer un livre
+| * | | | 	 👷 Ajout d'un service pour get les éditeurs
+| * | | | 	 👷 Ajout d'un service pour get les écrivains
+* | | | | 	 📝 MAJ du JDT
+| |_|/ /  
+|/| | |   
 * | | |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
 |\ \ \ \  
-| | |/ /  
-| |/| |   
+| * \ \ \   	 🔀 Merge pull request #96 from ASETML/79-apprécier-un-livre
+| |\ \ \ \  
+| | |_|/ /  
+| |/| | /   
+| | | |/    
+| | |/|     
+| | * | 	 🔥♻️ Supprimmer le paramètre user_id lors de l'ajout d'un commentaire
+| | * | 	 ✨ Si on a déjà apprécié un livre, l'appréciation est récupérée et affichée
+| | * | 	 ✨ L'ajout d'une appréciation fonctionne
+| | * | 	 ✨ On peut apprécier un livre
 | * | | 	 🔨 Le script de démarrage ouvre le CDC
 | * | | 	 💄 Ajout du footer
-| |/ /  
-* | | 	 👷 Cookie de type httpOnly false pour y avoir accès depuis le frontend
-* | | 	 👷 retirer les boutons de connexion et d'inscription si déjà connecté
-* | | 	 :heavy_plus_sign: ajout d'une dépendance pour lire les cookies
-* | | 	 👷 ajout de champs select pour ajouter des livres
-* | | 	 👷 Ajout de paramètre a ajouter pour créer un livre
-* | | 	 👷 Ajout d'un service pour get les éditeurs
-* | | 	 👷 Ajout d'un service pour get les écrivains
+| | |/  
+| |/|   
+* / | 	 ✏️ Rapport : points 1.0 à 4.2.1 : OK
 |/ /  
 * | 	 🖋️Rapport créé : WIP
 * | 	 📋 Ajout du CDC
@@ -100,7 +135,7 @@
 | |\  
 | |/  
 |/|   
-* |   	 (origin/Page-de-creation-de-compte) 🔀Merge pull request #87 from ASETML/Page-de-Connexion
+* |   	 🔀Merge pull request #87 from ASETML/Page-de-Connexion
 |\ \  
 | * | 	 Ajout du css de la page de connexion
 * | | 	 config et gitignore
