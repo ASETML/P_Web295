@@ -7,6 +7,7 @@ import ConnexionView from '@/views/ConnexionView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import CreateLivreView from '@/views/CreateLivreView.vue'
 import CompteView from '@/views/CompteView.vue'
+import NotFound from '@/views/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,6 +53,7 @@ const router = createRouter({
       name: 'compte',
       component: CompteView,
     },
+    { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound }, //404
   ],
 })
 
