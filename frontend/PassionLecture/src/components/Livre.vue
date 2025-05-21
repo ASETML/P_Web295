@@ -6,6 +6,11 @@
       <h4>{{ livre.ecrivain_prenom + ' ' + livre.ecrivain_nom }}</h4>
       <p>{{ livre.description }}</p>
       <p>{{ livre.editeur_nom }} - {{ livre.annee_edition }}</p>
+      <div class="rating">
+        <p>{{ livre.moyenne_appreciation }}</p>
+        <img src="../assets/star.png" />
+        <!-- SVG DOESNT WORK -->
+      </div>
     </div>
   </router-link>
 </template>
@@ -69,5 +74,10 @@ img {
   justify-content: center;
   align-items: center;
   width: 75%;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row;
 }
 </style>
