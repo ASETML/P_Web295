@@ -3,6 +3,7 @@ import CommentaireForm from '@/components/CommentaireForm.vue'
 import LivreService from '@/services/LivreService'
 import AppreciationService from '@/services/AppreciationService'
 import { onMounted, ref, computed, watch } from 'vue'
+import ConnexionService from '@/services/ConnexionService'
 
 const props = defineProps(['id'])
 
@@ -23,9 +24,9 @@ const fetchLivre = async () => {
 
 const like = async () => {
   if (selection.value != '') {
-    AppreciationService.postAppreciation(id.value, selection.value).then((res) => {
-      console.log('################################# ' + res.data)
-    })
+    AppreciationService.postAppreciation(id.value, selection.value).then((_) => {})
+  } else if (selection.value === '') {
+    AppreciationService.delAppreciation(id.value).then((_) => {})
   }
 }
 

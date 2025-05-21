@@ -1,7 +1,7 @@
 import express from "express";
 import { auth } from "../auth/auth.mjs";
 import { Apprecier } from "../db/sequelize.mjs";
-import { ValidationError } from "sequelize";
+import { ValidationError, where } from "sequelize";
 import { success } from "./helper.mjs";
 import { privateKey } from "../config.mjs";
 import jwt from "jsonwebtoken";
@@ -71,16 +71,30 @@ appreciationRouter.post("/:id", auth, (req, res) => {
     });
 });
 
+//Supprimme une appréciation
 appreciationRouter.delete("/:id", auth, async (req, res) => {
+  const livre_fk = req.params.id;
+
+  //Decoder le token pour récupérer l'id de l'utilisateur
+  const token = req.cookies["authcookie"];
+  const decodedToken = jwt.verify(token, privateKey);
+  const utilisateur_fk = decodedToken.utilisateurId;
+
+  console.log(livre_fk, utilisateur_fk);
+
   try {
-    const deletedAppreciation = await Apprecier.findByPk(req.params.id);
-    if (!deletedAppreciation) {
-      return res
-        .status(404)
-        .json({ message: "Cette appréciation n'existe pas." });
-    }
-    await Apprecier.destroy({ where: { id: deletedAppreciation.id } });
-    res.json(success("L'appréciation a été supprimée.", {}));
+    Apprecier.findOne({
+      where: { livre_fk: livre_fk, utilisateur_fk: utilisateur_fk },
+    }).then((deletedAppreciation) => {
+      if (!deletedAppreciation) {
+        return res
+          .status(404)
+          .json({ message: "Cette appréciation n'existe pas." });
+      }
+      Apprecier.destroy({ where: { id: deletedAppreciation.id } }).then((_) => {
+        res.json(success("L'appréciation a été supprimée.", {}));
+      });
+    });
   } catch (error) {
     res
       .status(500)
@@ -88,22 +102,58 @@ appreciationRouter.delete("/:id", auth, async (req, res) => {
   }
 });
 
+//Ajoute une appréciation et la met à jour si elle existe déjà
 appreciationRouter.put("/:id", auth, (req, res) => {
-  const appreciationId = req.params.id;
-  Apprecier.update(req.body, { where: { id: appreciationId } })
-    .then((_) => {
-      Apprecier.findByPk(appreciationId).then((updatedAppreciation) => {
-        if (updatedAppreciation === null) {
-          const message = "cette appreciation n'existe pas !";
-          return res.status(404).json({ message });
-        }
-        const message = `l'appreciation dont l'id vaut ${updatedAppreciation.id} a été mis a jour !`;
-        res.json(success(message, updatedAppreciation));
-      });
-    })
-    .catch((error) => {
-      const message = " l'appreciation n'a pas pu etre mis a jour !";
-      res.status.apply(500).json({ message, data: error });
-    });
+  const livre_fk = req.params.id;
+  const note = req.body.note;
+
+  //Decoder le token pour récupérer l'id de l'utilisateur
+  const token = req.cookies["authcookie"];
+  const decodedToken = jwt.verify(token, privateKey);
+  const utilisateur_fk = decodedToken.utilisateurId;
+
+  console.log(utilisateur_fk, livre_fk, note);
+
+  Apprecier.findOne({
+    where: { livre_fk: livre_fk, utilisateur_fk: utilisateur_fk },
+  }).then((appreciation) => {
+    if (appreciation) {
+      console.log("+++++++++++++++++++++++++++++++++++++++++");
+      Apprecier.update(req.body, {
+        where: { livre_fk: livre_fk, utilisateur_fk: utilisateur_fk },
+      })
+        .then((_) => {
+          Apprecier.findByPk(appreciation.id).then((updatedAppreciation) => {
+            if (updatedAppreciation === null) {
+              const message = "cette appreciation n'existe pas !";
+              return res.status(404).json({ message });
+            }
+            const message = `l'appreciation dont l'id vaut ${updatedAppreciation.id} a été mis a jour !`;
+            return res.json(success(message, updatedAppreciation));
+          });
+        })
+        .catch((error) => {
+          const message = " l'appreciation n'a pas pu etre mis a jour !";
+          return res.status(500).json({ message, data: error });
+        });
+    } else {
+      console.log("-----------------------------------------");
+      Apprecier.create({ livre_fk, utilisateur_fk, note })
+        .then((createdAppreciation) => {
+          const message = `l'appreciation a bien été créée`;
+
+          return res.json(success(message, createdAppreciation));
+        })
+        .catch((error) => {
+          if (error instanceof ValidationError) {
+            return res
+              .status(400)
+              .json({ message: error.message, data: error });
+          }
+          const message = "erreur de création d'appreciation";
+          return res.status(500).json({ message, data: error });
+        });
+    }
+  });
 });
 export { appreciationRouter };
