@@ -47,8 +47,8 @@ app.get("/", (req, res) => {
 import { livreRouter } from "./routes/livre.mjs";
 app.use("/api/livres", livreRouter);
 
-/*import { utilisateurRouter } from "./routes/utilisateur.mjs";
-app.use("/api/utilisateur", utilisateurRouter);*/
+import { utilisateurRouter } from "./routes/utilisateur.mjs";
+app.use("/api/utilisateur", utilisateurRouter);
 
 import { categorieRouter } from "./routes/categorie.mjs";
 app.use("/api/categories", categorieRouter);
