@@ -186,7 +186,28 @@ livreRouter.get("/", async (req, res) => {
     res.status(500).json(error);
   }
 });
-
+livreRouter.get("/commentaire/:id", auth, async (req, res) => {
+  try {
+    const commentaires = await Commenter.findAll({
+      where: {
+        utilisateur_fk: req.params.id,
+      },
+    });
+    if (commentaires) {
+      res.json(
+        success(
+          `voici les commentaires de l'utilisateur dont l'id vaut ${req.params.id}`,
+          commentaires
+        )
+      );
+    } else {
+      res.status(404).json("utilisateur non trouvé");
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+});
 //Détails d'un livre
 livreRouter.get("/:id", async (req, res) => {
   try {

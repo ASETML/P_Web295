@@ -20,13 +20,15 @@ utilisateurRouter.get("/", auth, (req, res) => {
 });
 //Détails d'un utilisateur
 utilisateurRouter.get("/:id", auth, (req, res) => {
+  console.log(req.params.id);
   Utilisateur.findByPk(req.params.id)
     .then((utilisateur) => {
+      console.log(utilisateur);
       if (utilisateur === null) {
         const message = `cet utilisateur n'existe pas`;
         return res.status(404).json({ message });
       }
-      const message = `l'utilisateur dont l'id vaut ${utilisateur.id} a bien été récupérer`;
+      const message = `l'utilisateur dont l'id vaut ${utilisateur.utilisateur_id} a bien été récupérer`;
       res.json(success(message, utilisateur));
     })
     .catch((error) => {
