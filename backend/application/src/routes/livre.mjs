@@ -7,6 +7,7 @@ import {
   Categorie,
   Apprecier,
   Commenter,
+  Utilisateur,
 } from "../db/sequelize.mjs";
 import { ValidationError, Op, where } from "sequelize";
 import { success } from "./helper.mjs";
@@ -123,8 +124,10 @@ livreRouter.get("/", async (req, res) => {
   let recherche = req.query.search || "%"; // Si vide, ça prend la valeur "%"
   let categorie = req.query.cat || "%"; // Si vide, ça prend la valeur "%"
   let limit = parseInt(req.query.limit) || 5; //La limite spécifiée par l'utilisateur ou 5
+  let user = req.query.user || "%";
   let booksPreview = [];
-
+  console.log(user);
+  console.log(req.query.user);
   try {
     let books;
     //Tous les livres
@@ -133,6 +136,7 @@ livreRouter.get("/", async (req, res) => {
         where: {
           titre: { [Op.like]: `%${recherche}%` },
           categorie_fk: { [Op.like]: categorie },
+          utilisateur_fk: { [Op.like]: user },
         },
       });
     } else {
@@ -140,6 +144,7 @@ livreRouter.get("/", async (req, res) => {
         where: {
           titre: { [Op.like]: `%${recherche}%` },
           categorie_fk: { [Op.like]: categorie },
+          utilisateur_fk: { [Op.like]: user },
         },
         limit: limit,
       });
@@ -149,6 +154,7 @@ livreRouter.get("/", async (req, res) => {
       const ecrivain = await Ecrivain.findByPk(book.ecrivain_fk);
       const categorieRecup = await Categorie.findByPk(book.categorie_fk);
       const editeur = await Editeur.findByPk(book.editeur_fk);
+      const utilisateur_fk = await Utilisateur.findByPk(book.utilisateur_fk);
 
       //  moyenne appréciations du livre
       const moyenneAppreciations = await Apprecier.findOne({
@@ -167,6 +173,7 @@ livreRouter.get("/", async (req, res) => {
         ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
         categorie_nom: categorieRecup ? categorieRecup.nom : null,
         editeur_nom: editeur ? editeur.nom : null,
+        utilisateur_fk: utilisateur_fk ? utilisateur_fk.utilisateur_id : null,
         moyenne_appreciation: moyenneAppreciations
           ? parseFloat(moyenneAppreciations.moyenne).toFixed(2)
           : null,
@@ -253,9 +260,11 @@ livreRouter.post("/", auth, upload.single("file"), (req, res) => {
     console.log(error);
     return res.status(400).json({ message, data: error });
   }
+  console.log(object);
   //Création de l'objet livre avec l'image
   const livre = { ...object, image: req.file.filename };
   console.log(req.file.filename);
+  console.log(livre);
   Livre.create(livre)
     .then((book) => {
       console.log(book);
