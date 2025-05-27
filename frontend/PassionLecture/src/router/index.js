@@ -7,10 +7,9 @@ import ConnexionView from '@/views/ConnexionView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import CreateLivreView from '@/views/CreateLivreView.vue'
 import CompteView from '@/views/CompteView.vue'
-
+import VisiteUserView from '@/views/VisiteUserView.vue'
 import NotFound from '@/views/NotFound.vue'
 import ErreurServeur from '@/views/ErreurServeur.vue'
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,7 +56,6 @@ const router = createRouter({
       component: CompteView,
     },
     {
-
       path: '/user/:id',
       name: 'userDetail',
       component: VisiteUserView,
@@ -72,7 +70,6 @@ const router = createRouter({
       path: '/erreur-serveur',
       name: 'erreur-serveur',
       component: ErreurServeur,
-
     },
   ],
 })
