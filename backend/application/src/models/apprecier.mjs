@@ -18,8 +18,8 @@ const apprecierModel = (sequelize, DataTypes) => {
             msg: "la note est une propriété obligatoire.",
           },
           min: {
-            args: [1.0],
-            msg: "la note ne peut pas etre en dessous de 1",
+            args: [0.0],
+            msg: "la note ne peut pas etre en dessous de 0",
           },
           max: {
             args: [5.0],

@@ -51,6 +51,7 @@ watch(() => {
 
     <select name="note" v-model="selection">
       <option value="">Choisissez une note</option>
+      <option>0</option>
       <option>1</option>
       <option>2</option>
       <option>3</option>
