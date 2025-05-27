@@ -8,7 +8,6 @@ import RegisterView from '@/views/RegisterView.vue'
 import CreateLivreView from '@/views/CreateLivreView.vue'
 import CompteView from '@/views/CompteView.vue'
 import VisiteUserView from '@/views/VisiteUserView.vue'
-
 import NotFound from '@/views/NotFound.vue'
 import ErreurServeur from '@/views/ErreurServeur.vue'
 
