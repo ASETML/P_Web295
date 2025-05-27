@@ -1,10 +1,11 @@
 import express from "express";
-import { Utilisateur } from "../db/sequelize.mjs";
+import { Livre, Utilisateur } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { auth } from "../auth/auth.mjs";
 import jwt from "jsonwebtoken";
 
 import { privateKey } from "../config.mjs";
+import { where } from "sequelize";
 const utilisateurRouter = express();
 
 utilisateurRouter.get("/", auth, (req, res) => {
@@ -21,6 +22,7 @@ utilisateurRouter.get("/", auth, (req, res) => {
 //Détails d'un utilisateur
 utilisateurRouter.get("/:id", auth, (req, res) => {
   console.log(req.params.id);
+  let userPreview = [];
   Utilisateur.findByPk(req.params.id)
     .then((utilisateur) => {
       console.log(utilisateur);
@@ -29,10 +31,28 @@ utilisateurRouter.get("/:id", auth, (req, res) => {
         return res.status(404).json({ message });
       }
       const message = `l'utilisateur dont l'id vaut ${utilisateur.utilisateur_id} a bien été récupérer`;
-      res.json(success(message, utilisateur));
+
+      Livre.findAll({
+        where: {
+          utilisateur_fk: utilisateur.utilisateur_id,
+        },
+      }).then((livres) => {
+        console.log(message);
+        console.log(livres);
+        const nbrLivres = livres.length;
+        console.log(nbrLivres);
+
+        userPreview.push({
+          user_id: utilisateur.utilisateur_id,
+          pseudo: utilisateur.pseudo,
+          date_inscription: utilisateur.created,
+          nbrLivres: nbrLivres,
+        });
+        res.json(success(message, userPreview));
+      });
     })
     .catch((error) => {
-      const message = "il y a eu un problème du côté serveur désolé";
+      const message = "il y a eu un problème du côté serveur désolé!!!";
       res.status(500).json({ message, data: error });
     });
 });
