@@ -21,7 +21,7 @@
 <script setup lang="js">
 import Cookies from 'js-cookie'
 import { onMounted, ref } from 'vue'
-import iconeProfile from '../assets/iconeProfile.png'
+import iconeProfile from '../assets/iconeProfile.webp'
 var isIdentified = ref(null)
 onMounted(() => {
   isIdentified.value = Cookies.get('authcookie')
