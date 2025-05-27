@@ -54,7 +54,12 @@ const router = createRouter({
       name: 'compte',
       component: CompteView,
     },
-    { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound }, //404
+    {
+      //404
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFound,
+    },
     {
       //500
       path: '/erreur-serveur',
