@@ -35,4 +35,8 @@ label {
   margin-top: 2%;
   font-size: larger;
 }
+input {
+  margin: 0.5em;
+  padding: 0.5em;
+}
 </style>
