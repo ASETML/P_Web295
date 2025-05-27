@@ -3,7 +3,6 @@ import CommentaireForm from '@/components/CommentaireForm.vue'
 import LivreService from '@/services/LivreService'
 import AppreciationService from '@/services/AppreciationService'
 import { onMounted, ref, computed, watch } from 'vue'
-import ConnexionService from '@/services/ConnexionService'
 
 const props = defineProps(['id'])
 
@@ -60,6 +59,11 @@ watch(() => {
     <button @click="like">❤</button>
     <div class="details">
       <h2>{{ livre.titre }} - {{ livre.ecrivain_prenom }} {{ livre.ecrivain_nom }}</h2>
+      <div class="rating" v-if="!isNaN(livre.moyenne_appreciations)">
+        <p>{{ livre.moyenne_appreciations }}</p>
+        <img src="../assets/star.webp" />
+      </div>
+
       <p>{{ livre.editeur_nom }} {{ livre.annee_edition }}</p>
       <a :href="livre.extrait" target="blank">{{ livre.extrait }}</a>
       <p>Nombre de page: {{ livre.nb_pages }}</p>
@@ -139,5 +143,14 @@ img {
 img:hover {
   rotate: 360deg;
   width: 25%;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row;
+}
+
+.rating img {
+  height: 100% !important;
 }
 </style>
