@@ -16,6 +16,10 @@
       </router-link>
       <p>{{ livre.description }}</p>
       <p>{{ livre.editeur_nom }} - {{ livre.annee_edition }}</p>
+      <div class="rating" v-if="!isNaN(livre.moyenne_appreciation)">
+        <p>{{ livre.moyenne_appreciation }}</p>
+        <img src="../assets/star.webp" />
+      </div>
     </div>
   </div>
 </template>
@@ -97,5 +101,14 @@ img {
   justify-content: center;
   align-items: center;
   width: 75%;
+}
+
+.rating {
+  display: flex;
+  flex-direction: row;
+}
+
+.rating img {
+  height: 250%;
 }
 </style>
