@@ -178,8 +178,13 @@ livreRouter.get("/", async (req, res) => {
           ? parseFloat(moyenneAppreciations.moyenne).toFixed(2)
           : null,
         categorie_fk: book.categorie_fk,
+        created: book.created,
       });
     }
+
+    //Sort books
+    booksPreview.sort((x, y) => x.created > y.created);
+
     res.json(success("La liste des livres à bien été récupérée", booksPreview));
   } catch (error) {
     console.error(error);
@@ -352,7 +357,7 @@ livreRouter.delete("/:id", auth, (req, res) => {
 });
 
 //Modifie un livre
-livreRouter.put("/:id", auth, (req, res) => {
+livreRouter.put("/:id", upload.single("file"), auth, (req, res) => {
   let object;
   try {
     //Récupération du json de la requête
