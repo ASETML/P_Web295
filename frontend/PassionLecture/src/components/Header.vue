@@ -64,4 +64,7 @@ img {
   width: 15%;
   align-content: right;
 }
+a {
+  text-decoration: none;
+}
 </style>
