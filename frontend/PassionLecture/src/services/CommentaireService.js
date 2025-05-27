@@ -6,4 +6,7 @@ export default {
       commentaire: commentaire,
     })
   },
+  getCommentaires(id) {
+    return apiClient.get('/livres/commentaire/' + id)
+  },
 }

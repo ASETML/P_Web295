@@ -8,6 +8,10 @@ export default {
   getLastLivres(limit) {
     return apiClient.get('/livres/' + '?limit=' + limit)
   },
+  getLivresUser(id) {
+    console.log(id)
+    return apiClient.get('/livres/?user=' + id)
+  },
   getLivre(id) {
     return apiClient.get('/livres/' + id)
   },
