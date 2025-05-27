@@ -1,9 +1,19 @@
 <template>
-  <router-link :to="{ name: 'book', params: { id: livre.livre_id } }" class="livre">
+  <div class="livre">
     <img :src="'http://localhost:3000/uploads/' + livre.image" alt="" />
     <div class="details">
-      <h2>{{ livre.titre }}</h2>
+      <router-link :to="{ name: 'book', params: { id: livre.livre_id } }" class="livre">
+        <h2>{{ livre.titre }}</h2>
+      </router-link>
+
       <h4>{{ livre.ecrivain_prenom + ' ' + livre.ecrivain_nom }}</h4>
+
+      <router-link
+        :to="{ name: 'userDetail', params: { id: livre.utilisateur_fk } }"
+        target="_blank"
+      >
+        <p>{{ user?.pseudo }}</p>
+      </router-link>
       <p>{{ livre.description }}</p>
       <p>{{ livre.editeur_nom }} - {{ livre.annee_edition }}</p>
       <div class="rating" v-if="!isNaN(livre.moyenne_appreciation)">
@@ -11,11 +21,29 @@
         <img src="../assets/star.webp" />
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script setup>
+import UtilisateurService from '@/services/UtilisateurService'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
 const props = defineProps(['livre'])
+const user = ref(null)
+console.log(props.livre.utilisateur_fk)
+const fetchUser = async () => {
+  UtilisateurService.getUtilisateurById(props.livre.utilisateur_fk).then((response) => {
+    user.value = response.data.data[0]
+    console.log(user.value)
+  })
+}
+watch(() => {
+  fetchUser()
+})
+onMounted(() => {
+  fetchUser()
+})
 </script>
 
 <style scoped>
