@@ -7,6 +7,7 @@ import ConnexionView from '@/views/ConnexionView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import CreateLivreView from '@/views/CreateLivreView.vue'
 import CompteView from '@/views/CompteView.vue'
+import VisiteUserView from '@/views/VisiteUserView.vue'
 import NotFound from '@/views/NotFound.vue'
 import ErreurServeur from '@/views/ErreurServeur.vue'
 
@@ -53,6 +54,11 @@ const router = createRouter({
       path: '/compte',
       name: 'compte',
       component: CompteView,
+    },
+    {
+      path: '/user/:id',
+      name: 'userDetail',
+      component: VisiteUserView,
     },
     {
       //404

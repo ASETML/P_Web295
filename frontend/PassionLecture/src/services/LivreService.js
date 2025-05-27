@@ -18,4 +18,7 @@ export default {
   getAllLivres() {
     return apiClient.get('/livres/')
   },
+  delLivre(id) {
+    return apiClient.delete('/livres/' + id)
+  },
 }

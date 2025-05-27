@@ -1,19 +1,26 @@
 <template>
-  <h1>Compte</h1>
-  <h2>{{ User?.pseudo }}</h2>
+  <div class="container">
+    <h1>Compte</h1>
+    <h2>{{ User?.pseudo }}</h2>
 
-  <div class="onglets">
-    <h2 :class="{ 'active-tab': TabLivre }" @click="TabLivre = true">Livre</h2>
-    <h2 :class="{ 'active-tab': !TabLivre }" @click="TabLivre = false">Commentaire</h2>
-  </div>
+    <div class="onglets">
+      <h2 :class="{ 'active-tab': TabLivre }" @click="TabLivre = true">Livre</h2>
+      <h2 :class="{ 'active-tab': !TabLivre }" @click="TabLivre = false">Commentaire</h2>
+    </div>
 
-  <div class="commantaire" v-if="!TabLivre">
-    <p v-for="commentaire in commentaires" :key="commentaire.id" class="commentaire">
-      {{ commentaire.commentaire }}
-    </p>
-  </div>
-  <div class="livre" v-if="TabLivre">
-    <Livre v-for="livre in livres" :key="livre.id" :livre="livre" class="livre" />
+    <div class="livre" v-if="TabLivre">
+      <p v-if="livres && !livres.length > 0">Pas de livres</p>
+      <div v-for="livre in livres" :key="livre.id" class="livre-item">
+        <Livre :livre="livre" class="livre" />
+        <delete-button :livre="livre" @delete="fetchIdUser"></delete-button>
+      </div>
+    </div>
+    <div class="commantaire" v-if="!TabLivre">
+      <p v-if="!commentaires.length > 0">Pas de commentaires</p>
+      <p v-for="commentaire in commentaires" :key="commentaire.id" class="commentaire">
+        {{ commentaire.commentaire }}
+      </p>
+    </div>
   </div>
 </template>
 <script setup lang="js">
@@ -22,6 +29,7 @@ import LivreService from '@/services/LivreService'
 import { onMounted, ref, watch } from 'vue'
 import Livre from '@/components/Livre.vue'
 import CommentaireService from '@/services/CommentaireService'
+import DeleteButton from '@/components/DeleteButton.vue'
 
 const TabLivre = ref(true)
 const idUser = ref('')
@@ -110,5 +118,12 @@ onMounted(async () => {
   background-color: white;
   border-radius: 0 0 8px 8px;
   margin-top: 0;
+}
+
+.livre-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 </style>
