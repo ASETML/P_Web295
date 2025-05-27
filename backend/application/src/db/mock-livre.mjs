@@ -21,7 +21,7 @@ export const livres = [
     categorie: 1,
     editeur: 1,
     ecrivain: 1,
-    image: "1.png",
+    image: "2.png",
     epub: epubBuffer,
   },
 
@@ -50,7 +50,7 @@ export const livres = [
     categorie: 1,
     editeur: 3,
     ecrivain: 3,
-    image: "1.png",
+    image: "2.png",
     epub: epubBuffer,
   },
   {
@@ -92,7 +92,7 @@ export const livres = [
     categorie: 5,
     editeur: 6,
     ecrivain: 6,
-    image: "1.png",
+    image: "2.png",
     epub: epubBuffer,
   },
   {
@@ -148,7 +148,7 @@ export const livres = [
     categorie: 9,
     editeur: 10,
     ecrivain: 10,
-    image: "1.png",
+    image: "2.png",
     epub: epubBuffer,
   },
   {
