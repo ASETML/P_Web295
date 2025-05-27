@@ -3,7 +3,12 @@ import CommentaireForm from '@/components/CommentaireForm.vue'
 import LivreService from '@/services/LivreService'
 import AppreciationService from '@/services/AppreciationService'
 import { onMounted, ref, computed, watch } from 'vue'
-import ConnexionService from '@/services/ConnexionService'
+import Cookies from 'js-cookie'
+
+var isIdentified = ref(null)
+onMounted(() => {
+  isIdentified.value = Cookies.get('authcookie')
+})
 
 const props = defineProps(['id'])
 
@@ -49,7 +54,7 @@ watch(() => {
   <div id="container">
     <img :src="'http://localhost:3000/uploads/' + livre.image" />
 
-    <select name="note" v-model="selection">
+    <select name="note" v-model="selection" v-if="isIdentified">
       <option value="">Choisissez une note</option>
       <option>0</option>
       <option>1</option>
@@ -58,7 +63,7 @@ watch(() => {
       <option>4</option>
       <option>5</option>
     </select>
-    <button @click="like">❤</button>
+    <button @click="like" v-if="isIdentified">❤</button>
     <div class="details">
       <h2>{{ livre.titre }} - {{ livre.ecrivain_prenom }} {{ livre.ecrivain_nom }}</h2>
       <p>{{ livre.editeur_nom }} {{ livre.annee_edition }}</p>
@@ -77,7 +82,7 @@ watch(() => {
           <p>{{ commentaire.commentaire }}</p>
         </article>
       </section>
-      <commentaire-form :id="id" @commenter="fetchLivre" />
+      <commentaire-form :id="id" @commenter="fetchLivre" v-if="isIdentified" />
     </div>
   </div>
 </template>
