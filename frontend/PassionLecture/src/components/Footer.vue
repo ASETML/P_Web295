@@ -32,4 +32,7 @@ li,
 p {
   color: white;
 }
+a {
+  text-decoration: none;
+}
 </style>
