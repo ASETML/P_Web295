@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="js">
-import Cookies from 'js-cookie'
 import { onMounted, ref } from 'vue'
 import iconeProfile from '../assets/iconeProfile.png'
 var isIdentified = ref(null)
