@@ -2,9 +2,9 @@
   <footer>
     <p>Développeurs</p>
     <ul>
-      <li>Alban Segalen &nbsp;</li>
-      <li>Antoine Fabre &nbsp;</li>
-      <li>Mateo Thode</li>
+      <a href="mailto:Alban.Segalen@passion.lecture"> <li>Alban Segalen &nbsp;</li> </a>
+      <a href="mailto:Antoine.Fabre@passion.lecture"> <li>Antoine Fabre &nbsp;</li> </a>
+      <a href="mailto:Mateo.Thode@passion.lecture"> <li>Mateo Thode</li> </a>
     </ul>
     <a class="gitmoji" href="https://gitmoji.dev">
       <img
