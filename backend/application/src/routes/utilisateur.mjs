@@ -47,6 +47,7 @@ utilisateurRouter.get("/:id", auth, (req, res) => {
           pseudo: utilisateur.pseudo,
           date_inscription: utilisateur.created,
           nbrLivres: nbrLivres,
+          admin: utilisateur.admin,
         });
         res.json(success(message, userPreview));
       });
