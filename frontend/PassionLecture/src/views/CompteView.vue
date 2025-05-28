@@ -4,22 +4,31 @@
     <h2>{{ User?.pseudo }}</h2>
 
     <div class="onglets">
-      <h2 :class="{ 'active-tab': TabLivre }" @click="TabLivre = true">Livre</h2>
-      <h2 :class="{ 'active-tab': !TabLivre }" @click="TabLivre = false">Commentaire</h2>
+      <h2 :class="{ 'active-tab': TabLivre }" @click="TabLivre = 1">Livre</h2>
+      <h2 :class="{ 'active-tab': !TabLivre }" @click="TabLivre = 2">Commentaire</h2>
+
+      <h2 :class="{ 'active-tab': !TabLivre }" @click="TabLivre = 3" v-if="User?.admin">Admin</h2>
     </div>
 
-    <div class="livre" v-if="TabLivre">
+    <div class="livre" v-if="TabLivre == 1">
       <p v-if="livres && !livres.length > 0">Pas de livres</p>
       <div v-for="livre in livres" :key="livre.id" class="livre-item">
         <Livre :livre="livre" class="livre" />
         <delete-button :livre="livre" @delete="fetchIdUser"></delete-button>
       </div>
     </div>
-    <div class="commantaire" v-if="!TabLivre">
+    <div class="commantaire" v-if="TabLivre == 2">
       <p v-if="!commentaires.length > 0">Pas de commentaires</p>
       <p v-for="commentaire in commentaires" :key="commentaire.id" class="commentaire">
         {{ commentaire.commentaire }}
       </p>
+    </div>
+
+    <div class="admin" v-if="TabLivre == 3">
+      <div v-for="livre in LivresAdmin" :key="livre.id" class="livre-item">
+        <Livre :livre="livre" class="livre" />
+        <delete-button :livre="livre" @delete="fetchAllLivre"></delete-button>
+      </div>
     </div>
   </div>
 </template>
@@ -36,11 +45,13 @@ const idUser = ref('')
 const livres = ref(null)
 const User = ref(null)
 const commentaires = ref(null)
+const LivresAdmin = ref(true)
 const fetchIdUser = async () => {
   UtilisateurService.getUtilisateurId().then(async (res) => {
     idUser.value = res.data
     await fetchUser(idUser.value)
     await fetchCom(idUser.value)
+    console.log(User.value)
     LivreService.getLivresUser(idUser.value)
       .then((res) => {
         livres.value = res.data.data
@@ -50,6 +61,16 @@ const fetchIdUser = async () => {
         console.log(err)
       })
   })
+}
+const fetchAllLivre = async () => {
+  LivreService.getAllLivres()
+    .then((res) => {
+      LivresAdmin.value = res.data.data
+      console.log(livres.value)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 const fetchCom = async (id) => {
   CommentaireService.getCommentaires(id)
@@ -65,7 +86,8 @@ const fetchUser = async (id) => {
   console.log(id)
   UtilisateurService.getUtilisateurById(id)
     .then((res) => {
-      User.value = res.data.data
+      User.value = res.data.data[0]
+
       console.log(User.value)
     })
     .catch((err) => {
@@ -75,6 +97,7 @@ const fetchUser = async (id) => {
 
 onMounted(async () => {
   await fetchIdUser()
+  await fetchAllLivre()
 })
 </script>
 <style scoped>
@@ -112,7 +135,8 @@ onMounted(async () => {
 
 /* Contenu visible sous les onglets */
 .livre,
-.commantaire {
+.commantaire,
+.admin {
   border: 1px solid #ccc;
   padding: 20px;
   background-color: white;
