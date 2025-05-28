@@ -366,20 +366,8 @@ livreRouter.delete("/:id", auth, (req, res) => {
 });
 
 //Modifie un livre
-livreRouter.put("/:id", upload.single("file"), auth, (req, res) => {
-  let object;
-  console.log(req);
-  try {
-    //Récupération du json de la requête
-    object = JSON.parse(req.body.data);
-  } catch {
-    const message =
-      "Le livre n'a pas pu être créé. Merci de réessayer dans quelques instants. Il faut envoyer les données dans un formulaire multipart, et le json dans un champ data";
-    return res.status(400).json({ message, data: error });
-  }
-  //Création de l'objet livre avec l'image
-  const livreObj = { ...object, image: req.file.filename };
-  Livre.update(livreObj, { where: { livre_id: req.params.id } })
+livreRouter.put("/:id", auth, (req, res) => {
+  Livre.update(req.body, { where: { livre_id: req.params.id } })
     .then((_) => {
       return Livre.findByPk(req.params.id).then((livre) => {
         //Livre existe pas

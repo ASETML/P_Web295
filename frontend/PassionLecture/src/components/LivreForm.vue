@@ -68,10 +68,10 @@
         <label for="Résumé">Résumé</label>
         <textarea id="Résumé" v-model="resume" placeholder="Résumé" required></textarea>
       </div>
-      <div class="input-group image-upload" style="grid-column: span 2">
+      <div v-if="image" class="input-group image-upload" style="grid-column: span 2">
         <label for="image">Image (ex: couverture)</label>
         <input type="file" id="image" @change="handleImage" accept="image/*" />
-        <div v-if="imagePreview" class="image-preview">
+        <div v-if="image" class="image-preview">
           <img :src="imagePreview" alt="Aperçu de l'image" />
         </div>
       </div>
@@ -92,6 +92,9 @@ const props = defineProps({
   livre: {
     type: Object,
     required: true,
+  },
+  image: {
+    type: Boolean,
   },
 })
 
@@ -135,6 +138,8 @@ const sendForm = () => {
     editeurs,
     ecrivains,
   }
+  console.log(data)
+
   //TODO: Validation
   emit('send-form', data)
 }

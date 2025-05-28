@@ -51,35 +51,17 @@ export default {
     }
     return apiClient.post('/livres/', formData)
   },
-  updateLivre(
-    titre,
-    nombre_pages,
-    extrait,
-    resume,
-    annee_edition,
-    imageFile,
-    categorie,
-    editeur,
-    ecrivain,
-    livre_id,
-  ) {
+  updateLivre(livre, livre_id) {
     const dataObject = {
-      titre: titre,
-      nombre_pages: nombre_pages,
-      extrait: extrait,
-      resume: resume,
-      annee_edition: annee_edition,
-      categorie_fk: categorie,
-      editeur_fk: editeur,
-      ecrivain_fk: ecrivain,
+      titre: livre.titre,
+      nombre_pages: livre.nombre_pages,
+      extrait: livre.extrait,
+      resume: livre.resume,
+      annee_edition: livre.annee_edition,
+      categorie_fk: livre.categorie,
+      editeur_fk: livre.editeur,
+      ecrivain_fk: livre.ecrivain,
     }
-
-    const formData = new FormData()
-    formData.append('data', JSON.stringify(dataObject))
-    formData.append('file', imageFile)
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value)
-    }
-    return apiClient.put('/livres/' + livre_id, formData)
+    return apiClient.put('/livres/' + livre_id, dataObject)
   },
 }

@@ -33,29 +33,25 @@ onMounted(async () => {
 })
 
 const updateLivre = (data) => {
-  if (data.imageFile.value) {
-    LivreService.updateLivre(
-      data.livre_id,
-      data.titre.value,
-      parseInt(data.nombrePage.value),
-      data.extrait.value,
-      data.resume.value,
-      parseInt(data.anneeEdition.value),
-      data.imageFile.value,
-      parseInt(data.selectionCat.value),
-      parseInt(data.selectionEdi.value),
-      parseInt(data.selectionEcr.value),
-      console.log(data.selectionCat),
-    )
-      .then((response) => {
-        console.log('Livre mis à jour avec succès', response.data)
-        router.push('search')
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la mise à jour du livre', error)
-      })
-  } else {
-    console.error('Aucune image sélectionnée')
+  const livre = {
+    titre: data.livre_id,
+    nombre_page: parseInt(data.nombrePage.value),
+    extrait: data.extrait.value,
+    resume: data.resume.value,
+    annee_edition: parseInt(data.anneeEdition.value),
+    categorie_fk: parseInt(data.selectionCat.value),
+    editeur_fk: parseInt(data.selectionEdi.value),
+    ecrivain_fk: parseInt(data.selectionEcr.value),
   }
+  console.log(livre)
+
+  LivreService.updateLivre(livre, data.livre_id)
+    .then((response) => {
+      console.log('Livre mis à jour avec succès', response.data)
+      router.push('search')
+    })
+    .catch((error) => {
+      console.error('Erreur lors de la mise à jour du livre', error)
+    })
 }
 </script>
