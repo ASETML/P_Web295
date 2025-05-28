@@ -75,4 +75,19 @@ const router = createRouter({
   ],
 })
 
+// Bloque route /erreur-serveur
+router.beforeEach((to, from, next) => {
+  if (to.name === 'erreur-serveur') {
+    const errorFlag = sessionStorage.getItem('serverError')
+    if (errorFlag === 'true') {
+      sessionStorage.removeItem('serverError')
+      next()
+    } else {
+      next({ name: 'not-found' })
+    }
+  } else {
+    next()
+  }
+})
+
 export default router
