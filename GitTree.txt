@@ -1,28 +1,92 @@
-* 	 (HEAD -> main, origin/main, origin/HEAD) 📝 MAJ du JDT
-* 	 Update Journal-de-Travail_FabreAntoine.xlsx
-* 	 👷 Ajout de la page de compte
-*   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
-|\  
-* | 	 👷 Création et modification de route dans le backend
-* | 	 👷 Création d'un service pour récupérer les commentaires d'un user
-* | 	 👷 Création d'un service pour récupérer toutes les infos d'un user
-* | 	 👷 Création d'un service qui va récupérer l'id de l'utilisateur connecté
-* | 	 👷 Création d'un service pour fetch les livres que l'utilisateur a créé
-* | 	 👷 Ajout sur la route get livres d'une query id
-| | * 	 (origin/petites-etoiles-pour-la-note-du-livre, petites-etoiles-pour-la-note-du-livre) 🚧 Affichage de la note
-| |/  
-| * 	 📝 Réparation du JDT Alban 😡
-| * 	 🔀 Merge pull request #98 from ASETML/79-apprécier-un-livre
-|/| 
-| *   	 (79-apprécier-un-livre) Merge branch 'main' of https://github.com/ASETML/P_Web295 into 79-apprécier-un-livre
+* 	 (origin/modification-dun-livre, modification-dun-livre) ♻️ Le formulaire d'ajout d'un livre est maintenant un composant
+| * 	 (HEAD -> main, origin/main, origin/HEAD) rapport exporté en PDF
+| *   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
 | |\  
 | |/  
 |/|   
-| * 	 ✨ On peut ajouter, modifier et supprimer une appréciation
-| | * 	 (origin/404-page) 👷 Gestion erreur 500 : WIP
-| | * 	 👷 Page 404 : OK
+* | 	 ✨ On peut supprimer un livre depuis la page de compte
+* |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\ \  
+| * \   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+| |\ \  
+| * | | 	 👷 Ajout d'un import d'une view
+* | | | 	 🚑️ Oublie d'accolades par Antoine
+| |/ /  
+|/| |   
+* | | 	 🌱 Ajout d'une deuxième image par défaut
+|/ /  
+* | 	 🩹 Import manquant dans le header
+* |   	 🔀Merge pull request #102 from ASETML/Page-de-visite-d'utilisateur
+|\ \  
+| * \   	 Merge branch 'main' into Page-de-visite-d'utilisateur
+| |\ \  
+| |/ /  
+|/| |   
+| * | 	 modification d'une route pour avoir plus d'information sur un utilisateur
+| * | 	 Ajout du lien vers la route UserDetail
+| * | 	 👷 Ajout de la page de détails d'un utilisateur avec sa route dans vue Router
+| | * 	 📝  Rapport quasi terminé
 | |/  
 |/|   
+* | 	 🚧 Minor change : ignore
+* | 	 MAJ du rapport : point 4.3 en cours
+* |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\ \  
+| * \   	 🔀 Merge pull request #101 from ASETML/commentaire-form-validation
+| |\ \  
+| | * | 	 (commentaire-form-validation) 🦺 Message d'erreur quand il n'y a pas de commentaire
+| * | |   	 🔀 Merge pull request #100 from ASETML/petites-etoiles-pour-la-note-du-livre
+| |\ \ \  
+| | |/ /  
+| |/| |   
+| | * |   	 Merge branch 'main' into petites-etoiles-pour-la-note-du-livre
+| | |\ \  
+| | |/ /  
+| |/| |   
+| * | | 	 🛂🥚 Le formulaire de commentaire et d'appréciation est caché si on n'est pas connecté
+| | |/  
+| |/|   
+| | * 	 (petites-etoiles-pour-la-note-du-livre) 💄✨ Affichage de la moyenne des appréciations
+| | * 	 🚧 Affichage de la note
+* | |   	 Merge branch '404-page'
+|\ \ \  
+| * | | 	 👷 feat(app) : 404 page : OK
+| * | | 	 👷 Gestion erreur 500 : WIP
+| * | | 	 👷 Page 404 : OK
+* | | | 	 💄 feat(app) : CSS updated in CommentaireForm
+| |/ /  
+|/| |   
+* | |   	 Merge branch 'footer-add-contact'
+|\ \ \  
+| * | | 	 💄 style for <a> (links) updated - header & footer
+| * | | 	 👷 feat(app) footer OK for the CDC
+* | | | 	 🩹 Les appréciations sont entre 0 et 5
+* | | | 	 (tag: v2.8.0) 📝 JDT Alban 21.05.25
+|/ / /  
+* | | 	 📝 MAJ du JDT
+* | | 	 Update Journal-de-Travail_FabreAntoine.xlsx
+* | | 	 👷 Ajout de la page de compte
+* | |   	 Merge branch 'main' of https://github.com/ASETML/P_Web295
+|\ \ \  
+| | |/  
+| |/|   
+| * | 	 📝 Réparation du JDT Alban 😡
+| * |   	 🔀 Merge pull request #98 from ASETML/79-apprécier-un-livre
+| |\ \  
+| | |/  
+| |/|   
+| | *   	 (79-apprécier-un-livre) Merge branch 'main' of https://github.com/ASETML/P_Web295 into 79-apprécier-un-livre
+| | |\  
+| | |/  
+| |/|   
+| | * 	 ✨ On peut ajouter, modifier et supprimer une appréciation
+* | | 	 👷 Création et modification de route dans le backend
+* | | 	 👷 Création d'un service pour récupérer les commentaires d'un user
+* | | 	 👷 Création d'un service pour récupérer toutes les infos d'un user
+* | | 	 👷 Création d'un service qui va récupérer l'id de l'utilisateur connecté
+* | | 	 👷 Création d'un service pour fetch les livres que l'utilisateur a créé
+* | | 	 👷 Ajout sur la route get livres d'une query id
+|/ /  
 * | 	 🔨 Le script de démarrage ouvre: le repo, le projets, gitmoji et l'application
 * |   	 (tag: v2.7.0) Merge branch 'main' of https://github.com/ASETML/P_Web295
 |\ \  
