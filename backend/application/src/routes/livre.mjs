@@ -276,6 +276,10 @@ livreRouter.get("/:id", async (req, res) => {
 //Ajout d'un livre
 livreRouter.post("/", auth, upload.single("file"), (req, res) => {
   let object;
+  //Decoder le token pour récupérer l'id de l'utilisateur
+  const token = req.cookies["authcookie"];
+  const decodedToken = jwt.verify(token, privateKey);
+  const utilisateur_fk = decodedToken.utilisateurId;
 
   try {
     //Récupération du json de la requête
@@ -288,9 +292,11 @@ livreRouter.post("/", auth, upload.single("file"), (req, res) => {
   }
   console.log(object);
   //Création de l'objet livre avec l'image
-  const livre = { ...object, image: req.file.filename };
-  console.log(req.file.filename);
-  console.log(livre);
+  const livre = {
+    ...object,
+    image: req.file.filename,
+    utilisateur_fk: utilisateur_fk,
+  };
   Livre.create(livre)
     .then((book) => {
       console.log(book);

@@ -81,12 +81,102 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import CategoryService from '@/services/CategoryService'
+import EditeurService from '@/services/EditeurService'
+import EcrivainService from '@/services/EcrivainService'
+
 const emit = defineEmits(['send-form']) //Evènements
 
+const props = defineProps([
+  'selectionCat',
+  'selectionEdi',
+  'selectionEcr',
+  'titre',
+  'extrait',
+  'nombrePage',
+  'categories',
+  'anneeEdition',
+  'resume',
+  'imageFile',
+  'imagePreview',
+  'editeurs',
+  'ecrivains',
+])
+
+const selectionCat = props.selectionCat ? props.selectionCat : ref('')
+const selectionEdi = props.selectionEdi ? props.selectionEdi : ref('')
+const selectionEcr = props.selectionEcr ? props.selectionEcr : ref('')
+const titre = props.titre ? props.titre : ref('')
+const extrait = props.extrait ? props.extrait : ref('')
+const nombrePage = props.nombrePage ? props.nombrePage : ref('')
+const categories = props.categories ? props.categories : ref(null)
+const anneeEdition = props.anneeEdition ? props.anneeEdition : ref('')
+const resume = props.resume ? props.resume : ref('')
+const imageFile = props.imageFile ? props.imageFile : ref(null)
+const imagePreview = props.imagePreview ? props.imagePreview : ref(null)
+const editeurs = props.editeurs ? props.editeurs : ref(null)
+const ecrivains = props.ecrivains ? props.ecrivains : ref(null)
+
+const handleImage = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    imageFile.value = file
+    imagePreview.value = URL.createObjectURL(file)
+  }
+}
+
 const sendForm = () => {
-  const data = {} //Object créer avec les variables réactives: v-model
+  const data = {
+    selectionCat,
+    selectionEdi,
+    selectionEcr,
+    titre,
+    extrait,
+    nombrePage,
+    categories,
+    anneeEdition,
+    resume,
+    imageFile,
+    imagePreview,
+    editeurs,
+    ecrivains,
+  } //Object créer avec les variables réactives: v-model
   emit('send-form', data)
 }
+
+const getcategory = async () => {
+  CategoryService.getCategory()
+    .then((res) => {
+      categories.value = res.data.data
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+const getEditeur = async () => {
+  EditeurService.getEditeur()
+    .then((res) => {
+      editeurs.value = res.data.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+const getEcrivain = async () => {
+  EcrivainService.getEcrivain()
+    .then((res) => {
+      ecrivains.value = res.data.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+onMounted(async () => {
+  await getcategory()
+  await getEditeur()
+  await getEcrivain()
+})
 </script>
 
 <style>
