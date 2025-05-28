@@ -88,35 +88,27 @@ import EcrivainService from '@/services/EcrivainService'
 
 const emit = defineEmits(['send-form']) //Evènements
 
-const props = defineProps([
-  'selectionCat',
-  'selectionEdi',
-  'selectionEcr',
-  'titre',
-  'extrait',
-  'nombrePage',
-  'categories',
-  'anneeEdition',
-  'resume',
-  'imageFile',
-  'imagePreview',
-  'editeurs',
-  'ecrivains',
-])
+const props = defineProps({
+  livre: {
+    type: Object,
+    required: true,
+  },
+})
 
-const selectionCat = props.selectionCat ? props.selectionCat : ref('')
-const selectionEdi = props.selectionEdi ? props.selectionEdi : ref('')
-const selectionEcr = props.selectionEcr ? props.selectionEcr : ref('')
-const titre = props.titre ? props.titre : ref('')
-const extrait = props.extrait ? props.extrait : ref('')
-const nombrePage = props.nombrePage ? props.nombrePage : ref('')
-const categories = props.categories ? props.categories : ref(null)
-const anneeEdition = props.anneeEdition ? props.anneeEdition : ref('')
-const resume = props.resume ? props.resume : ref('')
-const imageFile = props.imageFile ? props.imageFile : ref(null)
-const imagePreview = props.imagePreview ? props.imagePreview : ref(null)
-const editeurs = props.editeurs ? props.editeurs : ref(null)
-const ecrivains = props.ecrivains ? props.ecrivains : ref(null)
+const selectionCat = props.livre.categorie_fk ? props.livre.categorie_fk : ref('')
+const selectionEdi = props.livre.editeur_fk ? props.livre.editeur_fk : ref('')
+const selectionEcr = props.livre.ecrivain_fk ? props.livre.ecrivain_fk : ref('')
+const titre = props.livre.titre ? props.livre.titre : ref('')
+const extrait = props.livre.extrait ? props.livre.extrait : ref('')
+const nombrePage = props.livre.nb_pages ? props.livre.nb_pages : ref('')
+const anneeEdition = props.livre.annee_edition ? props.livre.annee_edition : ref('')
+const resume = props.livre.resume ? props.livre.resume : ref('')
+const imageFile = ref(null)
+const imagePreview = ref(null)
+const categories = ref(null)
+const editeurs = ref(null)
+const ecrivains = ref(null)
+const livre_id = props.livre.livre_id
 
 const handleImage = (event) => {
   const file = event.target.files[0]
@@ -128,6 +120,7 @@ const handleImage = (event) => {
 
 const sendForm = () => {
   const data = {
+    livre_id,
     selectionCat,
     selectionEdi,
     selectionEcr,
@@ -141,7 +134,8 @@ const sendForm = () => {
     imagePreview,
     editeurs,
     ecrivains,
-  } //Object créer avec les variables réactives: v-model
+  }
+  //TODO: Validation
   emit('send-form', data)
 }
 

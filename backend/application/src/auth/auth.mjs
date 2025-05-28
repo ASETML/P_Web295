@@ -5,7 +5,6 @@ const auth = (req, res, next) => {
   const authorizationHeader = req.cookies["authcookie"];
   //const authorizationHeader = req.headers.authorization;
   //console.log(req.headers.authorization);
-  console.log(req.cookies["authcookie"]);
   if (!authorizationHeader) {
     const message = `vous n'avez pas fourni de jeton d'authentification`;
     return res.status(401).json({ message });

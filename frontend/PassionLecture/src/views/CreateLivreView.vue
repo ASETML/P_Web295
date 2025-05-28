@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>je crée des livres !</h1>
-    <livre-form @send-form="creationLivre"></livre-form>
+    <livre-form :livre="{}" @send-form="creationLivre"></livre-form>
   </div>
 </template>
 <script setup>

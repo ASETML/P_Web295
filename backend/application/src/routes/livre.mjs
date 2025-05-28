@@ -252,8 +252,11 @@ livreRouter.get("/:id", async (req, res) => {
       image: book.image,
       ecrivain_nom: ecrivain ? ecrivain.nom : null,
       ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
+      ecrivain_fk: book.ecrivain_fk,
       categorie_nom: categorieRecup ? categorieRecup.nom : null,
+      categorie_fk: book.categorie_fk,
       editeur_nom: editeur ? editeur.nom : null,
+      editeur_fk: book.editeur_fk,
       commentaires: commentaires ? commentaires : null,
       //Moyenne appréciations
       moyenne_appreciations: moyenneAppreciations
@@ -365,6 +368,7 @@ livreRouter.delete("/:id", auth, (req, res) => {
 //Modifie un livre
 livreRouter.put("/:id", upload.single("file"), auth, (req, res) => {
   let object;
+  console.log(req);
   try {
     //Récupération du json de la requête
     object = JSON.parse(req.body.data);

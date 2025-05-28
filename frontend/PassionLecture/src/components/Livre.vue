@@ -8,10 +8,7 @@
 
       <h4>{{ livre.ecrivain_prenom + ' ' + livre.ecrivain_nom }}</h4>
 
-      <router-link
-        :to="{ name: 'userDetail', params: { id: livre.utilisateur_fk } }"
-        target="_blank"
-      >
+      <router-link :to="{ name: 'userDetail', params: { id: livre.utilisateur_fk } }">
         <p>{{ user?.pseudo }}</p>
       </router-link>
       <p>{{ livre.description }}</p>
