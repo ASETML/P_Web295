@@ -10,6 +10,7 @@ import CompteView from '@/views/CompteView.vue'
 import VisiteUserView from '@/views/VisiteUserView.vue'
 import NotFound from '@/views/NotFound.vue'
 import ErreurServeur from '@/views/ErreurServeur.vue'
+import UpdateLivreView from '@/views/UpdateLivreView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +50,12 @@ const router = createRouter({
       path: '/creationLivre',
       name: 'creationLivre',
       component: CreateLivreView,
+    },
+    {
+      path: '/updateLivre/:id',
+      name: 'updateLivre',
+      props: true,
+      component: UpdateLivreView,
     },
     {
       path: '/compte',

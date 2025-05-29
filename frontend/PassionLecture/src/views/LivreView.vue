@@ -36,7 +36,7 @@ const like = async () => {
 }
 
 onMounted(() => {
-  fetchLivre()
+  fetchLivre() //Récupérer le livre
 
   //Récupérer l'appréciation
   AppreciationService.getAppreciation(id.value).then((res) => {

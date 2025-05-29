@@ -15,6 +15,9 @@
       <div v-for="livre in livres" :key="livre.id" class="livre-item">
         <Livre :livre="livre" class="livre" />
         <delete-button :livre="livre" @delete="fetchIdUser"></delete-button>
+        <router-link :to="{ name: 'updateLivre', params: { id: livre.livre_id } }"
+          >Mettre à jour ce livre</router-link
+        >
       </div>
     </div>
     <div class="commantaire" v-if="TabLivre == 2">
