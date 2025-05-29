@@ -20,7 +20,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/search',
+      path: '/search/:cat?',
       name: 'search',
       component: RechercheView,
     },

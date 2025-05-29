@@ -3,19 +3,26 @@ import Livre from '@/components/Livre.vue'
 import { computed, onMounted, ref, watch } from 'vue'
 import CategoryService from '@/services/CategoryService.js'
 import LivreService from '@/services/LivreService'
+import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
+
+
 
 const selection = ref('')
 const categories = ref(null)
-const livres = ref([null])
+const livres = ref([])
+const router = useRouter()
+const route = useRoute()
 
 const livresFiltered = computed(() => {
-  if (livres.value && selection.value != '') {
-    return livres.value.filter((livre) => {
-      return livre.categorie_fk == selection.value
-    })
+  if (!livres.value) return []
+  const nonNullLivres = livres.value.filter((livre) => livre !== null)
+  if (selection.value !== '') {
+    return nonNullLivres.filter((livre) => livre.categorie_fk == selection.value)
   }
-  return livres.value
+  return nonNullLivres
 })
+
 
 const cat_nom = computed(() => {
   return categories.value.filter((cat) => {
@@ -36,6 +43,16 @@ const getcategory = async () => {
     })
 }
 
+/*petit bug où quand on recherche une categorie via la liste déroulante 
+alors l'url ne change pas mais quand on change l'url pour faire une recherche
+alors la liste déroulante se met a jour  !
+*/
+const goToCategorie = async (categ) => {
+  router.push({ name: 'search', params: {cat: categ}})
+
+}
+
+
 const fetchLivres = async () => {
   //LivreService.getAllLivres() //Limite de 5 dans le backend
   LivreService.getLastLivres(-1)
@@ -48,15 +65,27 @@ const fetchLivres = async () => {
     })
 }
 
-watch(() => {
-  livres.value = null
-  fetchLivres()
-})
+watch(
+
+  [() => route.params.cat, categories],
+  ([catParam, cats]) => {
+    if (!catParam || !cats) return
+    const found = cats.find((cat) => cat.nom.toLowerCase() === catParam.toLowerCase())
+    if (found) {
+      selection.value = found.categorie_id
+    } else {
+      selection.value = ''
+    }
+  },
+  { immediate: true }
+)
+
 
 onMounted(async () => {
   await getcategory()
   await fetchLivres()
 })
+
 </script>
 
 <template>
@@ -71,7 +100,7 @@ onMounted(async () => {
     </h1>
     <h1 v-else>Il y a {{ livresFiltered.length }} livres dans la catégorie {{ cat_nom[0].nom }}</h1>
 
-    <select name="Category" v-model="selection" @change="fetchLivres">
+    <select name="Category" v-model="selection" @change="goToCategorie(cat_nom)">
       <option value="">Toute catégorie</option>
       <option
         v-for="category in categories"
