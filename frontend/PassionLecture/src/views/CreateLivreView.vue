@@ -2,6 +2,7 @@
   <div class="container">
     <h1>je crée des livres !</h1>
     <livre-form :livre="{}" @send-form="creationLivre" image="true" action="creer"></livre-form>
+    <p v-if="error" class="error">Aucune image sélectionnée</p>
   </div>
 </template>
 <script setup>
@@ -10,6 +11,9 @@ import LivreService from '@/services/LivreService'
 import CategoryService from '@/services/CategoryService'
 import EditeurService from '@/services/EditeurService'
 import EcrivainService from '@/services/EcrivainService'
+import {ref} from "vue"
+
+const error = ref(false)
 
 import LivreForm from '@/components/LivreForm.vue'
 const creationLivre = (data) => {
@@ -24,17 +28,18 @@ const creationLivre = (data) => {
       parseInt(data.selectionCat.value),
       parseInt(data.selectionEdi.value),
       parseInt(data.selectionEcr.value),
-      console.log(data.selectionCat),
     )
       .then((response) => {
-        console.log('Livre créé avec succès', response.data)
+        error.value = false
         router.push('search')
       })
-      .catch((error) => {
-        console.error('Erreur lors de la création du livre', error)
-      })
   } else {
-    console.error('Aucune image sélectionnée')
+    error.value = true
   }
 }
 </script>
+
+<style scoped>
+.error {
+  color: red;
+}</style>

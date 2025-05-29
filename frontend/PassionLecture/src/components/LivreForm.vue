@@ -8,6 +8,7 @@
       <div class="input-group">
         <label for="Extrait">Extrait</label>
         <input type="text" id="Extrait" v-model="extrait" placeholder="Extrait" required />
+        <p v-if="mustbeurl" class="error">Doit être une URL</p>
       </div>
       <div class="input-group">
         <label for="NombrePage">Nombre de pages</label>
@@ -78,6 +79,7 @@
     </div>
     <input v-if="action === 'modifier'" type="submit" class="login-btn" value="Modifier le Livre" />
     <input v-if="action === 'creer'" type="submit" class="login-btn" value="Créer le Livre" />
+    <p class="error">Une erreur est survenu</p>
   </form>
 </template>
 
@@ -116,6 +118,7 @@ const categories = ref(null)
 const editeurs = ref(null)
 const ecrivains = ref(null)
 const livre_id = ref(props.livre.livre_id)
+const mustbeurl = ref(false)
 
 const handleImage = (event) => {
   const file = event.target.files[0]
@@ -125,8 +128,20 @@ const handleImage = (event) => {
   }
 }
 
+function isUrl(str) {
+  if (str.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/)) {
+    mustbeurl.value = false
+    return true
+    
+  }
+  mustbeurl.value = true
+  return false
+  
+}
+
 const sendForm = () => {
-  const data = {
+  if (titre.value.length >= 2 && isUrl(extrait.value) && resume.value.length >= 2 && selectionCat && selectionEdi && selectionEcr) {
+const data = {
     livre_id,
     selectionCat,
     selectionEdi,
@@ -140,8 +155,8 @@ const sendForm = () => {
     imagePreview,
   }
 
-  //TODO: Validation
   emit('send-form', data)
+  }
 }
 
 const getcategory = async () => {
@@ -149,26 +164,17 @@ const getcategory = async () => {
     .then((res) => {
       categories.value = res.data.data
     })
-    .catch((error) => {
-      console.log(error)
-    })
 }
 const getEditeur = async () => {
   EditeurService.getEditeur()
     .then((res) => {
       editeurs.value = res.data.data
     })
-    .catch((err) => {
-      console.log(err)
-    })
 }
 const getEcrivain = async () => {
   EcrivainService.getEcrivain()
     .then((res) => {
       ecrivains.value = res.data.data
-    })
-    .catch((err) => {
-      console.log(err)
     })
 }
 onMounted(async () => {
@@ -263,6 +269,10 @@ onMounted(async () => {
 
 .login-btn:hover {
   background-color: #4338ca;
+}
+
+.error {
+  color: red;
 }
 
 /* Responsive */

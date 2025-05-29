@@ -72,10 +72,6 @@ const livreModel = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          is: {
-            args: /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-']{2,}$/,
-            msg: "Seules les lettres (y compris avec accents), les espaces et le tiret (-) sont autorisés. Minimum 2 caractères.",
-          },
           notEmpty: {
             msg: "le resumé ne doit pas etre vide ",
           },
