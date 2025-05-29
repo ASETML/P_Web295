@@ -17,6 +17,7 @@ const error = ref(false)
 
 import LivreForm from '@/components/LivreForm.vue'
 const creationLivre = (data) => {
+  console.log(data)
   if (data.imageFile.value) {
     LivreService.postLivre(
       data.titre.value,

@@ -97,7 +97,7 @@ const props = defineProps({
     required: true,
   },
   image: {
-    type: Boolean,
+    type: String,
   },
   action: {
     type: String,
@@ -143,16 +143,7 @@ function isUrl(str) {
 }
 
 const sendForm = () => {
-  if (
-    titre.value.length >= 2 &&
-    isUrl(extrait.value) &&
-    resume.value.length >= 2 &&
-    selectionCat &&
-    selectionEdi &&
-    selectionEcr &&
-    Number.isInteger(nombrePage) &&
-    Number.isInteger(anneeEdition)
-  ) {
+  if (titre.value.length >= 2 && isUrl(extrait.value) && resume.value.length >= 2) {
     error.value = false
     const data = {
       livre_id,
