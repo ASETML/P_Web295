@@ -1,5 +1,4 @@
 import apiClient from './ApiClient'
-
 export default {
   getLivreFromCategorie(id) {
     //return apiClient.get('/categories/' + id + '/livres')
@@ -51,16 +50,16 @@ export default {
     }
     return apiClient.post('/livres/', formData)
   },
-  updateLivre(livre, livre_id) {
+  updateLivre(titre, nombre_pages, extrait, resume, annee_edition, categorie_fk, editeur_fk, ecrivain_fk, livre_id) {
     const dataObject = {
-      titre: livre.titre,
-      nombre_pages: livre.nombre_pages,
-      extrait: livre.extrait,
-      resume: livre.resume,
-      annee_edition: livre.annee_edition,
-      categorie_fk: livre.categorie,
-      editeur_fk: livre.editeur,
-      ecrivain_fk: livre.ecrivain,
+      titre: titre,
+      nombre_pages: nombre_pages,
+      extrait: extrait,
+      resume: resume,
+      annee_edition: annee_edition,
+      categorie_fk: categorie_fk,
+      editeur_fk: editeur_fk,
+      ecrivain_fk: ecrivain_fk,
     }
     return apiClient.put('/livres/' + livre_id, dataObject)
   },

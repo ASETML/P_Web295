@@ -76,7 +76,8 @@
         </div>
       </div>
     </div>
-    <input type="submit" class="login-btn" value="Créer le Livre" />
+    <input v-if="action === 'modifier'" type="submit" class="login-btn" value="Modifier le Livre" />
+    <input v-if="action === 'creer'" type="submit" class="login-btn" value="Créer le Livre" />
   </form>
 </template>
 
@@ -96,22 +97,25 @@ const props = defineProps({
   image: {
     type: Boolean,
   },
+  action: {
+    type: String
+  }
 })
 
-const selectionCat = props.livre.categorie_fk ? props.livre.categorie_fk : ref('')
-const selectionEdi = props.livre.editeur_fk ? props.livre.editeur_fk : ref('')
-const selectionEcr = props.livre.ecrivain_fk ? props.livre.ecrivain_fk : ref('')
-const titre = props.livre.titre ? props.livre.titre : ref('')
-const extrait = props.livre.extrait ? props.livre.extrait : ref('')
-const nombrePage = props.livre.nb_pages ? props.livre.nb_pages : ref('')
-const anneeEdition = props.livre.annee_edition ? props.livre.annee_edition : ref('')
-const resume = props.livre.resume ? props.livre.resume : ref('')
+const selectionCat = props.livre.categorie_fk ? ref(props.livre.categorie_fk) : ref('')
+const selectionEdi = props.livre.editeur_fk ? ref(props.livre.editeur_fk) : ref('')
+const selectionEcr = props.livre.ecrivain_fk ? ref(props.livre.ecrivain_fk) : ref('')
+const titre = props.livre.titre ? ref(props.livre.titre) : ref('')
+const extrait = props.livre.extrait ? ref(props.livre.extrait) : ref('')
+const nombrePage = props.livre.nb_pages ? ref(props.livre.nb_pages) : ref('')
+const anneeEdition = props.livre.annee_edition ? ref(props.livre.annee_edition) : ref('')
+const resume = props.livre.resume ? ref(props.livre.resume) : ref('')
 const imageFile = ref(null)
 const imagePreview = ref(null)
 const categories = ref(null)
 const editeurs = ref(null)
 const ecrivains = ref(null)
-const livre_id = props.livre.livre_id
+const livre_id = ref(props.livre.livre_id)
 
 const handleImage = (event) => {
   const file = event.target.files[0]
@@ -130,15 +134,11 @@ const sendForm = () => {
     titre,
     extrait,
     nombrePage,
-    categories,
     anneeEdition,
     resume,
     imageFile,
-    imagePreview,
-    editeurs,
-    ecrivains,
+    imagePreview
   }
-  console.log(data)
 
   //TODO: Validation
   emit('send-form', data)

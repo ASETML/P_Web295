@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>je crée des livres !</h1>
-    <livre-form :livre="{}" @send-form="creationLivre" image="true"></livre-form>
+    <livre-form :livre="{}" @send-form="creationLivre" image="true" action="creer"></livre-form>
   </div>
 </template>
 <script setup>
@@ -12,7 +12,6 @@ import EditeurService from '@/services/EditeurService'
 import EcrivainService from '@/services/EcrivainService'
 
 import LivreForm from '@/components/LivreForm.vue'
-
 const creationLivre = (data) => {
   if (data.imageFile.value) {
     LivreService.postLivre(

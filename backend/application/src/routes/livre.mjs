@@ -242,7 +242,7 @@ livreRouter.get("/:id", async (req, res) => {
       where: { livre_fk: { [Op.eq]: req.params.id } },
     });
 
-    // Construire l'objet preview pour chaque livre
+    // Construire l'objet preview pour le livre
     const preview = {
       livre_id: book.livre_id,
       titre: book.titre,
@@ -264,6 +264,8 @@ livreRouter.get("/:id", async (req, res) => {
         ? parseFloat(moyenneAppreciations.moyenne).toFixed(2)
         : null,
     };
+
+    console.log(preview)
 
     res.json(
       success(
@@ -368,6 +370,7 @@ livreRouter.delete("/:id", auth, (req, res) => {
 
 //Modifie un livre
 livreRouter.put("/:id", auth, (req, res) => {
+  console.log(req.body);
   Livre.update(req.body, { where: { livre_id: req.params.id } })
     .then((_) => {
       return Livre.findByPk(req.params.id).then((livre) => {
