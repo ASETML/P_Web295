@@ -98,8 +98,8 @@ const props = defineProps({
     type: Boolean,
   },
   action: {
-    type: String
-  }
+    type: String,
+  },
 })
 
 const selectionCat = props.livre.categorie_fk ? ref(props.livre.categorie_fk) : ref('')
@@ -137,7 +137,7 @@ const sendForm = () => {
     anneeEdition,
     resume,
     imageFile,
-    imagePreview
+    imagePreview,
   }
 
   //TODO: Validation

@@ -34,7 +34,7 @@ import { sequelize, initDb } from "./db/sequelize.mjs";
 sequelize
   .authenticate()
   .then((_) =>
-    console.log("La connexion à la base de données a bien été établie")
+    console.log("La connexion à la base de données a bien été établie"),
   )
   .catch((error) => console.error("Impossible de se connecter à la DB"));
 initDb(); //Ajout des données
@@ -75,7 +75,7 @@ import { swaggerSpec } from "./swagger.mjs";
 app.use(
   "/api-docs",
   swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, { explorer: true })
+  swaggerUi.setup(swaggerSpec, { explorer: true }),
 );
 
 //Middleware

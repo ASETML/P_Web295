@@ -32,7 +32,17 @@ onMounted(async () => {
 })
 
 const updateLivre = (data) => {
-  LivreService.updateLivre(data.titre.value, parseInt(data.nombrePage.value), data.extrait.value, data.resume.value, parseInt(data.anneeEdition.value), parseInt(data.selectionCat.value), parseInt(data.selectionEdi.value),parseInt(data.selectionEcr.value), data.livre_id.value)
+  LivreService.updateLivre(
+    data.titre.value,
+    parseInt(data.nombrePage.value),
+    data.extrait.value,
+    data.resume.value,
+    parseInt(data.anneeEdition.value),
+    parseInt(data.selectionCat.value),
+    parseInt(data.selectionEdi.value),
+    parseInt(data.selectionEcr.value),
+    data.livre_id.value,
+  )
     .then((response) => {
       console.log('Livre mis à jour avec succès', response.data)
       router.push('search')

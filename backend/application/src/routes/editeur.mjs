@@ -47,15 +47,14 @@ editeurRouter.post("/", auth, async (req, res) => {
           .json({ message: "Un éditeur avec ce nom existe déjà" });
       }
       try {
-        Editeur.create(req.body).
-          then((newEditeur) => {
-            return res.json(
-              success(
-                `L'éditeur ${newEditeur.nom} a bien été ajouté.`,
-                newEditeur,
-              ),
-            );
-          });
+        Editeur.create(req.body).then((newEditeur) => {
+          return res.json(
+            success(
+              `L'éditeur ${newEditeur.nom} a bien été ajouté.`,
+              newEditeur,
+            ),
+          );
+        });
       } catch (error) {
         const message = "Erreur lors de l'ajout.";
         return res.status(500).json({ message, data: error });

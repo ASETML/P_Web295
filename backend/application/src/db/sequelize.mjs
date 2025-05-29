@@ -72,7 +72,7 @@ const importUtilisateur = () => {
           date_inscription: utilisateur.date_inscription,
           mot_de_passe: hash,
           admin: utilisateur.admin,
-        })
+        }),
       );
 
     console.log(utilisateur);

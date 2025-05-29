@@ -6,8 +6,6 @@ import LivreService from '@/services/LivreService'
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
 
-
-
 const selection = ref('')
 const categories = ref(null)
 const livres = ref([])
@@ -22,7 +20,6 @@ const livresFiltered = computed(() => {
   }
   return nonNullLivres
 })
-
 
 const cat_nom = computed(() => {
   return categories.value.filter((cat) => {
@@ -48,10 +45,8 @@ alors l'url ne change pas mais quand on change l'url pour faire une recherche
 alors la liste déroulante se met a jour  !
 */
 const goToCategorie = async (categ) => {
-  router.push({ name: 'search', params: {cat: categ}})
-
+  router.push({ name: 'search', params: { cat: categ } })
 }
-
 
 const fetchLivres = async () => {
   //LivreService.getAllLivres() //Limite de 5 dans le backend
@@ -66,7 +61,6 @@ const fetchLivres = async () => {
 }
 
 watch(
-
   [() => route.params.cat, categories],
   ([catParam, cats]) => {
     if (!catParam || !cats) return
@@ -77,15 +71,13 @@ watch(
       selection.value = ''
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
-
 
 onMounted(async () => {
   await getcategory()
   await fetchLivres()
 })
-
 </script>
 
 <template>

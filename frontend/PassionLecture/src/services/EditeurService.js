@@ -5,6 +5,6 @@ export default {
     return apiClient.get('/editeurs')
   },
   postEditeur(editeur) {
-    return apiClient.post("/editeurs", {nom: editeur})
-  }
+    return apiClient.post('/editeurs', { nom: editeur })
+  },
 }

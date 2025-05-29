@@ -50,7 +50,17 @@ export default {
     }
     return apiClient.post('/livres/', formData)
   },
-  updateLivre(titre, nombre_pages, extrait, resume, annee_edition, categorie_fk, editeur_fk, ecrivain_fk, livre_id) {
+  updateLivre(
+    titre,
+    nombre_pages,
+    extrait,
+    resume,
+    annee_edition,
+    categorie_fk,
+    editeur_fk,
+    ecrivain_fk,
+    livre_id,
+  ) {
     const dataObject = {
       titre: titre,
       nombre_pages: nombre_pages,
