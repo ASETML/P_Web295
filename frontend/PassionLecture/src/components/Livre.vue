@@ -28,11 +28,9 @@ import { useRoute } from 'vue-router'
 
 const props = defineProps(['livre'])
 const user = ref(null)
-console.log(props.livre.utilisateur_fk)
 const fetchUser = async () => {
   UtilisateurService.getUtilisateurById(props.livre.utilisateur_fk).then((response) => {
     user.value = response.data.data[0]
-    console.log(user.value)
   })
 }
 watch(() => {

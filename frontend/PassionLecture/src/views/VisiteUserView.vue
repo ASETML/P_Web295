@@ -19,7 +19,6 @@ const user = ref(null)
 
 const fetchUser = async () => {
   UtilisateurService.getUtilisateurById(id).then((response) => {
-    console.log(response.data.data)
     user.value = response.data.data[0]
   })
 }

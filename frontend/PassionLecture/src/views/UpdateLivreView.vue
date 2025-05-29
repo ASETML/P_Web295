@@ -42,13 +42,8 @@ const updateLivre = (data) => {
     parseInt(data.selectionEdi.value),
     parseInt(data.selectionEcr.value),
     data.livre_id.value,
-  )
-    .then((response) => {
-      console.log('Livre mis à jour avec succès', response.data)
-      router.push('search')
-    })
-    .catch((error) => {
-      console.error('Erreur lors de la mise à jour du livre', error)
-    })
+  ).then((response) => {
+    router.push('search')
+  })
 }
 </script>

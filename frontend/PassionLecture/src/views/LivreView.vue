@@ -18,13 +18,9 @@ const selection = ref('')
 
 const livre = ref(null)
 const fetchLivre = async () => {
-  LivreService.getLivre(id.value)
-    .then((response) => {
-      livre.value = response.data.data
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  LivreService.getLivre(id.value).then((response) => {
+    livre.value = response.data.data
+  })
 }
 
 const like = async () => {

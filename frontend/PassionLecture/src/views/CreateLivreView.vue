@@ -11,7 +11,7 @@ import LivreService from '@/services/LivreService'
 import CategoryService from '@/services/CategoryService'
 import EditeurService from '@/services/EditeurService'
 import EcrivainService from '@/services/EcrivainService'
-import {ref} from "vue"
+import { ref } from 'vue'
 
 const error = ref(false)
 
@@ -28,11 +28,10 @@ const creationLivre = (data) => {
       parseInt(data.selectionCat.value),
       parseInt(data.selectionEdi.value),
       parseInt(data.selectionEcr.value),
-    )
-      .then((response) => {
-        error.value = false
-        router.push('search')
-      })
+    ).then((response) => {
+      error.value = false
+      router.push('search')
+    })
   } else {
     error.value = true
   }
@@ -42,4 +41,5 @@ const creationLivre = (data) => {
 <style scoped>
 .error {
   color: red;
-}</style>
+}
+</style>

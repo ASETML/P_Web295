@@ -8,7 +8,6 @@ export default {
     return apiClient.get('/livres/' + '?limit=' + limit)
   },
   getLivresUser(id) {
-    console.log(id)
     return apiClient.get('/livres/?user=' + id)
   },
   getLivre(id) {
@@ -45,9 +44,6 @@ export default {
     const formData = new FormData()
     formData.append('data', JSON.stringify(dataObject))
     formData.append('file', imageFile)
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value)
-    }
     return apiClient.post('/livres/', formData)
   },
   updateLivre(

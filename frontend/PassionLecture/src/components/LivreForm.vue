@@ -129,53 +129,59 @@ const handleImage = (event) => {
 }
 
 function isUrl(str) {
-  if (str.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/)) {
+  if (
+    str.match(
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/,
+    )
+  ) {
     mustbeurl.value = false
     return true
-    
   }
   mustbeurl.value = true
   return false
-  
 }
 
 const sendForm = () => {
-  if (titre.value.length >= 2 && isUrl(extrait.value) && resume.value.length >= 2 && selectionCat && selectionEdi && selectionEcr) {
-const data = {
-    livre_id,
-    selectionCat,
-    selectionEdi,
-    selectionEcr,
-    titre,
-    extrait,
-    nombrePage,
-    anneeEdition,
-    resume,
-    imageFile,
-    imagePreview,
-  }
+  if (
+    titre.value.length >= 2 &&
+    isUrl(extrait.value) &&
+    resume.value.length >= 2 &&
+    selectionCat &&
+    selectionEdi &&
+    selectionEcr
+  ) {
+    const data = {
+      livre_id,
+      selectionCat,
+      selectionEdi,
+      selectionEcr,
+      titre,
+      extrait,
+      nombrePage,
+      anneeEdition,
+      resume,
+      imageFile,
+      imagePreview,
+    }
 
-  emit('send-form', data)
+    emit('send-form', data)
   }
 }
 
 const getcategory = async () => {
-  CategoryService.getCategory()
-    .then((res) => {
-      categories.value = res.data.data
-    })
+  CategoryService.getCategory().then((res) => {
+    categories.value = res.data.data
+  })
 }
 const getEditeur = async () => {
-  EditeurService.getEditeur()
-    .then((res) => {
-      editeurs.value = res.data.data
-    })
+  EditeurService.getEditeur().then((res) => {
+    editeurs.value = res.data.data
+  })
 }
 const getEcrivain = async () => {
-  EcrivainService.getEcrivain()
-    .then((res) => {
-      ecrivains.value = res.data.data
-    })
+  EcrivainService.getEcrivain().then((res) => {
+    ecrivains.value = res.data.data
+  })
 }
 onMounted(async () => {
   await getcategory()

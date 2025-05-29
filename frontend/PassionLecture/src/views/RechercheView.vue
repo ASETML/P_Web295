@@ -24,20 +24,15 @@ const livresFiltered = computed(() => {
 const cat_nom = computed(() => {
   return categories.value.filter((cat) => {
     if (cat.categorie_id == selection.value) {
-      console.log(cat.nom)
       return cat.nom
     }
   })
 })
 
 const getcategory = async () => {
-  CategoryService.getCategory()
-    .then((res) => {
-      categories.value = res.data.data
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  CategoryService.getCategory().then((res) => {
+    categories.value = res.data.data
+  })
 }
 
 /*petit bug où quand on recherche une categorie via la liste déroulante 
@@ -50,14 +45,9 @@ const goToCategorie = async (categ) => {
 
 const fetchLivres = async () => {
   //LivreService.getAllLivres() //Limite de 5 dans le backend
-  LivreService.getLastLivres(-1)
-    .then((res) => {
-      livres.value = res.data.data
-      console.log(livres.value)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  LivreService.getLastLivres(-1).then((res) => {
+    livres.value = res.data.data
+  })
 }
 
 watch(
