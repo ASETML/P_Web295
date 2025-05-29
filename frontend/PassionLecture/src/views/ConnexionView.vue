@@ -20,18 +20,24 @@
 import ConnexionService from '@/services/ConnexionService'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-const pseudo = ref('')
-const password = ref('')
-const router = useRouter()
+
+const pseudo    = ref('')
+const password  = ref('')
+const router    = useRouter()
+
 const connexion = () => {
   ConnexionService.PostConnexion(pseudo.value, password.value)
     .then((res) => {
       console.log(res.headers)
       console.log(res.data)
-      router.push('/')
+      // On redirige vers la home, puis on recharge la page
+      router.push('/').then(() => {
+        window.location.reload()
+      })
     })
     .catch((err) => {
       console.log(err)
+      // En cas d’erreur, on reste sur la page de connexion
       router.push('/connexion')
     })
 }

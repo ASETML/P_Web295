@@ -25,11 +25,6 @@ const router = createRouter({
       component: RechercheView,
     },
     {
-      path: '/account',
-      name: 'account',
-      component: RechercheView,
-    },
-    {
       path: '/book/:id',
       name: 'book',
       props: true,
