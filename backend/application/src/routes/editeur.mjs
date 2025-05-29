@@ -2,6 +2,7 @@ import express from "express";
 import { Editeur } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { auth } from "../auth/auth.mjs";
+import { ValidationError, UniqueConstraintError, where, Op } from "sequelize";
 
 const editeurRouter = express();
 
@@ -38,20 +39,29 @@ editeurRouter.delete("/:id", auth, (req, res) => {
 });
 
 editeurRouter.post("/", auth, async (req, res) => {
-  try {
-    const newEditeur = await Editeur.create(req.body);
-    res.json(
-      success(`L'éditeur ${newEditeur.nom} a bien été ajouté.`, newEditeur)
-    );
-  } catch (error) {
-    const message =
-      error instanceof UniqueConstraintError
-        ? "Cet éditeur existe déjà."
-        : error instanceof ValidationError
-        ? error.message
-        : "Erreur lors de l'ajout.";
-    res.status(500).json({ message, data: error });
-  }
+  Editeur.findAll({ where: { nom: { [Op.like]: req.body.nom } } }).then(
+    (editeurs) => {
+      if (editeurs.length > 0) {
+        return res
+          .status(400)
+          .json({ message: "Un éditeur avec ce nom existe déjà" });
+      }
+      try {
+        Editeur.create(req.body).
+          then((newEditeur) => {
+            return res.json(
+              success(
+                `L'éditeur ${newEditeur.nom} a bien été ajouté.`,
+                newEditeur,
+              ),
+            );
+          });
+      } catch (error) {
+        const message = "Erreur lors de l'ajout.";
+        return res.status(500).json({ message, data: error });
+      }
+    },
+  );
 });
 editeurRouter.put("/:id", auth, async (req, res) => {
   try {
@@ -64,8 +74,8 @@ editeurRouter.put("/:id", auth, async (req, res) => {
     res.json(
       success(
         `L'éditeur ${updatedEditeur.nom} a bien été mis à jour.`,
-        updatedEditeur
-      )
+        updatedEditeur,
+      ),
     );
   } catch (error) {
     const message =

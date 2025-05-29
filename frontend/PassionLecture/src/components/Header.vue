@@ -14,6 +14,9 @@
         <RouterLink :to="{ name: 'creationLivre' }" v-if="isIdentified"
           ><p class="link">Ajouter un livre</p></RouterLink
         >
+        <RouterLink :to="{ name: 'addAuthor' }" v-if="isIdentified"
+          ><p class="link">Ajouter un auteur / editeur</p></RouterLink
+        >
         <RouterLink :to="{ name: 'compte' }" v-if="isIdentified"
           ><p class="link"><img v-bind:src="iconeProfile" /></p
         ></RouterLink>

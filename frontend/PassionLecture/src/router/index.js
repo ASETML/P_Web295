@@ -11,6 +11,7 @@ import VisiteUserView from '@/views/VisiteUserView.vue'
 import NotFound from '@/views/NotFound.vue'
 import ErreurServeur from '@/views/ErreurServeur.vue'
 import UpdateLivreView from '@/views/UpdateLivreView.vue'
+import AddAuthorEditorView from '@/views/AddAuthorEditorView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -66,6 +67,16 @@ const router = createRouter({
       path: '/user/:id',
       name: 'userDetail',
       component: VisiteUserView,
+    },
+    {
+      path: '/addauthor',
+      name: 'addAuthor',
+      component: AddAuthorEditorView,
+    },
+    {
+      path: '/addeditor',
+      name: 'addEditor',
+      component: AddAuthorEditorView,
     },
     {
       //404
