@@ -8,7 +8,8 @@
     "mateo": "nodemon src/app.mjs",
     "start": "nodemon src/app.mjs",
     "alban": "vitest",
-    "test": "vitest"
+    "test": "vitest",
+    "format": "prettier --write src/"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/ASETML/P_Web295#readme",
   "devDependencies": {
     "nodemon": "^3.1.9",
+    "prettier": "^3.5.3",
     "supertest": "^7.0.0",
     "vitest": "^3.0.5"
   },

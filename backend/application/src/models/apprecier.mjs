@@ -46,7 +46,7 @@ const apprecierModel = (sequelize, DataTypes) => {
       timestamps: true,
       createdAt: "created",
       updatedAt: false,
-    }
+    },
   );
 };
 export { apprecierModel };

@@ -35,7 +35,7 @@ const commenterModel = (sequelize, DataTypes) => {
       timestamps: true,
       createdAt: "created",
       updatedAt: false,
-    }
+    },
   );
 };
 export { commenterModel };

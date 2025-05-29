@@ -126,8 +126,6 @@ livreRouter.get("/", async (req, res) => {
   let limit = parseInt(req.query.limit) || 5; //La limite spécifiée par l'utilisateur ou 5
   let user = req.query.user || "%";
   let booksPreview = [];
-  console.log(user);
-  console.log(req.query.user);
   try {
     let books;
     //Tous les livres
@@ -138,6 +136,7 @@ livreRouter.get("/", async (req, res) => {
           categorie_fk: { [Op.like]: categorie },
           utilisateur_fk: { [Op.like]: user },
         },
+        order: [["created", "DESC"]],
       });
     } else {
       books = await Livre.findAll({
@@ -146,6 +145,7 @@ livreRouter.get("/", async (req, res) => {
           categorie_fk: { [Op.like]: categorie },
           utilisateur_fk: { [Op.like]: user },
         },
+        order: [["created", "DESC"]],
         limit: limit,
       });
     }
@@ -183,7 +183,8 @@ livreRouter.get("/", async (req, res) => {
     }
 
     //Sort books
-    booksPreview.sort((x, y) => x.created > y.created);
+    console.log(booksPreview);
+    booksPreview = booksPreview.sort((x, y) => x.created > y.created);
 
     res.json(success("La liste des livres à bien été récupérée", booksPreview));
   } catch (error) {
@@ -202,8 +203,8 @@ livreRouter.get("/commentaire/:id", auth, async (req, res) => {
       res.json(
         success(
           `voici les commentaires de l'utilisateur dont l'id vaut ${req.params.id}`,
-          commentaires
-        )
+          commentaires,
+        ),
       );
     } else {
       res.status(404).json("utilisateur non trouvé");
@@ -241,7 +242,7 @@ livreRouter.get("/:id", async (req, res) => {
       where: { livre_fk: { [Op.eq]: req.params.id } },
     });
 
-    // Construire l'objet preview pour chaque livre
+    // Construire l'objet preview pour le livre
     const preview = {
       livre_id: book.livre_id,
       titre: book.titre,
@@ -252,8 +253,11 @@ livreRouter.get("/:id", async (req, res) => {
       image: book.image,
       ecrivain_nom: ecrivain ? ecrivain.nom : null,
       ecrivain_prenom: ecrivain ? ecrivain.prenom : null,
+      ecrivain_fk: book.ecrivain_fk,
       categorie_nom: categorieRecup ? categorieRecup.nom : null,
+      categorie_fk: book.categorie_fk,
       editeur_nom: editeur ? editeur.nom : null,
+      editeur_fk: book.editeur_fk,
       commentaires: commentaires ? commentaires : null,
       //Moyenne appréciations
       moyenne_appreciations: moyenneAppreciations
@@ -261,11 +265,13 @@ livreRouter.get("/:id", async (req, res) => {
         : null,
     };
 
+    console.log(preview);
+
     res.json(
       success(
         `Le livre qui a l'id ${req.params.id} a bien été récupéré : `,
-        preview
-      )
+        preview,
+      ),
     );
   } catch (error) {
     console.error(error);
@@ -276,6 +282,10 @@ livreRouter.get("/:id", async (req, res) => {
 //Ajout d'un livre
 livreRouter.post("/", auth, upload.single("file"), (req, res) => {
   let object;
+  //Decoder le token pour récupérer l'id de l'utilisateur
+  const token = req.cookies["authcookie"];
+  const decodedToken = jwt.verify(token, privateKey);
+  const utilisateur_fk = decodedToken.utilisateurId;
 
   try {
     //Récupération du json de la requête
@@ -288,9 +298,11 @@ livreRouter.post("/", auth, upload.single("file"), (req, res) => {
   }
   console.log(object);
   //Création de l'objet livre avec l'image
-  const livre = { ...object, image: req.file.filename };
-  console.log(req.file.filename);
-  console.log(livre);
+  const livre = {
+    ...object,
+    image: req.file.filename,
+    utilisateur_fk: utilisateur_fk,
+  };
   Livre.create(livre)
     .then((book) => {
       console.log(book);
@@ -357,19 +369,9 @@ livreRouter.delete("/:id", auth, (req, res) => {
 });
 
 //Modifie un livre
-livreRouter.put("/:id", upload.single("file"), auth, (req, res) => {
-  let object;
-  try {
-    //Récupération du json de la requête
-    object = JSON.parse(req.body.data);
-  } catch {
-    const message =
-      "Le livre n'a pas pu être créé. Merci de réessayer dans quelques instants. Il faut envoyer les données dans un formulaire multipart, et le json dans un champ data";
-    return res.status(400).json({ message, data: error });
-  }
-  //Création de l'objet livre avec l'image
-  const livreObj = { ...object, image: req.file.filename };
-  Livre.update(livreObj, { where: { livre_id: req.params.id } })
+livreRouter.put("/:id", auth, (req, res) => {
+  console.log(req.body);
+  Livre.update(req.body, { where: { livre_id: req.params.id } })
     .then((_) => {
       return Livre.findByPk(req.params.id).then((livre) => {
         //Livre existe pas

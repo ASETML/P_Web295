@@ -6,14 +6,9 @@ import { onMounted, ref, watch } from 'vue'
 const livres = ref([null])
 
 const fetchLivres = async () => {
-  LivreService.getLastLivres(5)
-    .then((res) => {
-      livres.value = res.data.data
-      console.log(livres.value)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  LivreService.getLastLivres(5).then((res) => {
+    livres.value = res.data.data
+  })
 }
 
 //TEMP

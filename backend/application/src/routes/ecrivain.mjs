@@ -3,7 +3,8 @@ import { Ecrivain } from "../db/sequelize.mjs";
 import { success } from "./helper.mjs";
 import { auth } from "../auth/auth.mjs";
 import { Livre } from "../db/sequelize.mjs";
-import { where } from "sequelize";
+import { ValidationError, UniqueConstraintError, where, Op } from "sequelize";
+import { ecrivains } from "../db/mock-ecrivain.mjs";
 
 const ecrivainRouter = express();
 
@@ -37,15 +38,25 @@ ecrivainRouter.delete("/:id", auth, async (req, res) => {
 });
 
 ecrivainRouter.post("/", auth, (req, res) => {
-  Ecrivain.create(req.body)
-    .then((newEcrivain) => {
-      const message = `L'écrivain ${newEcrivain.nom} a bien été ajoutée.`;
-      res.json(success(message, newEcrivain));
-    })
-    .catch((error) => {
-      const message = "L'écrivain n'a pas pu être ajoutée.";
-      res.status(500).json({ message, data: error });
-    });
+  Ecrivain.findAll({
+    where: { nom: { [Op.like]: req.body.nom } },
+    prenom: { [Op.like]: req.body.prenom },
+  }).then((ecrivains) => {
+    if (ecrivains.length > 0) {
+      return res
+        .status(400)
+        .json({ message: "Un écrivain avec ce nom existe déjà" });
+    }
+    Ecrivain.create(req.body)
+      .then((newEcrivain) => {
+        const message = `L'écrivain ${newEcrivain.nom} a bien été ajoutée.`;
+        res.json(success(message, newEcrivain));
+      })
+      .catch((error) => {
+        const message = "L'écrivain n'a pas pu être ajoutée.";
+        res.status(500).json({ message, data: error });
+      });
+  });
 });
 
 ecrivainRouter.put("/:id", auth, (req, res) => {

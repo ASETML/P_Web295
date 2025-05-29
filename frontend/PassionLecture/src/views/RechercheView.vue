@@ -6,8 +6,6 @@ import LivreService from '@/services/LivreService'
 import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
 
-
-
 const selection = ref('')
 const categories = ref(null)
 const livres = ref([])
@@ -23,24 +21,18 @@ const livresFiltered = computed(() => {
   return nonNullLivres
 })
 
-
 const cat_nom = computed(() => {
   return categories.value.filter((cat) => {
     if (cat.categorie_id == selection.value) {
-      console.log(cat.nom)
       return cat.nom
     }
   })
 })
 
 const getcategory = async () => {
-  CategoryService.getCategory()
-    .then((res) => {
-      categories.value = res.data.data
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  CategoryService.getCategory().then((res) => {
+    categories.value = res.data.data
+  })
 }
 
 /*petit bug où quand on recherche une categorie via la liste déroulante 
@@ -48,25 +40,17 @@ alors l'url ne change pas mais quand on change l'url pour faire une recherche
 alors la liste déroulante se met a jour  !
 */
 const goToCategorie = async (categ) => {
-  router.push({ name: 'search', params: {cat: categ}})
-
+  router.push({ name: 'search', params: { cat: categ } })
 }
-
 
 const fetchLivres = async () => {
   //LivreService.getAllLivres() //Limite de 5 dans le backend
-  LivreService.getLastLivres(-1)
-    .then((res) => {
-      livres.value = res.data.data
-      console.log(livres.value)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  LivreService.getLastLivres(-1).then((res) => {
+    livres.value = res.data.data
+  })
 }
 
 watch(
-
   [() => route.params.cat, categories],
   ([catParam, cats]) => {
     if (!catParam || !cats) return
@@ -77,15 +61,13 @@ watch(
       selection.value = ''
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
-
 
 onMounted(async () => {
   await getcategory()
   await fetchLivres()
 })
-
 </script>
 
 <template>

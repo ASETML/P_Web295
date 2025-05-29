@@ -12,6 +12,7 @@
           <input type="password" id="password" v-model="password" placeholder="Mot De Passe" />
         </div>
         <input type="submit" class="login-btn" value="Submit" />
+        <p v-if="error" class="error">Mauvais pseudo ou mot de passe</p>
       </form>
     </div>
   </div>
@@ -48,7 +49,7 @@ const connexion = () => {
   --primary: #4f46e5;
   --primary-dark: #4338ca;
   --accent: #f59e0b;
-  --bg: #f3f4f6;
+  --bg: #bcd2ff;
   --white: #ffffff;
   --gray-dark: #1f2937;
 }
@@ -75,7 +76,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 10vh; /* Assure la hauteur totale de l'écran */
-  background-color: var(--bg);
+  background-color: #bcd2ff;
   padding: 3rem;
   border-radius: 16px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
@@ -155,5 +156,9 @@ body {
 
 .login-link a:hover {
   text-decoration: underline;
+}
+
+.error {
+  color: red;
 }
 </style>

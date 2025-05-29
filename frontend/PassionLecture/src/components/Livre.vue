@@ -1,17 +1,14 @@
 <template>
-  <div class="livre">
+  <div class="livrecomponent">
     <img :src="'http://localhost:3000/uploads/' + livre.image" alt="" />
     <div class="details">
-      <router-link :to="{ name: 'book', params: { id: livre.livre_id } }" class="livre">
+      <router-link :to="{ name: 'book', params: { id: livre.livre_id } }" class="livrecomponent">
         <h2>{{ livre.titre }}</h2>
       </router-link>
 
       <h4>{{ livre.ecrivain_prenom + ' ' + livre.ecrivain_nom }}</h4>
 
-      <router-link
-        :to="{ name: 'userDetail', params: { id: livre.utilisateur_fk } }"
-        target="_blank"
-      >
+      <router-link :to="{ name: 'userDetail', params: { id: livre.utilisateur_fk } }">
         <p>{{ user?.pseudo }}</p>
       </router-link>
       <p>{{ livre.description }}</p>
@@ -31,11 +28,9 @@ import { useRoute } from 'vue-router'
 
 const props = defineProps(['livre'])
 const user = ref(null)
-console.log(props.livre.utilisateur_fk)
 const fetchUser = async () => {
   UtilisateurService.getUtilisateurById(props.livre.utilisateur_fk).then((response) => {
     user.value = response.data.data[0]
-    console.log(user.value)
   })
 }
 watch(() => {
@@ -58,13 +53,13 @@ img {
   border-radius: 5%;
 }
 
-.livre:hover img {
+.livrecomponent:hover img {
   /*rotate: 360deg;*/
   transform: rotate3d(1, 0, 1, 360deg);
   width: 50%;
 }
 
-.livre {
+.livrecomponent {
   background-color: #d9d9d9;
   border-radius: 10px;
   padding: 10px;
@@ -78,20 +73,20 @@ img {
   overflow: hidden;
 }
 
-.livre:hover {
+.livrecomponent:hover {
   translate: 0px -5px;
   transform: scale(1.05, 1.05);
 }
 
-.livre:hover p {
+.livrecomponent:hover p {
   font-size: larger;
 }
 
-.livre:hover h2 {
+.livrecomponent:hover h2 {
   font-size: xx-large;
 }
 
-.livre:hover h4 {
+.livrecomponent:hover h4 {
   font-size: larger;
 }
 

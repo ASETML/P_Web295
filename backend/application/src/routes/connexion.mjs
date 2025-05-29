@@ -54,7 +54,7 @@ connexionRouter.post("/connexion", async (req, res) => {
 
     const motDePasseValide = await bcrypt.compare(
       mdp,
-      utilisateur.mot_de_passe
+      utilisateur.mot_de_passe,
     );
     if (!motDePasseValide) {
       return res.status(401).json({ message: "Mot de passe incorrect." });
@@ -63,7 +63,7 @@ connexionRouter.post("/connexion", async (req, res) => {
     const token = jwt.sign(
       { utilisateurId: utilisateur.utilisateur_id, admin: utilisateur.admin },
       privateKey,
-      { expiresIn: "1y" }
+      { expiresIn: "1y" },
     );
 
     res.cookie("authcookie", token, {

@@ -12,6 +12,7 @@
           <input type="password" id="password" v-model="password" placeholder="Mot De Passe" />
         </div>
         <input type="submit" class="login-btn" value="Submit" />
+        <p v-if="error" class="error">Une erreur c'est produite</p>
       </form>
     </div>
   </div>
@@ -22,17 +23,16 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 const pseudo = ref('')
 const password = ref('')
+const error = ref(false)
 const router = useRouter()
 const inscription = () => {
   RegisterService.PostInscription(pseudo.value, password.value)
     .then((res) => {
-      console.log(res.headers)
-      console.log(res.data)
+      error.value = false
       router.push('/connexion')
     })
     .catch((err) => {
-      console.log(err)
-      router.push('/inscription')
+      error.value = true
     })
 }
 </script>
@@ -42,7 +42,7 @@ const inscription = () => {
   --primary: #4f46e5;
   --primary-dark: #4338ca;
   --accent: #f59e0b;
-  --bg: #f3f4f6;
+  --bg: #bdffe4;
   --white: #ffffff;
   --gray-dark: #1f2937;
 }
@@ -69,7 +69,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 10vh; /* Assure la hauteur totale de l'écran */
-  background-color: var(--bg);
+  background-color: #bdffe4;
   padding: 3rem;
   border-radius: 16px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
@@ -149,5 +149,9 @@ body {
 
 .login-link a:hover {
   text-decoration: underline;
+}
+
+.error {
+  color: red;
 }
 </style>

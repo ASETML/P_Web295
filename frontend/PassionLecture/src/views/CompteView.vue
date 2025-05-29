@@ -15,6 +15,9 @@
       <div v-for="livre in livres" :key="livre.id" class="livre-item">
         <Livre :livre="livre" class="livre" />
         <delete-button :livre="livre" @delete="fetchIdUser"></delete-button>
+        <router-link :to="{ name: 'updateLivre', params: { id: livre.livre_id } }"
+          >Mettre à jour ce livre</router-link
+        >
       </div>
     </div>
     <div class="commantaire" v-if="TabLivre == 2">
@@ -51,48 +54,25 @@ const fetchIdUser = async () => {
     idUser.value = res.data
     await fetchUser(idUser.value)
     await fetchCom(idUser.value)
-    console.log(User.value)
-    LivreService.getLivresUser(idUser.value)
-      .then((res) => {
-        livres.value = res.data.data
-        console.log(idUser.value)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    LivreService.getLivresUser(idUser.value).then((res) => {
+      livres.value = res.data.data
+    })
   })
 }
 const fetchAllLivre = async () => {
-  LivreService.getAllLivres()
-    .then((res) => {
-      LivresAdmin.value = res.data.data
-      console.log(livres.value)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  LivreService.getAllLivres().then((res) => {
+    LivresAdmin.value = res.data.data
+  })
 }
 const fetchCom = async (id) => {
-  CommentaireService.getCommentaires(id)
-    .then((res) => {
-      commentaires.value = res.data.data
-      console.log(commentaires.value)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  CommentaireService.getCommentaires(id).then((res) => {
+    commentaires.value = res.data.data
+  })
 }
 const fetchUser = async (id) => {
-  console.log(id)
-  UtilisateurService.getUtilisateurById(id)
-    .then((res) => {
-      User.value = res.data.data[0]
-
-      console.log(User.value)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  UtilisateurService.getUtilisateurById(id).then((res) => {
+    User.value = res.data.data[0]
+  })
 }
 
 onMounted(async () => {

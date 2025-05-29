@@ -28,7 +28,7 @@ const categorieModel = (sequelize, DataTypes) => {
       timestamps: true,
       createdAt: "created",
       updatedAt: false,
-    }
+    },
   );
 };
 export { categorieModel };

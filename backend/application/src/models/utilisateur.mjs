@@ -47,7 +47,7 @@ const utilisateurModel = (sequelize, DataTypes) => {
       timestamps: true,
       createdAt: "created",
       updatedAt: false,
-    }
+    },
   );
 };
 

@@ -1,5 +1,2 @@
-Page d'admin
 Validation des formulaires
-Lien vers la catégorie depuis la page de livre
 Création des écrivains/éditeurs
-Utilisateur sur la page de détails d'un livre
