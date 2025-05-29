@@ -22,9 +22,9 @@ import ConnexionService from '@/services/ConnexionService'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const pseudo    = ref('')
-const password  = ref('')
-const router    = useRouter()
+const pseudo = ref('')
+const password = ref('')
+const router = useRouter()
 
 const connexion = () => {
   ConnexionService.PostConnexion(pseudo.value, password.value)

@@ -3,6 +3,7 @@
     <h1>Modification du livre:</h1>
     <!--TODO: Livre en props-->
     <livre-form v-if="livre" @send-form="updateLivre" :livre="livre" action="modifier"></livre-form>
+    <p v-if="error" class="error">Une erreur est survenu</p>
   </div>
 </template>
 <script setup>
@@ -20,6 +21,7 @@ import LivreForm from '@/components/LivreForm.vue'
 const livre = ref(null)
 const route = useRoute()
 const id = route.params.id
+const error = ref(false)
 
 const fetchLivre = async () => {
   LivreService.getLivre(id).then((res) => {
@@ -42,8 +44,13 @@ const updateLivre = (data) => {
     parseInt(data.selectionEdi.value),
     parseInt(data.selectionEcr.value),
     data.livre_id.value,
-  ).then((response) => {
-    router.push('search')
-  })
+  )
+    .then((response) => {
+      error.value = false
+      router.push('search')
+    })
+    .catch((err) => {
+      error.value = true
+    })
 }
 </script>

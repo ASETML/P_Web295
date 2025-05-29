@@ -79,7 +79,7 @@
     </div>
     <input v-if="action === 'modifier'" type="submit" class="login-btn" value="Modifier le Livre" />
     <input v-if="action === 'creer'" type="submit" class="login-btn" value="Créer le Livre" />
-    <p class="error">Une erreur est survenu</p>
+    <p v-if="error" class="error">Une erreur est survenu</p>
   </form>
 </template>
 
@@ -119,6 +119,7 @@ const editeurs = ref(null)
 const ecrivains = ref(null)
 const livre_id = ref(props.livre.livre_id)
 const mustbeurl = ref(false)
+const error = ref(false)
 
 const handleImage = (event) => {
   const file = event.target.files[0]
@@ -148,8 +149,11 @@ const sendForm = () => {
     resume.value.length >= 2 &&
     selectionCat &&
     selectionEdi &&
-    selectionEcr
+    selectionEcr &&
+    Number.isInteger(nombrePage) &&
+    Number.isInteger(anneeEdition)
   ) {
+    error.value = false
     const data = {
       livre_id,
       selectionCat,
@@ -165,6 +169,8 @@ const sendForm = () => {
     }
 
     emit('send-form', data)
+  } else {
+    error.value = true
   }
 }
 
