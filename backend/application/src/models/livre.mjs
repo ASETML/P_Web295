@@ -157,7 +157,7 @@ const livreModel = (sequelize, DataTypes) => {
       timestamps: true,
       createdAt: "created",
       updatedAt: false,
-    }
+    },
   );
 };
 

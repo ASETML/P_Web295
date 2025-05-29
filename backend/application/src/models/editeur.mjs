@@ -28,7 +28,7 @@ const editeurModel = (sequelize, DataTypes) => {
       timestamps: true,
       createdAt: "created",
       updatedAt: false,
-    }
+    },
   );
 };
 export { editeurModel };

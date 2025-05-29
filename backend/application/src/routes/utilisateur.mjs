@@ -106,7 +106,7 @@ utilisateurRouter.delete("/:id", auth, async (req, res) => {
     }
     await Utilisateur.destroy({ where: { id: req.params.id } });
     res.json(
-      success(`L'utilisateur ${utilisateur.pseudo} a été supprimé.`, {})
+      success(`L'utilisateur ${utilisateur.pseudo} a été supprimé.`, {}),
     );
   } catch (error) {
     res

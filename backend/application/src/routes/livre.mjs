@@ -136,7 +136,7 @@ livreRouter.get("/", async (req, res) => {
           categorie_fk: { [Op.like]: categorie },
           utilisateur_fk: { [Op.like]: user },
         },
-        order: [['created', 'DESC']]
+        order: [["created", "DESC"]],
       });
     } else {
       books = await Livre.findAll({
@@ -145,7 +145,7 @@ livreRouter.get("/", async (req, res) => {
           categorie_fk: { [Op.like]: categorie },
           utilisateur_fk: { [Op.like]: user },
         },
-        order: [['created', 'DESC']],
+        order: [["created", "DESC"]],
         limit: limit,
       });
     }
@@ -183,7 +183,7 @@ livreRouter.get("/", async (req, res) => {
     }
 
     //Sort books
-    console.log(booksPreview)
+    console.log(booksPreview);
     booksPreview = booksPreview.sort((x, y) => x.created > y.created);
 
     res.json(success("La liste des livres à bien été récupérée", booksPreview));
@@ -203,8 +203,8 @@ livreRouter.get("/commentaire/:id", auth, async (req, res) => {
       res.json(
         success(
           `voici les commentaires de l'utilisateur dont l'id vaut ${req.params.id}`,
-          commentaires
-        )
+          commentaires,
+        ),
       );
     } else {
       res.status(404).json("utilisateur non trouvé");
@@ -265,13 +265,13 @@ livreRouter.get("/:id", async (req, res) => {
         : null,
     };
 
-    console.log(preview)
+    console.log(preview);
 
     res.json(
       success(
         `Le livre qui a l'id ${req.params.id} a bien été récupéré : `,
-        preview
-      )
+        preview,
+      ),
     );
   } catch (error) {
     console.error(error);

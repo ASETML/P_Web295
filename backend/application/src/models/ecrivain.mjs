@@ -44,7 +44,7 @@ const ecrivainModel = (sequelize, DataTypes) => {
       timestamps: true,
       createdAt: "created",
       updatedAt: false,
-    }
+    },
   );
 };
 export { ecrivainModel };
