@@ -1,7 +1,7 @@
 <template>
   <div v-if="user">
     <h1>page du compte de {{ user.pseudo }}</h1>
-    <h3>Nombre de Livre ajouté : {{ user.nbrLivres }}</h3>
+    <h3>Nombre de livres ajoutés : {{ user.nbrLivres }}</h3>
     <h3>Date d'inscription : {{ user.date_inscription }}</h3>
   </div>
   <h1 v-else>Utilisateur introuvable</h1>

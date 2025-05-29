@@ -126,8 +126,6 @@ livreRouter.get("/", async (req, res) => {
   let limit = parseInt(req.query.limit) || 5; //La limite spécifiée par l'utilisateur ou 5
   let user = req.query.user || "%";
   let booksPreview = [];
-  console.log(user);
-  console.log(req.query.user);
   try {
     let books;
     //Tous les livres
@@ -138,6 +136,7 @@ livreRouter.get("/", async (req, res) => {
           categorie_fk: { [Op.like]: categorie },
           utilisateur_fk: { [Op.like]: user },
         },
+        order: [['created', 'DESC']]
       });
     } else {
       books = await Livre.findAll({
@@ -146,6 +145,7 @@ livreRouter.get("/", async (req, res) => {
           categorie_fk: { [Op.like]: categorie },
           utilisateur_fk: { [Op.like]: user },
         },
+        order: [['created', 'DESC']],
         limit: limit,
       });
     }
@@ -183,7 +183,8 @@ livreRouter.get("/", async (req, res) => {
     }
 
     //Sort books
-    booksPreview.sort((x, y) => x.created > y.created);
+    console.log(booksPreview)
+    booksPreview = booksPreview.sort((x, y) => x.created > y.created);
 
     res.json(success("La liste des livres à bien été récupérée", booksPreview));
   } catch (error) {
