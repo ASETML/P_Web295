@@ -37,7 +37,7 @@ watch(() => {
       <a :href="livre.extrait" target="blank">{{ livre.extrait }}</a>
       <p>Nombre de page: {{ livre.nb_pages }}</p>
       <p>
-        Catégorie: <router-link :to="{ name: 'search' }">{{ livre.categorie_nom }}</router-link>
+        Catégorie: <router-link :to="{ name: 'search' , params: {cat: livre.categorie_nom} }">{{ livre.categorie_nom }}</router-link>
       </p>
       <!-- TODO: Quand on arrive sur la page de recherche, la catégorie du livre est déjà selectionnée -->
       <h3>Résumé</h3>
